@@ -4,8 +4,9 @@
 	<string name="title_dashboard">Dashboard</string>
 	<string name="title_notifications">Notifications</string>
     <string name="unit_of_measurement">Kg</string>
-    <string name="label_last_record">Último registro:</string>
     <string name="register">Registrar</string>
     <string name="save">Salvar</string>
     <string name="cancel">Cancelar</string>
+    <string name="labal_daily_weight">Seu peso hoje:</string>
+    <string name="add_weight">Add peso</string>
 </resources>

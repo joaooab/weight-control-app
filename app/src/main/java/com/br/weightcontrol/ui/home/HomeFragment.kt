@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.br.weightcontrol.R
+import com.br.weightcontrol.extension.supportFragmentManager
+import com.br.weightcontrol.ui.component.NumberPickerDialog
 import kotlinx.android.synthetic.main.card_view_weight.*
 
 class HomeFragment : Fragment() {
@@ -31,16 +33,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        floatingActionButton.setOnClickListener {
-            AlertDialog.Builder(context)
-                .setTitle(R.string.register)
-                .setCancelable(false)
-                .setPositiveButton(R.string.save) { _, _ ->
-                }
-                .setNegativeButton(R.string.cancel) { _, _ ->
-                }
-                .create()
-                .show()
+        setUpAddWeight()
+    }
+
+    private fun setUpAddWeight() {
+        textViewAddWeight.setOnClickListener {
+            supportFragmentManager {
+                NumberPickerDialog.newInstance().show(this, "")
+            }
         }
     }
 }

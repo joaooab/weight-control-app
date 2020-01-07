@@ -1,6 +1,5 @@
 package com.br.weightcontrol.ui.home
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,22 +23,29 @@ class HomeFragment : Fragment() {
     ): View? {
         viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
 
-        viewModel.weight.observe(this, Observer {
-            textViewWeight.text = it
-        })
-
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpAddWeight()
+        observeWeight()
+    }
+
+    private fun observeWeight() {
+        viewModel.weight.observe(this, Observer {
+            textViewWeight.text = it.weight.toString()
+            linearLayoutWeight.visibility = View.VISIBLE
+            textViewAddWeight.visibility = View.GONE
+        })
     }
 
     private fun setUpAddWeight() {
         textViewAddWeight.setOnClickListener {
             supportFragmentManager {
-                NumberPickerDialog.newInstance().show(this, "")
+                NumberPickerDialog.newInstance({
+                    viewModel.addWeight(it)
+                }).show(this, "")
             }
         }
     }

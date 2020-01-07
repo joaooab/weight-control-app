@@ -29,16 +29,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <NumberPicker
-        android:id="@+id/numberPicker"
+    <TextView
+        android:id="@+id/textViewComma"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/comma"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/line2"
+        app:layout_constraintEnd_toStartOf="@+id/numberPickerSecondary"
+        app:layout_constraintStart_toEndOf="@+id/numberPickerPrimary"
+        app:layout_constraintTop_toBottomOf="@+id/line"
+        app:layout_constraintVertical_bias="0.63" />
+
+    <NumberPicker
+        android:id="@+id/numberPickerPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:inputType="time"
+        android:timePickerMode="spinner"
+        app:layout_constraintEnd_toStartOf="@+id/textViewComma"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/line" />
+
+    <NumberPicker
+        android:id="@+id/numberPickerSecondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="time"
         android:timePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewComma"
         app:layout_constraintTop_toBottomOf="@+id/line" />
 
     <View
@@ -52,10 +80,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/numberPicker" />
+        app:layout_constraintTop_toBottomOf="@+id/numberPickerPrimary" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/buttonParkBegin"
+        android:id="@+id/buttonAction"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -71,6 +99,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/line2" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

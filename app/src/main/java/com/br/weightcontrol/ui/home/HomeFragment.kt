@@ -10,6 +10,11 @@ import androidx.lifecycle.ViewModelProviders
 import com.br.weightcontrol.R
 import com.br.weightcontrol.extension.supportFragmentManager
 import com.br.weightcontrol.ui.component.NumberPickerDialog
+import com.br.weightcontrol.util.LayoutUtil
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
+import kotlinx.android.synthetic.main.card_view_goal.*
 import kotlinx.android.synthetic.main.card_view_weight.*
 
 class HomeFragment : Fragment() {
@@ -30,6 +35,26 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpAddWeight()
         observeWeight()
+        val list = mutableListOf(
+            PieEntry(80F),
+            PieEntry(5F)
+        )
+        val pieDataSet = PieDataSet(list, "teste").apply {
+            val colors = mutableListOf(
+                LayoutUtil.getColor(R.color.colorPrimary),
+                LayoutUtil.getColor(R.color.colorAccent)
+            )
+            setColors(colors)
+            valueTextSize = 18f
+            valueTextColor = LayoutUtil.getColor(R.color.gray_light)
+        }
+        pieChart.apply {
+            data = PieData(pieDataSet)
+            setCenterTextOffset(0f, -20f)
+            legend.isEnabled = false
+            centerText = "95%"
+            setCenterTextSize(36F)
+        }
     }
 
     private fun observeWeight() {

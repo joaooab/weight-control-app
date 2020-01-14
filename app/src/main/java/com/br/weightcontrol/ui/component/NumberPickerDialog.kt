@@ -61,7 +61,7 @@ class NumberPickerDialog : DialogFragment() {
             val numberSecondary = numberPickerSecondary.value.toDouble() / 10
             val value = numberPrimary + numberSecondary
             onFinished(Weight(value))
-            dialog.dismiss()
+            dialog?.dismiss()
         }
     }
 

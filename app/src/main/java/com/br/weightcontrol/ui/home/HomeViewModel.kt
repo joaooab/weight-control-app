@@ -11,6 +11,7 @@ class HomeViewModel : ViewModel() {
     val weight: LiveData<Weight> = _weight
 
     fun addWeight(weight: Weight) {
+
         _weight.value = weight
     }
 }

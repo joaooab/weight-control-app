@@ -9,12 +9,16 @@ interface WeightRepository : WeightDao {
 
 class WeightRepositoryImpl(private val dao: WeightDao) : WeightRepository {
 
-    override suspend fun getUsers(): List<Weight> = dao.getUsers()
+    override suspend fun get(): List<Weight> = dao.get()
 
-    override suspend fun insertUser(weight: Weight) = dao.insertUser(weight)
+    override suspend fun getByDate(date: String): Weight = dao.getByDate(date)
 
-    override suspend fun updateUser(weight: Weight) = dao.updateUser(weight)
+    override suspend fun getLast(): Weight = dao.getLast()
 
-    override suspend fun deleteUser(weight: Weight) = dao.deleteUser(weight)
+    override suspend fun insert(weight: Weight) = dao.insert(weight)
+
+    override suspend fun update(weight: Weight) = dao.update(weight)
+
+    override suspend fun delete(weight: Weight) = dao.delete(weight)
 
 }

@@ -7,14 +7,20 @@ import com.br.weightcontrol.data.Weight
 interface WeightDao {
 
     @Query("SELECT * FROM weight")
-    suspend fun getUsers(): List<Weight>
+    suspend fun get(): List<Weight>
+
+    @Query("SELECT * FROM weight WHERE date = :date")
+    suspend fun getByDate(date: String): Weight
+
+    @Query("SELECT * FROM weight ORDER BY id DESC LIMIT 1;")
+    suspend fun getLast(): Weight
 
     @Insert
-    suspend fun insertUser(weight: Weight)
+    suspend fun insert(weight: Weight)
 
     @Update
-    suspend fun updateUser(weight: Weight)
+    suspend fun update(weight: Weight)
 
     @Delete
-    suspend fun deleteUser(weight: Weight)
+    suspend fun delete(weight: Weight)
 }

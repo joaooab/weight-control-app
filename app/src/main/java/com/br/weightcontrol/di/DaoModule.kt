@@ -6,5 +6,5 @@ import org.koin.dsl.module
 
 val daoModule = module {
     single { AppDatabase.getInstance(androidContext()) }
-    single { AppDatabase.getInstance(androidContext()).weightDao()  }
+    single { get<AppDatabase>().weightDao() }
 }

@@ -4,7 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.EditText
-import com.br.weightcontrol.extension.formatDataBr
+import com.br.weightcontrol.extension.formatToString
 import java.util.*
 
 class EditTextDatePicker(context: Context, attrs: AttributeSet) : EditText(context, attrs) {
@@ -38,7 +38,7 @@ class EditTextDatePicker(context: Context, attrs: AttributeSet) : EditText(conte
         if (data == null) {
             setText("")
         } else {
-            setText(calendar?.formatDataBr())
+            setText(calendar?.formatToString())
         }
     }
 

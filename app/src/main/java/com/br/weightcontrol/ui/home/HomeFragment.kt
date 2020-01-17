@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.br.weightcontrol.R
 import com.br.weightcontrol.extension.supportFragmentManager
 import com.br.weightcontrol.ui.component.NumberPickerDialog
@@ -16,25 +15,28 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import kotlinx.android.synthetic.main.card_view_goal.*
 import kotlinx.android.synthetic.main.card_view_weight.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
-    private lateinit var viewModel: HomeViewModel
+    private val viewModel: HomeViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProviders.of(this).get(HomeViewModel::class.java)
-
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpAddWeight()
+        setUpGoal()
         observeWeight()
+    }
+
+    private fun setUpGoal() {
         val list = mutableListOf(
             PieEntry(80F),
             PieEntry(5F)
@@ -59,18 +61,21 @@ class HomeFragment : Fragment() {
 
     private fun observeWeight() {
         viewModel.weight.observe(this, Observer {
-            textViewWeight.text = it.weight.toString()
-            linearLayoutWeight.visibility = View.VISIBLE
-            textViewAddWeight.visibility = View.GONE
+            if (it != null) {
+                textViewWeight.text = it.weight.toString()
+                linearLayoutWeight.visibility = View.VISIBLE
+                textViewAddWeight.visibility = View.GONE
+            }
         })
     }
 
     private fun setUpAddWeight() {
+        val lastWeight = viewModel.getLast()
         textViewAddWeight.setOnClickListener {
             supportFragmentManager {
-                NumberPickerDialog.newInstance({
+                NumberPickerDialog.newInstance(lastWeight) {
                     viewModel.addWeight(it)
-                }).show(this, "")
+                }.show(this, "")
             }
         }
     }

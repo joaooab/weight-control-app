@@ -22,11 +22,11 @@ class NumberPickerDialog : DialogFragment() {
         private const val MAX_VALUE_NUMBER_PICKER_SECONDARY = 9
 
         fun newInstance(
-            onFinished: (weight: Weight) -> Unit,
-            weight: Weight? = null
+            weight: Weight? = null,
+            onFinished: (weight: Weight) -> Unit
         ): NumberPickerDialog {
             val dialog = NumberPickerDialog()
-            dialog.weight = weight ?: Weight(DEFAULT_WEIGHT)
+            dialog.weight = weight ?: Weight(weight = DEFAULT_WEIGHT)
             dialog.onFinished = onFinished
             return dialog
         }
@@ -60,7 +60,7 @@ class NumberPickerDialog : DialogFragment() {
             val numberPrimary = numberPickerPrimary.value.toDouble()
             val numberSecondary = numberPickerSecondary.value.toDouble() / 10
             val value = numberPrimary + numberSecondary
-            onFinished(Weight(value))
+            onFinished(Weight(weight = value))
             dialog?.dismiss()
         }
     }

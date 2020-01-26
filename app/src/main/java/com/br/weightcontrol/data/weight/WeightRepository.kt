@@ -1,13 +1,9 @@
-package com.br.weightcontrol.repository
+package com.br.weightcontrol.data.weight
 
-import com.br.weightcontrol.dao.WeightDao
-import com.br.weightcontrol.data.Weight
+interface WeightRepository : WeightDao
 
-interface WeightRepository : WeightDao {
-
-}
-
-class WeightRepositoryImpl(private val dao: WeightDao) : WeightRepository {
+class WeightRepositoryImpl(private val dao: WeightDao) :
+    WeightRepository {
 
     override suspend fun get(): List<Weight> = dao.get()
 

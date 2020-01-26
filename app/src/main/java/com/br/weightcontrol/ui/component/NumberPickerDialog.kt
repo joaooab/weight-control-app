@@ -6,13 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.br.weightcontrol.R
-import com.br.weightcontrol.data.Weight
+import com.br.weightcontrol.data.weight.Weight
 import kotlinx.android.synthetic.main.dialog_number_picker.*
 
 class NumberPickerDialog : DialogFragment() {
 
     private lateinit var onFinished: (weight: Weight) -> Unit
     private lateinit var weight: Weight
+    private lateinit var title: String
 
     companion object {
         private const val DEFAULT_WEIGHT = 50.0
@@ -22,12 +23,16 @@ class NumberPickerDialog : DialogFragment() {
         private const val MAX_VALUE_NUMBER_PICKER_SECONDARY = 9
 
         fun newInstance(
+            title: String,
             weight: Weight? = null,
             onFinished: (weight: Weight) -> Unit
         ): NumberPickerDialog {
-            val dialog = NumberPickerDialog()
-            dialog.weight = weight ?: Weight(weight = DEFAULT_WEIGHT)
-            dialog.onFinished = onFinished
+            val dialog = NumberPickerDialog().apply {
+                this.weight = weight ?: Weight(weight = DEFAULT_WEIGHT)
+                this.onFinished = onFinished
+                this.title = title
+            }
+
             return dialog
         }
     }
@@ -50,9 +55,14 @@ class NumberPickerDialog : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpTitle()
         setUpNumberPickerPrimary()
         setUpNumberPickerSecondary()
         setupButtonAction()
+    }
+
+    private fun setUpTitle() {
+        textViewTitle.text = title
     }
 
     private fun setupButtonAction() {
@@ -69,7 +79,7 @@ class NumberPickerDialog : DialogFragment() {
         numberPickerSecondary.apply {
             minValue = MIN_VALUE_NUMBER_PICKER_SECONDARY
             maxValue = MAX_VALUE_NUMBER_PICKER_SECONDARY
-            value = weight.weight.toInt()
+            value = (weight.weight % 10 * 10).toInt()
         }
     }
 

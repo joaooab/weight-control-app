@@ -1,7 +1,6 @@
-package com.br.weightcontrol.dao
+package com.br.weightcontrol.data.weight
 
 import androidx.room.*
-import com.br.weightcontrol.data.Weight
 
 @Dao
 interface WeightDao {

@@ -11,4 +11,13 @@
     <string name="add_weight">Add peso</string>
     <string name="comma">,</string>
     <string name="goal">Meta</string>
+    <string name="history">Histórico</string>
+    <string name="begin">Início</string>
+    <string name="current">Atual</string>
+    <string name="alert">Alerta</string>
+    <string name="text_create_goal">Você ainda não tem meta cadastrada, clique aqui para cadastrar sua meta</string>
+    <string name="text_what_is_your_goal">"Qual é a sua meta?"</string>
+    <string name="text_what_is_your_weight">Qual é o seu peso?</string>
+    <string name="error_goal_weight_null">Ops, por favor adicione o seu peso de hoje antes de criar sua meta</string>
+    <string name="error_weight_greater_than_goal">Ops, sua meta não pode ser maior ou igual ao seu peso atual</string>
 </resources>

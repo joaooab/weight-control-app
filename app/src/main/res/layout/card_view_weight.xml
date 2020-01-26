@@ -18,6 +18,8 @@
             android:layout_marginTop="16dp"
             android:text="João Vitor Freitas"
             android:textStyle="bold"
+            android:drawablePadding="16dp"
+            android:drawableStart="@drawable/ic_person_outline_black_24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

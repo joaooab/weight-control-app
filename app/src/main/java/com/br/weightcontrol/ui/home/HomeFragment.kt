@@ -7,14 +7,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.br.weightcontrol.R
+import com.br.weightcontrol.data.goal.GoalWithWeight
 import com.br.weightcontrol.extension.supportFragmentManager
 import com.br.weightcontrol.ui.component.NumberPickerDialog
 import com.br.weightcontrol.util.LayoutUtil
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.card_view_goal.*
 import kotlinx.android.synthetic.main.card_view_weight.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
@@ -31,16 +34,55 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpAddWeight()
-        setUpGoal()
         observeWeight()
+        observeGoal()
+        observeError()
+        setUpAddWeight()
+        setUpAddGoal()
     }
 
-    private fun setUpGoal() {
-        val list = mutableListOf(
-            PieEntry(80F),
-            PieEntry(5F)
-        )
+    private fun observeError() {
+        viewModel.onError.observe(this, Observer {
+            showSnackBarError(it)
+        })
+    }
+
+    private fun showSnackBarError(message: String) {
+        Snackbar.make(constraintLayout, message, Snackbar.LENGTH_LONG).show()
+    }
+
+    private fun setUpAddGoal() {
+        textViewCreateGoal.setOnClickListener {
+            val currentWeight = viewModel.weight.value
+            if (currentWeight == null) {
+                showSnackBarError(LayoutUtil.getString(R.string.error_goal_weight_null))
+            } else {
+                supportFragmentManager {
+                    val title = LayoutUtil.getString(R.string.text_what_is_your_goal)
+                    NumberPickerDialog.newInstance(title, currentWeight) {
+                        viewModel.addGoal(currentWeight, it)
+                    }.show(this, "")
+                }
+            }
+        }
+    }
+
+    private fun observeGoal() {
+        viewModel.goal.observe(this, Observer {
+            if (it != null) {
+                setUpGoal(it)
+                constraintLayoutGoal.visibility = View.VISIBLE
+                textViewCreateGoal.visibility = View.GONE
+            }
+        })
+    }
+
+    private fun setUpGoal(goalWithWeight: GoalWithWeight) {
+        val goal = goalWithWeight.goal
+        val weight = goalWithWeight.weight
+        val total = goal.begin - goal.end
+        val currentTotal = weight.weight - goal.end
+        val list = createPieEntrys(total, currentTotal)
         val pieDataSet = PieDataSet(list, "teste").apply {
             val colors = mutableListOf(
                 LayoutUtil.getColor(R.color.colorPrimary),
@@ -48,7 +90,7 @@ class HomeFragment : Fragment() {
             )
             setColors(colors)
             valueTextSize = 18f
-            valueTextColor = LayoutUtil.getColor(R.color.gray_light)
+            valueTextColor = LayoutUtil.getColor(R.color.colorGrayLight)
         }
         pieChart.apply {
             data = PieData(pieDataSet)
@@ -56,6 +98,23 @@ class HomeFragment : Fragment() {
             legend.isEnabled = false
             centerText = "95%"
             setCenterTextSize(36F)
+            description.isEnabled = false
+        }
+    }
+
+    private fun createPieEntrys(
+        total: Double,
+        currentTotal: Double
+    ): MutableList<PieEntry> {
+        return if (currentTotal >= total) {
+            mutableListOf(
+                PieEntry(currentTotal.toFloat())
+            )
+        } else {
+            mutableListOf(
+                PieEntry((total - currentTotal).toFloat()),
+                PieEntry(currentTotal.toFloat())
+            )
         }
     }
 
@@ -70,10 +129,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun setUpAddWeight() {
-        val lastWeight = viewModel.getLast()
         textViewAddWeight.setOnClickListener {
+            val lastWeight = viewModel.getLast()
             supportFragmentManager {
-                NumberPickerDialog.newInstance(lastWeight) {
+                val title = LayoutUtil.getString(R.string.text_what_is_your_weight)
+                NumberPickerDialog.newInstance(title, lastWeight) {
                     viewModel.addWeight(it)
                 }.show(this, "")
             }

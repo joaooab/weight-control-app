@@ -5,13 +5,16 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.br.weightcontrol.dao.WeightDao
-import com.br.weightcontrol.data.Weight
+import com.br.weightcontrol.data.goal.Goal
+import com.br.weightcontrol.data.goal.GoalDao
+import com.br.weightcontrol.data.weight.WeightDao
+import com.br.weightcontrol.data.weight.Weight
 
-@Database(entities = [Weight::class], version = 1)
+@Database(entities = [Weight::class, Goal::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun weightDao(): WeightDao
+    abstract fun goalDao(): GoalDao
 
     companion object {
         private const val DATABASE_NAME = "weightcontroldb"

@@ -1,4 +1,4 @@
-package com.br.weightcontrol.data
+package com.br.weightcontrol.data.weight
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -4,7 +4,10 @@
 	<string name="title_dashboard">Dashboard</string>
 	<string name="title_notifications">Notifications</string>
     <string name="unit_of_measurement">Kg</string>
+    <string name="percent">%</string>
     <string name="register">Registrar</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Deletar</string>
     <string name="save">Salvar</string>
     <string name="cancel">Cancelar</string>
     <string name="labal_daily_weight">Seu peso hoje:</string>

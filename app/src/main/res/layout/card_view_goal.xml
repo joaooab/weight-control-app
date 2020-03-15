@@ -17,6 +17,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/goal"
+            android:drawableStart="@drawable/ic_outlined_flag_24dp"
+            android:drawablePadding="16dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -38,20 +40,41 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
+            tools:visibility="visible"
             app:layout_constraintStart_toStartOf="@+id/textViewTitle"
             app:layout_constraintTop_toBottomOf="@+id/textViewTitle">
 
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/pieChart"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_margin="16dp"
+            <LinearLayout
+                android:id="@+id/linearLayoutGoal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/circular_shape"
+                android:orientation="horizontal"
+                android:padding="24dp"
+                android:elevation="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewCurrent">
+                app:layout_constraintEnd_toEndOf="@id/textViewGoal"
+                app:layout_constraintStart_toStartOf="@id/textViewBegin"
+                app:layout_constraintTop_toBottomOf="@id/textViewBegin">
 
-            </com.github.mikephil.charting.charts.PieChart>
+                <TextView
+                    android:id="@+id/textViewPercent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="60sp"
+                    tools:text="80" />
+
+                <TextView
+                    android:id="@+id/textViewPercentLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/percent"
+                    android:textSize="30sp" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textViewLabelBegin"
@@ -88,7 +111,8 @@
                 android:id="@+id/textViewBegin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/textViewLabelBegin"
                 app:layout_constraintStart_toStartOf="@+id/textViewLabelBegin"
@@ -99,7 +123,8 @@
                 android:id="@+id/textViewCurrent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/textViewLabelCurrent"
                 app:layout_constraintStart_toStartOf="@+id/textViewLabelCurrent"
@@ -110,13 +135,24 @@
                 android:id="@+id/textViewGoal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/textViewLabelGoal"
                 app:layout_constraintStart_toStartOf="@+id/textViewLabelGoal"
                 app:layout_constraintTop_toBottomOf="@+id/textViewLabelGoal"
                 tools:text="80.0 Kg" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/imageViewMoreGoal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_more_vert_24px" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

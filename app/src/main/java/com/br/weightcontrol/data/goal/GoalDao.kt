@@ -9,7 +9,7 @@ interface GoalDao {
     suspend fun get(): List<Goal>
 
     @Query("SELECT * FROM goal ORDER BY id DESC LIMIT 1;")
-    suspend fun getLast(): Goal
+    suspend fun getLast(): Goal?
 
     @Insert
     suspend fun insert(goal: Goal)

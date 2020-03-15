@@ -1,19 +1,21 @@
 package com.br.weightcontrol.ui.home
 
+import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.br.weightcontrol.R
-import com.br.weightcontrol.data.goal.GoalWithWeight
+import com.br.weightcontrol.data.goal.Goal
+import com.br.weightcontrol.data.weight.Weight
+import com.br.weightcontrol.extension.percentFormat
 import com.br.weightcontrol.extension.supportFragmentManager
 import com.br.weightcontrol.ui.component.NumberPickerDialog
 import com.br.weightcontrol.util.LayoutUtil
-import com.github.mikephil.charting.data.PieData
-import com.github.mikephil.charting.data.PieDataSet
-import com.github.mikephil.charting.data.PieEntry
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.card_view_goal.*
 import kotlinx.android.synthetic.main.card_view_weight.*
@@ -39,6 +41,40 @@ class HomeFragment : Fragment() {
         observeError()
         setUpAddWeight()
         setUpAddGoal()
+        setupMoreWeight()
+        setupMoreGoal()
+    }
+
+    private fun setupMoreWeight() {
+        imageViewMoreWeight.setOnClickListener {
+            showPopup(R.menu.menu_weight, it) { menu ->
+                when (menu.itemId) {
+                    R.id.menu_weight_edit -> {
+                        updateWeight()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }
+    }
+
+    private fun setupMoreGoal() {
+        imageViewMoreGoal.setOnClickListener {
+            showPopup(R.menu.menu_goal, it) { menu ->
+                when (menu.itemId) {
+                    R.id.menu_goal_edit -> {
+                        updateGoal()
+                        true
+                    }
+                    R.id.menu_goal_delete -> {
+                        viewModel.deleteGoal()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }
     }
 
     private fun observeError() {
@@ -53,16 +89,33 @@ class HomeFragment : Fragment() {
 
     private fun setUpAddGoal() {
         textViewCreateGoal.setOnClickListener {
-            val currentWeight = viewModel.weight.value
-            if (currentWeight == null) {
-                showSnackBarError(LayoutUtil.getString(R.string.error_goal_weight_null))
-            } else {
-                supportFragmentManager {
-                    val title = LayoutUtil.getString(R.string.text_what_is_your_goal)
-                    NumberPickerDialog.newInstance(title, currentWeight) {
-                        viewModel.addGoal(currentWeight, it)
-                    }.show(this, "")
-                }
+            addGoal()
+        }
+    }
+
+    private fun addGoal() {
+        openDialogGoal { viewModel.addGoal(it) }
+    }
+
+    private fun updateGoal() {
+        openDialogGoal { viewModel.updateGoal(it) }
+    }
+
+    private fun openDialogGoal(onFinish: (Goal) -> Unit) {
+        val currentWeight = viewModel.weight.value
+        if (currentWeight == null) {
+            showSnackBarError(LayoutUtil.getString(R.string.error_goal_weight_null))
+        } else {
+            supportFragmentManager {
+                val title = LayoutUtil.getString(R.string.text_what_is_your_goal)
+                NumberPickerDialog.newInstance(title, currentWeight) {
+                    val goal = Goal(
+                        begin = currentWeight.weight,
+                        current = currentWeight.weight,
+                        end = it.weight
+                    )
+                    onFinish(goal)
+                }.show(this, "")
             }
         }
     }
@@ -70,51 +123,41 @@ class HomeFragment : Fragment() {
     private fun observeGoal() {
         viewModel.goal.observe(this, Observer {
             if (it != null) {
-                setUpGoal(it)
                 constraintLayoutGoal.visibility = View.VISIBLE
                 textViewCreateGoal.visibility = View.GONE
+                imageViewMoreGoal.visibility = View.VISIBLE
+                val begin = "${it.begin} Kg"
+                textViewBegin.text = begin
+                val goal = "${it.end} Kg"
+                textViewGoal.text = goal
+                val current = "${it.current} Kg"
+                textViewCurrent.text = current
+                setUpPercentGoal(it)
+            } else {
+                constraintLayoutGoal.visibility = View.GONE
+                textViewCreateGoal.visibility = View.VISIBLE
+                imageViewMoreGoal.visibility = View.GONE
             }
         })
     }
 
-    private fun setUpGoal(goalWithWeight: GoalWithWeight) {
-        val goal = goalWithWeight.goal
-        val weight = goalWithWeight.weight
-        val total = goal.begin - goal.end
-        val currentTotal = weight.weight - goal.end
-        val list = createPieEntrys(total, currentTotal)
-        val pieDataSet = PieDataSet(list, "teste").apply {
-            val colors = mutableListOf(
-                LayoutUtil.getColor(R.color.colorPrimary),
-                LayoutUtil.getColor(R.color.colorAccent)
-            )
-            setColors(colors)
-            valueTextSize = 18f
-            valueTextColor = LayoutUtil.getColor(R.color.colorGrayLight)
-        }
-        pieChart.apply {
-            data = PieData(pieDataSet)
-            setCenterTextOffset(0f, -20f)
-            legend.isEnabled = false
-            centerText = "95%"
-            setCenterTextSize(36F)
-            description.isEnabled = false
-        }
+    private fun setUpPercentGoal(goal: Goal) {
+        val percent = calculatePercent(goal.begin, goal.current, goal.end)
+        ValueAnimator.ofInt(0, percent.toInt()).apply {
+            duration = 2000
+            addUpdateListener {
+                textViewPercent.text = it.animatedValue.toString()
+            }
+        }.start()
     }
 
-    private fun createPieEntrys(
-        total: Double,
-        currentTotal: Double
-    ): MutableList<PieEntry> {
-        return if (currentTotal >= total) {
-            mutableListOf(
-                PieEntry(currentTotal.toFloat())
-            )
+    private fun calculatePercent(begin: Double, current: Double, end: Double): Double {
+        return if (begin > current) {
+            val totalGoal = begin - end
+            val totalCurrent = begin - current
+            totalCurrent / totalGoal * 100
         } else {
-            mutableListOf(
-                PieEntry((total - currentTotal).toFloat()),
-                PieEntry(currentTotal.toFloat())
-            )
+            0.0
         }
     }
 
@@ -124,19 +167,47 @@ class HomeFragment : Fragment() {
                 textViewWeight.text = it.weight.toString()
                 linearLayoutWeight.visibility = View.VISIBLE
                 textViewAddWeight.visibility = View.GONE
+                imageViewMoreWeight.visibility = View.VISIBLE
+            } else {
+                linearLayoutWeight.visibility = View.GONE
+                textViewAddWeight.visibility = View.VISIBLE
+                imageViewMoreWeight.visibility = View.GONE
             }
         })
     }
 
     private fun setUpAddWeight() {
         textViewAddWeight.setOnClickListener {
-            val lastWeight = viewModel.getLast()
-            supportFragmentManager {
-                val title = LayoutUtil.getString(R.string.text_what_is_your_weight)
-                NumberPickerDialog.newInstance(title, lastWeight) {
-                    viewModel.addWeight(it)
-                }.show(this, "")
-            }
+            addWeight()
         }
     }
+
+    private fun addWeight() {
+        openDialogWeight { viewModel.addWeight(it) }
+    }
+
+    private fun updateWeight() {
+        openDialogWeight { viewModel.updateWeight(it) }
+    }
+
+    fun openDialogWeight(onFinish: (Weight) -> Unit) {
+        val lastWeight = viewModel.getLastWeight()
+        supportFragmentManager {
+            val title = LayoutUtil.getString(R.string.text_what_is_your_weight)
+            NumberPickerDialog.newInstance(title, lastWeight) {
+                onFinish(it)
+            }.show(this, "")
+        }
+    }
+
+    fun showPopup(menu: Int, v: View, onClickPopup: (MenuItem) -> Boolean) {
+        PopupMenu(context!!, v).apply {
+            setOnMenuItemClickListener {
+                onClickPopup(it)
+            }
+            inflate(menu)
+            show()
+        }
+    }
+
 }

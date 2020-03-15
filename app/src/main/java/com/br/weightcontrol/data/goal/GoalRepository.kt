@@ -7,7 +7,7 @@ class GoalRepositoryImpl(private val dao: GoalDao) :
 
     override suspend fun get(): List<Goal> = dao.get()
 
-    override suspend fun getLast(): Goal = dao.getLast()
+    override suspend fun getLast(): Goal? = dao.getLast()
 
     override suspend fun insert(goal: Goal) = dao.insert(goal)
 

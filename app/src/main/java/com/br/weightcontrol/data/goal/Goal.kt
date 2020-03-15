@@ -10,5 +10,6 @@ data class Goal(
     @PrimaryKey(autoGenerate = true) val id: Long = 0,
     @ColumnInfo val begin: Double = 0.0,
     @ColumnInfo val end: Double = 0.0,
+    @ColumnInfo var current: Double = 0.0,
     @ColumnInfo(name = "finished") val isFinished: Boolean = false
 )

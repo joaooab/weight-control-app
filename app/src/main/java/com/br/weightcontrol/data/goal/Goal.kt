@@ -2,8 +2,8 @@ package com.br.weightcontrol.data.goal
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Ignore
 import androidx.room.PrimaryKey
+import java.util.*
 
 @Entity
 data class Goal(
@@ -11,5 +11,7 @@ data class Goal(
     @ColumnInfo val begin: Double = 0.0,
     @ColumnInfo val end: Double = 0.0,
     @ColumnInfo var current: Double = 0.0,
-    @ColumnInfo(name = "finished") val isFinished: Boolean = false
+    @ColumnInfo(name = "date_start") val dateStart: Calendar = Calendar.getInstance(),
+    @ColumnInfo(name = "date_finish") var dateFinish: Calendar = Calendar.getInstance(),
+    @ColumnInfo(name = "finished") var isFinished: Boolean = false
 )

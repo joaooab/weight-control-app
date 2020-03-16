@@ -1,24 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:background="@android:color/transparent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/includeHistory"
-        layout="@layout/card_view_history"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:orientation="vertical">
 
-    <include
-        android:id="@+id/includeHistoryList"
-        layout="@layout/card_view_history_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp" />
+        <include
+            android:id="@+id/includeHistory"
+            layout="@layout/card_view_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp" />
 
-</LinearLayout>
+        <include
+            android:id="@+id/includeHistoryList"
+            layout="@layout/card_view_history_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp" />
+
+        <include
+            android:id="@+id/includeHistoryListGoal"
+            layout="@layout/card_view_history_goal_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

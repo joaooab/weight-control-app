@@ -17,6 +17,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import kotlinx.android.synthetic.main.card_view_history.*
+import kotlinx.android.synthetic.main.card_view_history_goal_list.*
 import kotlinx.android.synthetic.main.card_view_history_list.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -36,7 +37,14 @@ class DashboardFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeLoading()
         observeWeights()
+        observeGoals()
         observeDashboardWeight()
+    }
+
+    private fun observeGoals() {
+        dashboardViewModel.goal.observe(viewLifecycleOwner, Observer {
+            recyclerViewGoal.adapter = DashboardGoalAdapter(it)
+        })
     }
 
     private fun observeLoading() {
@@ -54,7 +62,6 @@ class DashboardFragment : Fragment() {
     private fun observeDashboardWeight() {
         dashboardViewModel.dashboardWeight.observe(this, Observer {
             setUpChart(it)
-
         })
     }
 

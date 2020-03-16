@@ -31,9 +31,13 @@ class HomeViewModel(
 
     init {
         viewModelScope.launch {
-            _weight.value = weightRepository.getByDate(Calendar.getInstance().formatToString())
-            _lastWeight.value = weightRepository.getLast()
-            _goal.value = goalRepository.getLast()
+            try {
+                _weight.value = weightRepository.getByDate(Calendar.getInstance().formatToString())
+                _lastWeight.value = weightRepository.getLast()
+                _goal.value = goalRepository.getLast()
+            } catch (e: Exception) {
+                onError.value = e.message
+            }
         }
     }
 
@@ -87,15 +91,20 @@ class HomeViewModel(
 
     fun updateWeight(weight: Weight) {
         viewModelScope.launch {
-            try {
-                val id = _weight.value?.id ?: return@launch
-                val newWeight = Weight(id, weight.weight, weight.date)
-                weightRepository.update(newWeight)
-            } catch (e: Exception) {
-                Log.e("e", e.message)
-            }
+            val id = _weight.value?.id ?: return@launch
+            val newWeight = Weight(id, weight.weight, weight.date)
+            weightRepository.update(newWeight)
             updateGoal(weight)
             _weight.postValue(weight)
+        }
+    }
+
+    fun finishGoal() {
+        viewModelScope.launch {
+            val goal = _goal.value ?: return@launch
+            goal.isFinished = true
+            goal.dateFinish = Calendar.getInstance()
+            goalRepository.update(goal)
         }
     }
 

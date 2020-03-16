@@ -1,5 +1,7 @@
 package com.br.weightcontrol.ui.home
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +14,6 @@ import androidx.lifecycle.Observer
 import com.br.weightcontrol.R
 import com.br.weightcontrol.data.goal.Goal
 import com.br.weightcontrol.data.weight.Weight
-import com.br.weightcontrol.extension.percentFormat
 import com.br.weightcontrol.extension.supportFragmentManager
 import com.br.weightcontrol.ui.component.NumberPickerDialog
 import com.br.weightcontrol.util.LayoutUtil
@@ -124,6 +125,7 @@ class HomeFragment : Fragment() {
         viewModel.goal.observe(this, Observer {
             if (it != null) {
                 constraintLayoutGoal.visibility = View.VISIBLE
+                constraintFinishGoal.visibility = View.GONE
                 textViewCreateGoal.visibility = View.GONE
                 imageViewMoreGoal.visibility = View.VISIBLE
                 val begin = "${it.begin} Kg"
@@ -141,14 +143,33 @@ class HomeFragment : Fragment() {
         })
     }
 
+    fun setupFinishGoal() {
+        constraintFinishGoal.visibility = View.VISIBLE
+        constraintLayoutGoal.visibility = View.GONE
+        textViewFinishGoal.setOnClickListener {
+            viewModel.finishGoal()
+            addGoal()
+        }
+    }
+
     private fun setUpPercentGoal(goal: Goal) {
         val percent = calculatePercent(goal.begin, goal.current, goal.end)
-        ValueAnimator.ofInt(0, percent.toInt()).apply {
+        val animator = ValueAnimator.ofInt(0, percent.toInt()).apply {
             duration = 2000
             addUpdateListener {
-                textViewPercent.text = it.animatedValue.toString()
+                if (textViewPercent != null) {
+                    textViewPercent.text = it.animatedValue.toString()
+                }
             }
-        }.start()
+        }
+        animator.addListener(object : AnimatorListenerAdapter() {
+            override fun onAnimationEnd(animation: Animator?) {
+                if (percent >= 100) {
+                    setupFinishGoal()
+                }
+            }
+        })
+        animator.start()
     }
 
     private fun calculatePercent(begin: Double, current: Double, end: Double): Double {
@@ -164,7 +185,7 @@ class HomeFragment : Fragment() {
     private fun observeWeight() {
         viewModel.weight.observe(this, Observer {
             if (it != null) {
-                textViewWeight.text = it.weight.toString()
+                textViewStartGoal.text = it.weight.toString()
                 linearLayoutWeight.visibility = View.VISIBLE
                 textViewAddWeight.visibility = View.GONE
                 imageViewMoreWeight.visibility = View.VISIBLE

@@ -16,9 +16,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="@string/goal"
             android:drawableStart="@drawable/ic_outlined_flag_24dp"
             android:drawablePadding="16dp"
+            android:text="@string/goal"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -40,40 +40,41 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            tools:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/textViewTitle"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTitle">
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+            tools:visibility="visible">
 
             <LinearLayout
                 android:id="@+id/linearLayoutGoal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="150dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/circular_shape"
+                android:background="@drawable/shape_gray_shadow_button"
+                android:gravity="center"
                 android:orientation="horizontal"
-                android:padding="24dp"
-                android:elevation="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/textViewGoal"
-                app:layout_constraintStart_toStartOf="@id/textViewBegin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewBegin">
 
                 <TextView
                     android:id="@+id/textViewPercent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="60sp"
+                    android:textSize="30sp"
                     tools:text="80" />
 
                 <TextView
                     android:id="@+id/textViewPercentLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_gravity="bottom"
                     android:text="@string/percent"
-                    android:textSize="30sp" />
+                    android:paddingBottom="8dp"
+                    android:layout_marginStart="4dp"
+                    android:textSize="24sp" />
             </LinearLayout>
 
             <TextView
@@ -142,6 +143,35 @@
                 app:layout_constraintStart_toStartOf="@+id/textViewLabelGoal"
                 app:layout_constraintTop_toBottomOf="@+id/textViewLabelGoal"
                 tools:text="80.0 Kg" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintFinishGoal"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorPrimary"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/textViewTitle"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle">
+
+            <TextView
+                android:id="@+id/textViewFinishGoal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/finish_goal"
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView

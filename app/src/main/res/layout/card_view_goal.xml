@@ -71,9 +71,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:text="@string/percent"
-                    android:paddingBottom="8dp"
                     android:layout_marginStart="4dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/unit_percent"
                     android:textSize="24sp" />
             </LinearLayout>
 
@@ -180,6 +180,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_more_vert_24px" />

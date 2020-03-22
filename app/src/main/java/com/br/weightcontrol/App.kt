@@ -3,6 +3,7 @@ package com.br.weightcontrol
 import android.app.Application
 import com.br.weightcontrol.di.daoModule
 import com.br.weightcontrol.di.repositoryModule
+import com.br.weightcontrol.di.utilModule
 import com.br.weightcontrol.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -14,7 +15,7 @@ class App : Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(listOf(daoModule, repositoryModule, viewModelModule))
+            modules(listOf(daoModule, repositoryModule, viewModelModule, utilModule))
         }
     }
 }

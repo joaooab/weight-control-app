@@ -11,14 +11,17 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import com.br.weightcontrol.R
 import com.br.weightcontrol.data.goal.Goal
+import com.br.weightcontrol.data.user.Session
 import com.br.weightcontrol.data.weight.Weight
 import com.br.weightcontrol.extension.supportFragmentManager
 import com.br.weightcontrol.ui.component.NumberPickerDialog
 import com.br.weightcontrol.util.LayoutUtil
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.card_view_goal.*
+import kotlinx.android.synthetic.main.card_view_imc.*
 import kotlinx.android.synthetic.main.card_view_weight.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -37,13 +40,32 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeUser()
         observeWeight()
         observeGoal()
         observeError()
+        setUpUser()
         setUpAddWeight()
         setUpAddGoal()
         setupMoreWeight()
         setupMoreGoal()
+    }
+
+    private fun setUpUser() {
+        if (Session.user.value == null) {
+            navigateUserFragment()
+        }
+    }
+
+    private fun observeUser() {
+        Session.user.observe(viewLifecycleOwner, Observer {
+            textViewUserName.text = it.name
+        })
+    }
+
+    private fun navigateUserFragment() {
+        val intent = HomeFragmentDirections.actionNavigationHomeToUserFragment()
+        Navigation.findNavController(view!!).navigate(intent)
     }
 
     private fun setupMoreWeight() {
@@ -79,7 +101,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeError() {
-        viewModel.onError.observe(this, Observer {
+        viewModel.onError.observe(viewLifecycleOwner, Observer {
             showSnackBarError(it)
         })
     }
@@ -122,7 +144,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeGoal() {
-        viewModel.goal.observe(this, Observer {
+        viewModel.goal.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 constraintLayoutGoal.visibility = View.VISIBLE
                 constraintFinishGoal.visibility = View.GONE
@@ -183,7 +205,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeWeight() {
-        viewModel.weight.observe(this, Observer {
+        viewModel.weight.observe(viewLifecycleOwner, Observer {
             if (it != null) {
                 textViewStartGoal.text = it.weight.toString()
                 linearLayoutWeight.visibility = View.VISIBLE
@@ -194,7 +216,12 @@ class HomeFragment : Fragment() {
                 textViewAddWeight.visibility = View.VISIBLE
                 imageViewMoreWeight.visibility = View.GONE
             }
+//            calculateIMC(it)
         })
+    }
+
+    private fun calculateIMC(weight: Weight) {
+        textViewIMC.text = viewModel.calculateIMC(weight).toString()
     }
 
     private fun setUpAddWeight() {

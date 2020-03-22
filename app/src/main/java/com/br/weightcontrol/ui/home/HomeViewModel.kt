@@ -1,6 +1,5 @@
 package com.br.weightcontrol.ui.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,13 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.br.weightcontrol.R
 import com.br.weightcontrol.data.goal.Goal
 import com.br.weightcontrol.data.goal.GoalRepository
-import com.br.weightcontrol.data.goal.GoalWithWeight
 import com.br.weightcontrol.data.weight.Weight
 import com.br.weightcontrol.data.weight.WeightRepository
 import com.br.weightcontrol.extension.formatToString
 import com.br.weightcontrol.util.LayoutUtil
 import kotlinx.coroutines.launch
-import java.lang.Exception
 import java.util.*
 
 class HomeViewModel(
@@ -106,6 +103,10 @@ class HomeViewModel(
             goal.dateFinish = Calendar.getInstance()
             goalRepository.update(goal)
         }
+    }
+
+    fun calculateIMC(weight: Weight): Double {
+        return weight.weight
     }
 
 }

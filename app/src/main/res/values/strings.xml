@@ -3,8 +3,10 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_user">Cadastrar usuário</string>
     <string name="unit_of_measurement">Kg</string>
-    <string name="percent">%</string>
+    <string name="unit_percent">%</string>
+    <string name="unit_of_measurement_imc">Kg/m²</string>
     <string name="register">Registrar</string>
     <string name="edit">Editar</string>
     <string name="delete">Deletar</string>
@@ -28,4 +30,11 @@
     <string name="my_goal">Minhas metas</string>
     <string name="to">Para:</string>
     <string name="from">De:</string>
+    <string name="imc">Índice de Massa Corpórea</string>
+    <string name="male">Masculino</string>
+    <string name="female">Feminino</string>
+    <string name="name">Nome</string>
+    <string name="age">Idade</string>
+    <string name="user_register_message">Olá, ainda não nos conhecemos, por favor nos informe alguns dados para aperfeiçoar nossos cálculos!</string>
+    <string name="field_required">Campo obrigatório</string>
 </resources>

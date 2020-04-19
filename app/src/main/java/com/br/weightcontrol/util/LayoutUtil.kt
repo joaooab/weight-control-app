@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.core.content.ContextCompat
 import org.koin.core.KoinComponent
 import org.koin.core.inject
+import java.util.*
 
 object LayoutUtil : KoinComponent {
 
@@ -16,5 +17,4 @@ object LayoutUtil : KoinComponent {
     fun getDrawable(drawable: Int) = ContextCompat.getDrawable(context, drawable)
 
     fun getString(idString: Int): String = context.getString(idString)
-
 }

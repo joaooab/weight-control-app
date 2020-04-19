@@ -18,6 +18,11 @@ class UserFragment : Fragment() {
 
     val userViewModel: UserViewModel by viewModel()
 
+    companion object {
+        private const val MAX_HEIGHT = 3.0
+        private const val MIN_HEIGHT = 1.0
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,6 +42,8 @@ class UserFragment : Fragment() {
             val succes = ValidadorBuilder()
                 .isRequired(editTextLayoutName)
                 .isRequired(editTextLayoutAge)
+                .isRequired(editTextHeight)
+                .isBetween(editTextHeight, MIN_HEIGHT, MAX_HEIGHT)
                 .build()
             if (succes) {
                 val user = createUser()

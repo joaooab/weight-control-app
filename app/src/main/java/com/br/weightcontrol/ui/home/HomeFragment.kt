@@ -3,6 +3,7 @@ package com.br.weightcontrol.ui.home
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -49,6 +50,7 @@ class HomeFragment : Fragment() {
         setUpAddGoal()
         setupMoreWeight()
         setupMoreGoal()
+        setupIMC()
     }
 
     private fun setUpUser() {
@@ -165,7 +167,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-    fun setupFinishGoal() {
+    private fun setupFinishGoal() {
         constraintFinishGoal.visibility = View.VISIBLE
         constraintLayoutGoal.visibility = View.GONE
         textViewFinishGoal.setOnClickListener {
@@ -174,16 +176,35 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun setupIMC() {
+        if (viewModel.getLastWeight() == null) {
+            linearLayoutIMC.visibility = View.GONE
+            textViewMessageIMC.visibility = View.VISIBLE
+        } else {
+            linearLayoutIMC.visibility = View.VISIBLE
+            textViewMessageIMC.visibility = View.GONE
+        }
+    }
+
     private fun setUpPercentGoal(goal: Goal) {
         val percent = calculatePercent(goal.begin, goal.current, goal.end)
+        progressBar.progressTintList =
+            ColorStateList.valueOf(LayoutUtil.getColor(android.R.color.holo_green_dark))
+        animatePercent(percent)
+    }
+
+    private fun animatePercent(percent: Double) {
         val animator = ValueAnimator.ofInt(0, percent.toInt()).apply {
             duration = 2000
             addUpdateListener {
                 if (textViewPercent != null) {
-                    textViewPercent.text = it.animatedValue.toString()
+                    val percentFormated = "${it.animatedValue} %"
+                    textViewPercent.text = percentFormated
+                    progressBar.progress = it.animatedValue.toString().toInt()
                 }
             }
         }
+
         animator.addListener(object : AnimatorListenerAdapter() {
             override fun onAnimationEnd(animation: Animator?) {
                 if (percent >= 100) {
@@ -211,16 +232,18 @@ class HomeFragment : Fragment() {
                 linearLayoutWeight.visibility = View.VISIBLE
                 textViewAddWeight.visibility = View.GONE
                 imageViewMoreWeight.visibility = View.VISIBLE
+                calculateIMC(it)
             } else {
                 linearLayoutWeight.visibility = View.GONE
                 textViewAddWeight.visibility = View.VISIBLE
                 imageViewMoreWeight.visibility = View.GONE
             }
-//            calculateIMC(it)
         })
     }
 
     private fun calculateIMC(weight: Weight) {
+        linearLayoutIMC.visibility = View.VISIBLE
+        textViewMessageIMC.visibility = View.GONE
         textViewIMC.text = viewModel.calculateIMC(weight).toString()
     }
 
@@ -248,7 +271,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    fun showPopup(menu: Int, v: View, onClickPopup: (MenuItem) -> Boolean) {
+    private fun showPopup(menu: Int, v: View, onClickPopup: (MenuItem) -> Boolean) {
         PopupMenu(context!!, v).apply {
             setOnMenuItemClickListener {
                 onClickPopup(it)

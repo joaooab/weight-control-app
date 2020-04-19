@@ -28,7 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="@string/text_create_goal"
+            android:text="@string/message_create_goal"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -45,37 +45,34 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
             tools:visibility="visible">
 
-            <LinearLayout
-                android:id="@+id/linearLayoutGoal"
-                android:layout_width="150dp"
-                android:layout_height="50dp"
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                tools:progress="80"
+
+                app:layout_constraintBottom_toBottomOf="@+id/textViewPercent"
+                app:layout_constraintEnd_toStartOf="@+id/textViewPercent"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/textViewPercent" />
+
+            <TextView
+                android:id="@+id/textViewPercent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:background="@drawable/shape_gray_shadow_button"
-                android:gravity="center"
-                android:orientation="horizontal"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textViewBegin">
-
-                <TextView
-                    android:id="@+id/textViewPercent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="30sp"
-                    tools:text="80" />
-
-                <TextView
-                    android:id="@+id/textViewPercentLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:layout_marginStart="4dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/unit_percent"
-                    android:textSize="24sp" />
-            </LinearLayout>
+                app:layout_constraintStart_toEndOf="@+id/progressBar"
+                app:layout_constraintTop_toBottomOf="@id/textViewBegin"
+                tools:text="80%" />
 
             <TextView
                 android:id="@+id/textViewLabelBegin"

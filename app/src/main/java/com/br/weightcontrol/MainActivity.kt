@@ -1,6 +1,7 @@
 package com.br.weightcontrol
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -8,9 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.br.weightcontrol.data.user.Session
-import com.br.weightcontrol.data.user.User
 import com.br.weightcontrol.util.PreferencesHelper
-import com.br.weightcontrol.util.PreferencesHelper.Companion.PREFS_USER
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
@@ -27,10 +26,11 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications
+                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_perfil
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }
+
 }

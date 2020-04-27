@@ -9,10 +9,19 @@ interface WeightDao {
     suspend fun get(): List<Weight>
 
     @Query("SELECT * FROM weight WHERE date = :date")
-    suspend fun getByDate(date: String): Weight
+    suspend fun getByDate(date: String): Weight?
 
     @Query("SELECT * FROM weight ORDER BY id DESC LIMIT 1;")
-    suspend fun getLast(): Weight
+    suspend fun getLast(): Weight?
+
+    @Query("SELECT * FROM weight ORDER BY id ASC LIMIT 1;")
+    suspend fun getFirst(): Weight?
+
+    @Query("SELECT * FROM weight ORDER BY weight DESC LIMIT 1;")
+    suspend fun getHigher(): Weight?
+
+    @Query("SELECT * FROM weight ORDER BY weight ASC LIMIT 1;")
+    suspend fun getLower(): Weight?
 
     @Insert
     suspend fun insert(weight: Weight)

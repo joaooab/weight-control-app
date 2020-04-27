@@ -7,9 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.br.weightcontrol.R
 import com.br.weightcontrol.data.goal.Goal
 import com.br.weightcontrol.data.goal.GoalRepository
+import com.br.weightcontrol.data.imc.IMC
 import com.br.weightcontrol.data.weight.Weight
 import com.br.weightcontrol.data.weight.WeightRepository
 import com.br.weightcontrol.extension.formatToString
+import com.br.weightcontrol.util.IMCUtil
 import com.br.weightcontrol.util.LayoutUtil
 import kotlinx.coroutines.launch
 import java.util.*
@@ -105,8 +107,8 @@ class HomeViewModel(
         }
     }
 
-    fun calculateIMC(weight: Weight): Double {
-        return weight.weight
+    fun getIMC(weight: Weight): IMC {
+        return IMCUtil.getIMC(weight)
     }
 
 }

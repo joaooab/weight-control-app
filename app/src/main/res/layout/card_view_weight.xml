@@ -37,7 +37,7 @@
             android:id="@+id/textViewAddWeight"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
             android:background="@drawable/shape_gray_shadow_button"
             android:clickable="true"
@@ -56,8 +56,7 @@
             android:id="@+id/linearLayoutWeight"
             android:layout_width="150dp"
             android:layout_height="50dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:visibility="gone"
@@ -71,7 +70,9 @@
                 android:id="@+id/textViewStartGoal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="30sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="24sp"
                 tools:text="80" />
 
             <TextView
@@ -81,8 +82,10 @@
                 android:layout_gravity="bottom"
                 android:layout_marginStart="4dp"
                 android:paddingBottom="8dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/holo_green_dark"
                 android:text="@string/unit_of_measurement"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <ImageView

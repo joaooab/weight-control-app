@@ -1,0 +1,250 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="16dp"
+    app:cardCornerRadius="16dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textViewHighImc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="0.0"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textView9"
+            app:layout_constraintHorizontal_bias="0.521"
+            app:layout_constraintStart_toStartOf="@+id/textView9"
+            app:layout_constraintTop_toBottomOf="@+id/textView13"
+            tools:text="27.5 Kg/m²" />
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/high_imc"
+            app:layout_constraintEnd_toEndOf="@+id/textViewLowImc"
+            app:layout_constraintHorizontal_bias="0.518"
+            app:layout_constraintStart_toStartOf="@+id/textViewLowImc"
+            app:layout_constraintTop_toBottomOf="@+id/textViewHighImc" />
+
+        <TextView
+            android:id="@+id/textViewHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="0.0"
+            android:textColor="@android:color/holo_orange_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textView7"
+            app:layout_constraintHorizontal_bias="0.464"
+            app:layout_constraintStart_toStartOf="@+id/textView7"
+            app:layout_constraintTop_toBottomOf="@+id/textView11"
+            tools:text="85 Kg" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/high_peso"
+            app:layout_constraintEnd_toEndOf="@+id/textViewLow"
+            app:layout_constraintHorizontal_bias="0.478"
+            app:layout_constraintStart_toStartOf="@+id/textViewLow"
+            app:layout_constraintTop_toBottomOf="@+id/textViewHigh" />
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:drawableStart="@drawable/ic_assessment_24dp"
+            android:drawablePadding="8dp"
+            android:text="@string/progress"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewCurrent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="0.0"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/textViewCurrentImc"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+            tools:text="80 Kg" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/current_weight"
+            app:layout_constraintEnd_toEndOf="@+id/textViewCurrent"
+            app:layout_constraintStart_toStartOf="@+id/textViewCurrent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCurrent" />
+
+        <TextView
+            android:id="@+id/textViewCurrentImc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0.0"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewCurrent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewCurrent"
+            app:layout_constraintTop_toTopOf="@+id/textViewCurrent"
+            tools:text="25.5 Kg/m²" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/current_imc"
+            app:layout_constraintEnd_toEndOf="@+id/textViewCurrentImc"
+            app:layout_constraintStart_toStartOf="@+id/textViewCurrentImc"
+            app:layout_constraintTop_toBottomOf="@+id/textViewCurrentImc" />
+
+        <TextView
+            android:id="@+id/textViewLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/default_value"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textView7"
+            app:layout_constraintHorizontal_bias="0.473"
+            app:layout_constraintStart_toStartOf="@+id/textView7"
+            app:layout_constraintTop_toBottomOf="@+id/textView16"
+            tools:text="75 Kg" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/low_weight"
+            app:layout_constraintEnd_toEndOf="@+id/textViewLow"
+            app:layout_constraintStart_toStartOf="@+id/textViewLow"
+            app:layout_constraintTop_toBottomOf="@+id/textViewLow" />
+
+        <TextView
+            android:id="@+id/textViewLowImc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/default_value"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textViewCurrentImc"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textViewCurrentImc"
+            app:layout_constraintTop_toBottomOf="@+id/textView19"
+            tools:text="24.5 Kg/m²" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/low_imc"
+            app:layout_constraintEnd_toEndOf="@+id/textViewLowImc"
+            app:layout_constraintStart_toStartOf="@+id/textViewLowImc"
+            app:layout_constraintTop_toBottomOf="@+id/textViewLowImc" />
+
+        <TextView
+            android:id="@+id/textViewTotalGoals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:textColor="@android:color/holo_green_dark"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textView17"
+            app:layout_constraintStart_toStartOf="@+id/textView15"
+            app:layout_constraintTop_toBottomOf="@+id/textView15"
+            tools:text="0" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/qtd_goals"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/textViewTotalGoals"
+            app:layout_constraintStart_toStartOf="@+id/textViewTotalGoals"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTotalGoals" />
+
+        <TextView
+            android:id="@+id/textViewInit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/default_value"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textView7"
+            app:layout_constraintStart_toStartOf="@+id/textView7"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            tools:text="80 Kg" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/init_weight"
+            app:layout_constraintEnd_toEndOf="@+id/textViewInit"
+            app:layout_constraintStart_toStartOf="@+id/textViewInit"
+            app:layout_constraintTop_toBottomOf="@+id/textViewInit" />
+
+        <TextView
+            android:id="@+id/textViewInitImc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/default_value"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textViewCurrentImc"
+            app:layout_constraintStart_toStartOf="@+id/textViewCurrentImc"
+            app:layout_constraintTop_toBottomOf="@+id/textView9"
+            tools:text="25.5 Kg/m²" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/init_imc"
+            app:layout_constraintEnd_toEndOf="@+id/textViewInitImc"
+            app:layout_constraintStart_toStartOf="@+id/textViewInitImc"
+            app:layout_constraintTop_toBottomOf="@+id/textViewInitImc" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

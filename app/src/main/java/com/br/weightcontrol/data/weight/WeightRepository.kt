@@ -7,9 +7,15 @@ class WeightRepositoryImpl(private val dao: WeightDao) :
 
     override suspend fun get(): List<Weight> = dao.get()
 
-    override suspend fun getByDate(date: String): Weight = dao.getByDate(date)
+    override suspend fun getByDate(date: String): Weight? = dao.getByDate(date)
 
-    override suspend fun getLast(): Weight = dao.getLast()
+    override suspend fun getLast(): Weight? = dao.getLast()
+
+    override suspend fun getFirst(): Weight? = dao.getFirst()
+
+    override suspend fun getHigher(): Weight? = dao.getHigher()
+
+    override suspend fun getLower(): Weight? = dao.getLower()
 
     override suspend fun insert(weight: Weight) = dao.insert(weight)
 

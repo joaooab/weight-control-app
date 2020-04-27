@@ -17,10 +17,11 @@ import com.br.weightcontrol.R
 import com.br.weightcontrol.data.goal.Goal
 import com.br.weightcontrol.data.user.Session
 import com.br.weightcontrol.data.weight.Weight
+import com.br.weightcontrol.extension.decimalFormat
+import com.br.weightcontrol.extension.showSnackBarError
 import com.br.weightcontrol.extension.supportFragmentManager
 import com.br.weightcontrol.ui.component.NumberPickerDialog
 import com.br.weightcontrol.util.LayoutUtil
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.card_view_goal.*
 import kotlinx.android.synthetic.main.card_view_imc.*
 import kotlinx.android.synthetic.main.card_view_weight.*
@@ -66,7 +67,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateUserFragment() {
-        val intent = HomeFragmentDirections.actionNavigationHomeToUserFragment()
+        val intent = HomeFragmentDirections.actionNavigationHomeToUserFragment(Session.user.value)
         Navigation.findNavController(view!!).navigate(intent)
     }
 
@@ -104,12 +105,8 @@ class HomeFragment : Fragment() {
 
     private fun observeError() {
         viewModel.onError.observe(viewLifecycleOwner, Observer {
-            showSnackBarError(it)
+            showSnackBarError(constraintLayout, it)
         })
-    }
-
-    private fun showSnackBarError(message: String) {
-        Snackbar.make(constraintLayout, message, Snackbar.LENGTH_LONG).show()
     }
 
     private fun setUpAddGoal() {
@@ -129,7 +126,8 @@ class HomeFragment : Fragment() {
     private fun openDialogGoal(onFinish: (Goal) -> Unit) {
         val currentWeight = viewModel.weight.value
         if (currentWeight == null) {
-            showSnackBarError(LayoutUtil.getString(R.string.error_goal_weight_null))
+            val message = LayoutUtil.getString(R.string.error_goal_weight_null)
+            showSnackBarError(constraintLayout, message)
         } else {
             supportFragmentManager {
                 val title = LayoutUtil.getString(R.string.text_what_is_your_goal)
@@ -244,7 +242,12 @@ class HomeFragment : Fragment() {
     private fun calculateIMC(weight: Weight) {
         linearLayoutIMC.visibility = View.VISIBLE
         textViewMessageIMC.visibility = View.GONE
-        textViewIMC.text = viewModel.calculateIMC(weight).toString()
+        val imc = viewModel.getIMC(weight)
+        textViewIMC.text = imc.value.decimalFormat()
+        textViewIMC.setTextColor(imc.color)
+        textViewIMCLabel.setTextColor(imc.color)
+        textViewResultIMC.text = imc.result
+        textViewResultIMC.setTextColor(imc.color)
     }
 
     private fun setUpAddWeight() {

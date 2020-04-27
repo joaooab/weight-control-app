@@ -11,6 +11,9 @@ interface GoalDao {
     @Query("SELECT * FROM goal ORDER BY id DESC LIMIT 1;")
     suspend fun getLast(): Goal?
 
+    @Query("SELECT count(*) FROM goal WHERE finished = 1")
+    suspend fun getCountFinished(): Int
+
     @Insert
     suspend fun insert(goal: Goal)
 

@@ -134,7 +134,7 @@ class PerfilFragment : Fragment() {
 
     private fun navigateUserFragment() {
         val user = viewModel.user.value
-        val intent = PerfilFragmentDirections.actionNavigationPerfilToUserFragment(user)
+        val intent = PerfilFragmentDirections.actionNavigationPerfilToUserEditFragment(user)
         Navigation.findNavController(view!!).navigate(intent)
     }
 

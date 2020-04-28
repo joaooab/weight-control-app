@@ -3,7 +3,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_perfil">Perfil</string>
-    <string name="title_user">Perfil</string>
+    <string name="title_edit_user">Editar Perfil</string>
+    <string name="title_create_user">Criar Perfil</string>
     <string name="unit_of_measurement">Kg</string>
     <string name="unit_percent">%</string>
     <string name="unit_of_measurement_imc">Kg/m²</string>

@@ -67,7 +67,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateUserFragment() {
-        val intent = HomeFragmentDirections.actionNavigationHomeToUserFragment(Session.user.value)
+        val intent = HomeFragmentDirections.actionNavigationHomeToUserCreateFragment()
         Navigation.findNavController(view!!).navigate(intent)
     }
 

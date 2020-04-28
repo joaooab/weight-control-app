@@ -11,8 +11,8 @@
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_navigation_home_to_userFragment"
-            app:destination="@id/userFragment" />
+            android:id="@+id/action_navigation_home_to_userCreateFragment"
+            app:destination="@id/userCreateFragment" />
     </fragment>
 
     <fragment
@@ -25,20 +25,25 @@
         android:id="@+id/navigation_perfil"
         android:name="com.br.weightcontrol.ui.perfil.PerfilFragment"
         android:label="@string/title_perfil"
-        tools:layout="@layout/fragment_perfil" >
+        tools:layout="@layout/fragment_perfil">
         <action
-            android:id="@+id/action_navigation_perfil_to_userFragment"
-            app:destination="@id/userFragment" />
+            android:id="@+id/action_navigation_perfil_to_userEditFragment"
+            app:destination="@id/userEditFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/userFragment"
-        android:name="com.br.weightcontrol.ui.user.UserFragment"
-        android:label="@string/title_user"
-        tools:layout="@layout/fragment_user">
+        android:id="@+id/userEditFragment"
+        android:name="com.br.weightcontrol.ui.user.UserEditFragment"
+        android:label="@string/title_edit_user"
+        tools:layout="@layout/fragment_edit_user">
         <argument
             android:name="user"
             app:argType="com.br.weightcontrol.data.user.User"
             app:nullable="true" />
     </fragment>
+    <fragment
+        android:id="@+id/userCreateFragment"
+        android:name="com.br.weightcontrol.ui.user.UserCreateFragment"
+        android:label="@string/title_create_user"
+        tools:layout="@layout/fragment_create_user" />
 </navigation>

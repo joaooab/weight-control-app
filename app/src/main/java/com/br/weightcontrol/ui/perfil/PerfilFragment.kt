@@ -1,13 +1,11 @@
 package com.br.weightcontrol.ui.perfil
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.activity.addCallback
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -16,7 +14,7 @@ import com.br.weightcontrol.R
 import com.br.weightcontrol.data.user.User
 import com.br.weightcontrol.data.weight.Weight
 import com.br.weightcontrol.extension.decimalFormat
-import com.br.weightcontrol.extension.showSnackBarError
+import com.br.weightcontrol.extension.showSnackBar
 import com.br.weightcontrol.util.IMCUtil
 import com.br.weightcontrol.util.LayoutUtil
 import kotlinx.android.synthetic.main.card_view_perfil.*
@@ -104,7 +102,7 @@ class PerfilFragment : Fragment() {
 
     private fun observeError() {
         viewModel.onError.observe(viewLifecycleOwner, Observer {
-            showSnackBarError(linearLayout, it)
+            showSnackBar(linearLayout, it)
         })
     }
 
@@ -112,7 +110,7 @@ class PerfilFragment : Fragment() {
         imageViewMore.setOnClickListener {
             showPopup(it) { menu ->
                 when (menu.itemId) {
-                    R.id.menu_weight_edit -> {
+                    R.id.menu_edit -> {
                         navigateUserFragment()
                         true
                     }
@@ -127,7 +125,7 @@ class PerfilFragment : Fragment() {
             setOnMenuItemClickListener {
                 onClickPopup(it)
             }
-            inflate(R.menu.menu_weight)
+            inflate(R.menu.menu_perfil)
             show()
         }
     }

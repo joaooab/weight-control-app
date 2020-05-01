@@ -20,7 +20,7 @@ fun Fragment.showBottomNavigationView() {
     }
 }
 
-fun Fragment.showSnackBarError(layout: View, message: String) {
+fun Fragment.showSnackBar(layout: View, message: String) {
     Snackbar.make(layout, message, Snackbar.LENGTH_LONG).show()
 }
 

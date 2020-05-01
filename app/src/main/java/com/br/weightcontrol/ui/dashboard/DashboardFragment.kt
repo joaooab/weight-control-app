@@ -48,7 +48,7 @@ class DashboardFragment : Fragment() {
     }
 
     private fun observeLoading() {
-        dashboardViewModel.isLoading.observe(this, Observer { isLoading ->
+        dashboardViewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
             if (isLoading) {
                 progressBarHistory.visibility = View.VISIBLE
                 lineChart.visibility = View.INVISIBLE
@@ -60,13 +60,13 @@ class DashboardFragment : Fragment() {
     }
 
     private fun observeDashboardWeight() {
-        dashboardViewModel.dashboardWeight.observe(this, Observer {
+        dashboardViewModel.dashboardWeight.observe(viewLifecycleOwner, Observer {
             setUpChart(it)
         })
     }
 
     private fun observeWeights() {
-        dashboardViewModel.weights.observe(this, Observer {
+        dashboardViewModel.weights.observe(viewLifecycleOwner, Observer {
             setUpHistoryList(it)
         })
     }
@@ -105,8 +105,9 @@ class DashboardFragment : Fragment() {
         }
         val lineDataSet = LineDataSet(entrys, "Peso").apply {
             lineWidth = 1.8f
-            color = LayoutUtil.getColor(R.color.colorDashboardGreen)
-            fillColor = LayoutUtil.getColor(R.color.colorDashboardGreen)
+            color = LayoutUtil.getColor(R.color.colorPrimaryDark)
+            fillColor = LayoutUtil.getColor(R.color.colorDashboard)
+            circleColors = mutableListOf(LayoutUtil.getColor(R.color.colorPrimaryDark))
             fillAlpha = 170
             setDrawFilled(true)
             setDrawCircles(true)

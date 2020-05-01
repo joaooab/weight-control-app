@@ -18,9 +18,10 @@ import com.br.weightcontrol.data.goal.Goal
 import com.br.weightcontrol.data.user.Session
 import com.br.weightcontrol.data.weight.Weight
 import com.br.weightcontrol.extension.decimalFormat
-import com.br.weightcontrol.extension.showSnackBarError
+import com.br.weightcontrol.extension.showSnackBar
 import com.br.weightcontrol.extension.supportFragmentManager
 import com.br.weightcontrol.ui.component.NumberPickerDialog
+import com.br.weightcontrol.ui.component.WeightDateDialog
 import com.br.weightcontrol.util.LayoutUtil
 import kotlinx.android.synthetic.main.card_view_goal.*
 import kotlinx.android.synthetic.main.card_view_imc.*
@@ -79,9 +80,22 @@ class HomeFragment : Fragment() {
                         updateWeight()
                         true
                     }
+                    R.id.menu_weight_add_date -> {
+                        openDialogAddWeightDate()
+                        true
+                    }
                     else -> false
                 }
             }
+        }
+    }
+
+    private fun openDialogAddWeightDate() {
+        supportFragmentManager {
+            WeightDateDialog.newInstance {
+                viewModel.addWeightByDate(it)
+                showSnackBar(constraintLayout, "Peso adicionado com sucesso!")
+            }.show(this, "")
         }
     }
 
@@ -105,7 +119,7 @@ class HomeFragment : Fragment() {
 
     private fun observeError() {
         viewModel.onError.observe(viewLifecycleOwner, Observer {
-            showSnackBarError(constraintLayout, it)
+            showSnackBar(constraintLayout, it)
         })
     }
 
@@ -127,7 +141,7 @@ class HomeFragment : Fragment() {
         val currentWeight = viewModel.weight.value
         if (currentWeight == null) {
             val message = LayoutUtil.getString(R.string.error_goal_weight_null)
-            showSnackBarError(constraintLayout, message)
+            showSnackBar(constraintLayout, message)
         } else {
             supportFragmentManager {
                 val title = LayoutUtil.getString(R.string.text_what_is_your_goal)

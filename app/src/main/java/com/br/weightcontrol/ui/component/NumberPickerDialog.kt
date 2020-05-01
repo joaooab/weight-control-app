@@ -40,7 +40,7 @@ class NumberPickerDialog : DialogFragment() {
     override fun onStart() {
         super.onStart()
         dialog?.window?.setLayout(
-            900,
+            800,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
     }

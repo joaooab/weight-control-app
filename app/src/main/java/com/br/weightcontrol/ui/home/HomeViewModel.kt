@@ -48,6 +48,18 @@ class HomeViewModel(
         _weight.value = weight
     }
 
+    fun addWeightByDate(weight: Weight) {
+        viewModelScope.launch {
+            val weightInDate = weightRepository.getByDate(weight.date.formatToString())
+            if (weightInDate != null) {
+                val newWeight = Weight(weightInDate.id, weight.weight, weight.date)
+                weightRepository.update(newWeight)
+            } else {
+                weightRepository.insert(weight)
+            }
+        }
+    }
+
     private suspend fun updateGoal(weight: Weight) {
         _goal.value?.apply {
             current = weight.weight

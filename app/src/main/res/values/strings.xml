@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">weightcontrol</string>
+    <string name="app_name">Balança diária</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_perfil">Perfil</string>
@@ -54,4 +54,7 @@
     <string name="default_value">0.0</string>
     <string name="init_weight">Peso inicial</string>
     <string name="init_imc">IMC inicial</string>
+    <string name="adicionar_no_dia">Adicionar no dia</string>
+    <string name="add_weight_in_date">Registrar peso no dia</string>
+    <string name="weight">Peso</string>
 </resources>

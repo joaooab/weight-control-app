@@ -5,9 +5,9 @@
 	<application
         android:name=".App"
 		android:allowBackup="true"
-		android:icon="@drawable/icon_balanca"
+		android:icon="@drawable/logoicon"
 		android:label="@string/app_name"
-		android:roundIcon="@drawable/icon_balanca"
+		android:roundIcon="@drawable/logoicon"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
 		<activity

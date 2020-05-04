@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Balança diária</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_dashboard">Histórico</string>
     <string name="title_perfil">Perfil</string>
     <string name="title_edit_user">Editar Perfil</string>
     <string name="title_create_user">Criar Perfil</string>

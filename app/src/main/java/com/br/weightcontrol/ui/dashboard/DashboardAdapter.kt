@@ -23,39 +23,17 @@ class DashboardAdapter(private val list: List<Weight>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val weight = list[position]
-        val lastWeight = getLastWeight(position)
-        holder.bindView(weight, lastWeight)
-    }
-
-    private fun getLastWeight(position: Int): Weight? {
-        return if (position + 1 < list.size) {
-            list[position + 1]
-        } else {
-            null
-        }
+        holder.bindView(weight)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindView(
-            weight: Weight,
-            lastWeight: Weight?
-        ) {
+        fun bindView(weight: Weight) {
             with(itemView) {
                 val weightString = "${weight.weight} Kg"
                 textViewWeight.text = weightString
-                val color = getColor(weight.weight, lastWeight?.weight)
+                val color = LayoutUtil.getColor(android.R.color.holo_green_dark)
                 textViewWeight.setTextColor(color)
                 textViewDate.text = weight.date.formatToString().substring(0, 5)
-            }
-        }
-
-        fun getColor(weight: Double, lastWeight: Double?): Int {
-            val green = LayoutUtil.getColor(android.R.color.holo_green_dark)
-            val red = LayoutUtil.getColor(android.R.color.holo_red_dark)
-            return if (lastWeight != null && lastWeight < weight) {
-                red
-            } else {
-                green
             }
         }
     }

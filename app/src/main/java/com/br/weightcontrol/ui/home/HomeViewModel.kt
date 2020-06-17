@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.br.weightcontrol.R
 import com.br.weightcontrol.data.goal.Goal
 import com.br.weightcontrol.data.goal.GoalRepository
 import com.br.weightcontrol.data.imc.IMC
@@ -12,7 +11,6 @@ import com.br.weightcontrol.data.weight.Weight
 import com.br.weightcontrol.data.weight.WeightRepository
 import com.br.weightcontrol.extension.formatToString
 import com.br.weightcontrol.util.IMCUtil
-import com.br.weightcontrol.util.LayoutUtil
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -82,12 +80,8 @@ class HomeViewModel(
 
     fun addGoal(goal: Goal) {
         viewModelScope.launch {
-            if (goal.end >= goal.current) {
-                onError.value = LayoutUtil.getString(R.string.error_weight_greater_than_goal)
-            } else {
-                goalRepository.insert(goal)
-                _goal.value = goal
-            }
+            goalRepository.insert(goal)
+            _goal.value = goal
         }
     }
 

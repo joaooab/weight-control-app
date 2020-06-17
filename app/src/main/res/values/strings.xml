@@ -24,7 +24,6 @@
     <string name="text_what_is_your_goal">"Qual é a sua meta?"</string>
     <string name="text_what_is_your_weight">Qual é o seu peso?</string>
     <string name="error_goal_weight_null">Ops, por favor adicione o seu peso de hoje antes de criar sua meta</string>
-    <string name="error_weight_greater_than_goal">Ops, sua meta não pode ser maior ou igual ao seu peso atual</string>
     <string name="finish_goal">Parabéns!!!\n Você completou sua meta, clique aqui para cadastrar uma nova meta e continuar registrando o seu esforço!</string>
     <string name="end">Fim</string>
     <string name="my_goal">Minhas metas</string>

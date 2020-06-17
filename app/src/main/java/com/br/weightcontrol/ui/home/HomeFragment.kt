@@ -23,6 +23,7 @@ import com.br.weightcontrol.extension.supportFragmentManager
 import com.br.weightcontrol.ui.component.NumberPickerDialog
 import com.br.weightcontrol.ui.component.WeightDateDialog
 import com.br.weightcontrol.util.LayoutUtil
+import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.card_view_goal.*
 import kotlinx.android.synthetic.main.card_view_imc.*
 import kotlinx.android.synthetic.main.card_view_weight.*
@@ -53,6 +54,12 @@ class HomeFragment : Fragment() {
         setupMoreWeight()
         setupMoreGoal()
         setupIMC()
+        setupAdds()
+    }
+
+    private fun setupAdds() {
+        val ad = AdRequest.Builder().build()
+        adView.loadAd(ad)
     }
 
     private fun setUpUser() {

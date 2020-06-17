@@ -2,18 +2,18 @@ package com.br.weightcontrol
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.br.weightcontrol.data.user.Session
-import com.br.weightcontrol.ui.home.HomeFragmentDirections
 import com.br.weightcontrol.util.PreferencesHelper
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +32,11 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        setupAdds()
+    }
+
+    private fun setupAdds() {
+        MobileAds.initialize(this) { }
     }
 
     private fun getUser() {

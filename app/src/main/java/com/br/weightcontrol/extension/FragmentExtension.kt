@@ -6,7 +6,6 @@ import androidx.fragment.app.FragmentManager
 import com.br.weightcontrol.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_home.*
 
 fun Fragment.supportFragmentManager(execute: FragmentManager.() -> Unit) {
     val supportFragmentManager = activity?.supportFragmentManager
@@ -20,8 +19,11 @@ fun Fragment.showBottomNavigationView() {
     }
 }
 
-fun Fragment.showSnackBar(layout: View, message: String) {
-    Snackbar.make(layout, message, Snackbar.LENGTH_LONG).show()
+fun Fragment.showSnackBar(message: String) {
+    val view = this.activity?.findViewById<View>(R.id.snackbar)
+    view?.let {
+        Snackbar.make(view, message, Snackbar.LENGTH_LONG).show()
+    }
 }
 
 fun Fragment.hideBottomNavigationView() {

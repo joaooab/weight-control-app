@@ -49,7 +49,7 @@ class WeightDateDialog : DialogFragment() {
         buttonAction.setOnClickListener {
             val date = editTextDatePicker.getData() ?: Calendar.getInstance()
             if (date.after(Calendar.getInstance())) {
-                showSnackBar(constraintLayout, "Não é possível adicionar para data futura")
+                showSnackBar("Não é possível adicionar para data futura")
             } else {
                 val weight = editTextWeight.text.toString().toDouble()
                 onFinished(Weight(weight = weight, date = date))

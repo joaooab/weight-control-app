@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         getUser()
+        setupAds()
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(
@@ -32,11 +33,10 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-        setupAdds()
     }
 
-    private fun setupAdds() {
-        MobileAds.initialize(this) { }
+    private fun setupAds() {
+        MobileAds.initialize(this) {}
     }
 
     private fun getUser() {

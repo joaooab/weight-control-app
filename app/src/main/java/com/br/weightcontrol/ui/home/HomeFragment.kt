@@ -58,8 +58,9 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupAdds() {
-        val ad = AdRequest.Builder().build()
-        adView.loadAd(ad)
+        val adRequest = AdRequest.Builder()
+            .build()
+        adView.loadAd(adRequest)
     }
 
     private fun setUpUser() {
@@ -101,7 +102,7 @@ class HomeFragment : Fragment() {
         supportFragmentManager {
             WeightDateDialog.newInstance {
                 viewModel.addWeightByDate(it)
-                showSnackBar(constraintLayout, "Peso adicionado com sucesso!")
+                showSnackBar("Peso adicionado com sucesso!")
             }.show(this, "")
         }
     }
@@ -126,7 +127,7 @@ class HomeFragment : Fragment() {
 
     private fun observeError() {
         viewModel.onError.observe(viewLifecycleOwner, Observer {
-            showSnackBar(constraintLayout, it)
+            showSnackBar(it)
         })
     }
 
@@ -148,7 +149,7 @@ class HomeFragment : Fragment() {
         val currentWeight = viewModel.weight.value
         if (currentWeight == null) {
             val message = LayoutUtil.getString(R.string.error_goal_weight_null)
-            showSnackBar(constraintLayout, message)
+            showSnackBar(message)
         } else {
             supportFragmentManager {
                 val title = LayoutUtil.getString(R.string.text_what_is_your_goal)

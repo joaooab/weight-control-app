@@ -19,7 +19,6 @@ import com.br.weightcontrol.util.IMCUtil
 import com.br.weightcontrol.util.LayoutUtil
 import kotlinx.android.synthetic.main.card_view_perfil.*
 import kotlinx.android.synthetic.main.card_view_progress.*
-import kotlinx.android.synthetic.main.fragment_perfil.*
 import org.koin.android.ext.android.inject
 
 class PerfilFragment : Fragment() {
@@ -102,7 +101,7 @@ class PerfilFragment : Fragment() {
 
     private fun observeError() {
         viewModel.onError.observe(viewLifecycleOwner, Observer {
-            showSnackBar(linearLayout, it)
+            showSnackBar(it)
         })
     }
 

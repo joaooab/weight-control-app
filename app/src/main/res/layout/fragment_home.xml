@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            app:adSize="300x50"
+            app:adSize="BANNER"
             app:adUnitId="xxxxxxx" />
 
     </LinearLayout>

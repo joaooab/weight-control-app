@@ -236,6 +236,32 @@ class HomeFragment : Fragment() {
     }
 
     private fun calculatePercent(begin: Double, current: Double, end: Double): Double {
+        return if (begin > end) {
+            calculateDescPercent(begin, current, end)
+        } else {
+            calculateAscPercent(begin, current, end)
+        }
+    }
+
+    private fun calculateAscPercent(
+        begin: Double,
+        current: Double,
+        end: Double
+    ): Double {
+        return if (begin < current) {
+            val totalGoal = end - begin
+            val totalCurrent = current - begin
+            totalCurrent / totalGoal * 100
+        } else {
+            0.0
+        }
+    }
+
+    private fun calculateDescPercent(
+        begin: Double,
+        current: Double,
+        end: Double
+    ): Double {
         return if (begin > current) {
             val totalGoal = begin - end
             val totalCurrent = begin - current

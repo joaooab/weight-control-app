@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.br.weightcontrol.R
 import com.br.weightcontrol.data.weight.Weight
+import com.br.weightcontrol.util.IMCUtil
 import kotlinx.android.synthetic.main.dialog_number_picker.*
 
 class NumberPickerDialog : DialogFragment() {
@@ -28,13 +29,17 @@ class NumberPickerDialog : DialogFragment() {
             onFinished: (weight: Weight) -> Unit
         ): NumberPickerDialog {
             val dialog = NumberPickerDialog().apply {
-                this.weight = weight ?: Weight(weight = DEFAULT_WEIGHT)
+                this.weight = weight ?: Weight(weight = calculateIdealWeight())
                 this.onFinished = onFinished
                 this.title = title
             }
 
             return dialog
         }
+    }
+
+    private fun calculateIdealWeight(): Double {
+        return IMCUtil.calculateIdealWeight()
     }
 
     override fun onStart() {

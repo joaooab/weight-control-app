@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Weightcontrol" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.Wei" parent="android:Theme.Material.Light.NoActionBar" />
+
+    <style name="Theme.Wei.Splash" parent="Theme.SplashScreen" >
+        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_round</item>
+        <item name="postSplashScreenTheme">@style/Theme.Wei</item>
+    </style>
 </resources>

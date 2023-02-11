@@ -45,18 +45,15 @@ android {
 }
 
 dependencies {
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
-    implementation("androidx.activity:activity-compose:1.6.1")
-
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.core.ktx)
-//    implementation(libs.androidx.core.splashscreen)
-    implementation(libs.androidx.compose.runtime)
-    implementation(libs.androidx.compose.runtime.tracing)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.material3.windowSizeClass)
-    implementation(libs.androidx.window.manager)
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.androidx.compose.runtime.tracing)
     implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.window.manager)
     debugImplementation(libs.androidx.compose.ui.tooling)
 }

@@ -45,6 +45,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:design-system"))
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.compose.material3)

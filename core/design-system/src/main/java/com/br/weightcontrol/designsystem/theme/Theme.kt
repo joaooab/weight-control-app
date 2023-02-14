@@ -1,4 +1,4 @@
-package com.br.weightcontrol.ui.theme
+package com.br.weightcontrol.designsystem.theme
 
 import android.app.Activity
 import android.os.Build
@@ -83,12 +83,11 @@ private val DarkColorScheme = darkColorScheme(
 @Composable
 fun WeightcontrolTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
+        dynamicColor && supportsDynamicTheming() -> {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         }
@@ -105,7 +104,10 @@ fun WeightcontrolTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography = WeiTypography,
         content = content
     )
 }
+
+@Composable
+private fun supportsDynamicTheming() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S

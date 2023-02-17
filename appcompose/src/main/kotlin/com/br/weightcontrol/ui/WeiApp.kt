@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import com.br.weightcontrol.designsystem.component.WeiBackground
@@ -20,7 +21,7 @@ import com.br.weightcontrol.designsystem.theme.LocalGradientColors
     ExperimentalComposeUiApi::class,
 )
 @Composable
-fun WeiApp() {
+fun WeiApp(appState: WeiAppState = rememberNiaAppState()) {
     WeiBackground {
         WeiGradientBackground(gradientColors = LocalGradientColors.current) {
             Scaffold(
@@ -28,6 +29,14 @@ fun WeiApp() {
                 containerColor = Color.Transparent,
                 contentColor = MaterialTheme.colorScheme.onBackground,
                 contentWindowInsets = WindowInsets(0, 0, 0, 0),
+                bottomBar = {
+                    WeiBottomBar(
+                        destinations = appState.topLevelDestinations,
+                        onNavigateToDestination = { },
+                        currentDestination = appState.currentDestination,
+                        modifier = Modifier.testTag("WeiBottomBar"),
+                    )
+                }
             ) { padding ->
                 Row(
                     Modifier

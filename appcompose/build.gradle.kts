@@ -45,7 +45,12 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature:home"))
+    implementation(project(":feature:history"))
+    implementation(project(":feature:settings"))
+
     implementation(project(":core:design-system"))
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.compose.material3)

@@ -7,7 +7,11 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.br.weightcontrol.history.navigation.historyNavigationRoute
+import com.br.weightcontrol.home.navigation.homeNavigationRoute
 import com.br.weightcontrol.navigation.TopLevelDestination
+import com.br.weightcontrol.navigation.TopLevelDestination.*
+import com.br.weightcontrol.settings.navigation.setupNavigationRoute
 
 @Composable
 fun rememberNiaAppState(
@@ -26,5 +30,14 @@ class WeiAppState(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
+    val currentTopLevelDestination: TopLevelDestination?
+        @Composable get() = when (currentDestination?.route) {
+            homeNavigationRoute -> HOME
+            historyNavigationRoute -> HISTORY
+            setupNavigationRoute -> SETUP
+            else -> null
+        }
+
     val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
 }
+

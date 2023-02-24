@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -13,7 +14,9 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
 import com.br.weightcontrol.designsystem.component.WeiBackground
 import com.br.weightcontrol.designsystem.component.WeiGradientBackground
+import com.br.weightcontrol.designsystem.component.WeiTopAppBar
 import com.br.weightcontrol.designsystem.theme.LocalGradientColors
+import com.br.weightcontrol.navigation.WeiNavHost
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -49,7 +52,19 @@ fun WeiApp(appState: WeiAppState = rememberNiaAppState()) {
                             ),
                         ),
                 ) {
+                    Column(Modifier.fillMaxSize()) {
+                        val destination = appState.currentTopLevelDestination
+                        if (destination != null) {
+                            WeiTopAppBar(
+                                titleRes = destination.titleTextId,
+                                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                    containerColor = Color.Transparent,
+                                ),
+                            )
+                        }
 
+                        WeiNavHost(appState.navController)
+                    }
                 }
             }
         }

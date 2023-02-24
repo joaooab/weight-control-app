@@ -35,7 +35,7 @@ fun WeiApp(appState: WeiAppState = rememberNiaAppState()) {
                 bottomBar = {
                     WeiBottomBar(
                         destinations = appState.topLevelDestinations,
-                        onNavigateToDestination = { },
+                        onNavigateToDestination = appState::navigateToTopLevelDestination,
                         currentDestination = appState.currentDestination,
                         modifier = Modifier.testTag("WeiBottomBar"),
                     )

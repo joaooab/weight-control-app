@@ -16,6 +16,7 @@ dependencyResolutionManagement {
 
 rootProject.name = "weightcontrol"
 include("appcompose")
+include(":core:database")
 include(":core:design-system")
 include(":feature:home")
 include(":feature:history")

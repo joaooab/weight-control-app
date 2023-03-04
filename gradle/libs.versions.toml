@@ -9,7 +9,9 @@ androidxComposeRuntimeTracing = "1.0.0-alpha01"
 androidxCore = "1.9.0"
 androidxCoreSplashscreen = "1.0.0"
 androidxNavigation = "2.5.3"
+androidxTestCore = "1.5.0"
 androidxWindowManager = "1.0.0"
+junit4 = "4.13.2"
 kotlin = "1.8.0"
 koin = "3.3.0"
 koinAndroid = "3.3.1"
@@ -41,10 +43,13 @@ androidx-compose-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
+androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
 androidx-window-manager = { module = "androidx.window:window", version.ref = "androidxWindowManager" }
+junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koinAndroid" }
 koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koinCompose" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }

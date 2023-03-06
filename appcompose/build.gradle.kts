@@ -49,6 +49,7 @@ dependencies {
     implementation(project(":feature:history"))
     implementation(project(":feature:settings"))
 
+    implementation(project(":core:database"))
     implementation(project(":core:design-system"))
 
     implementation(libs.androidx.activity.compose)
@@ -62,5 +63,6 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.window.manager)
+    implementation(libs.koin.android)
     debugImplementation(libs.androidx.compose.ui.tooling)
 }

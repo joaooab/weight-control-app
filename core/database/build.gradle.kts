@@ -1,5 +1,6 @@
 plugins {
     id("weightcontrol.android.library")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -7,4 +8,9 @@ android {
 }
 
 dependencies {
+    ksp(libs.room.compiler)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    implementation(libs.koin.android)
+    implementation(libs.kotlinx.datetime)
 }

@@ -37,7 +37,10 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
             dependencies {
+                add("implementation", project(":core:data"))
                 add("implementation", project(":core:design-system"))
+                add("implementation", project(":core:model"))
+                add("implementation", project(":core:util"))
 
                 add("implementation", libs.findLibrary("androidx.navigation.compose").get())
                 add("implementation", libs.findLibrary("koin.android").get())

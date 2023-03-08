@@ -49,7 +49,7 @@ dependencies {
     implementation(project(":feature:history"))
     implementation(project(":feature:settings"))
 
-    implementation(project(":core:database"))
+    implementation(project(":core:data"))
     implementation(project(":core:design-system"))
 
     implementation(libs.androidx.activity.compose)

@@ -10,7 +10,7 @@ interface TrackDao {
     fun getAllStream(): Flow<List<TrackEntity>>
 
     @Query("SELECT * FROM track WHERE createdAt = :createdAt")
-    suspend fun getByCreatedAt(createdAt: String): TrackEntity?
+    fun getByCreatedAt(createdAt: String): Flow<TrackEntity?>
 
     @Query("SELECT * FROM track ORDER BY createdAt DESC LIMIT 1;")
     fun getLastStream(): Flow<TrackEntity?>

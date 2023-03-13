@@ -11,5 +11,5 @@ data class GoalEntity(
     val desire: Double,
     val current: Double,
     val createdAt: String,
-    val completedAt: String,
+    val completedAt: String?,
 )

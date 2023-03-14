@@ -1,10 +1,12 @@
 package com.br.weightcontrol.di
 
 import com.br.weightcontrol.data.di.dataModule
+import com.br.weightcontrol.home.di.homeModule
 import org.koin.dsl.module
 
 val weiAppModule = module {
     includes(
         dataModule,
+        homeModule,
     )
 }

@@ -15,8 +15,8 @@ interface TrackDao {
     @Query("SELECT * FROM track ORDER BY createdAt DESC LIMIT 1;")
     fun getLastStream(): Flow<TrackEntity?>
 
-    @Query("SELECT * FROM track ORDER BY createdAt ASC LIMIT 1;")
-    fun getFirstStream(): Flow<TrackEntity?>
+    @Query("SELECT * FROM track ORDER BY createdAt DESC LIMIT 1,1;")
+    fun getPreviewsStream(): Flow<TrackEntity?>
 
     @Query("SELECT * FROM track ORDER BY weight DESC LIMIT 1;")
     fun getHigherStream(): Flow<TrackEntity?>

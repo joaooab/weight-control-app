@@ -1,7 +1,6 @@
 package com.br.weightcontrol.data.repository
 
 import com.br.weightcontrol.model.Track
-import com.br.weightcontrol.model.TrackEntity
 import kotlinx.coroutines.flow.Flow
 
 interface TrackRepository {
@@ -10,7 +9,7 @@ interface TrackRepository {
 
     fun getLastStream(): Flow<Track?>
 
-    fun getFirstStream(): Flow<Track?>
+    fun getPreviewsStream(): Flow<Track?>
 
     fun getHigherStream(): Flow<Track?>
 

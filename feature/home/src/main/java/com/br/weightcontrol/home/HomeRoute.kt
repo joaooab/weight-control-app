@@ -2,6 +2,7 @@ package com.br.weightcontrol.home
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Divider
@@ -14,14 +15,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.br.weightcontrol.bmi.domain.calculateBMI
+import com.br.weightcontrol.bmi.domain.format
 import com.br.weightcontrol.designsystem.icon.WeiIcons
 import com.br.weightcontrol.designsystem.theme.WeiTheme
+import com.br.weightcontrol.model.Gender
 import com.br.weightcontrol.model.Track
+import com.br.weightcontrol.model.User
 import com.br.weightcontrol.model.format
-import com.br.weightcontrol.model.formatBmi
+import com.br.weightcontrol.ui.TrackListResourcePreviewParameterProvider
+import com.br.weightcontrol.ui.chart.TrackListChart
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -31,8 +37,10 @@ internal fun HomeRoute(
 ) {
     val progress by viewModel.progressState.collectAsStateWithLifecycle()
     val goal by viewModel.goalState.collectAsStateWithLifecycle()
+    val history by viewModel.historyState.collectAsStateWithLifecycle()
     HomeScreen(
         progress = progress,
+        history = history,
         modifier = modifier,
     )
 }
@@ -40,12 +48,23 @@ internal fun HomeRoute(
 @Composable
 internal fun HomeScreen(
     progress: Progress,
+    history: List<Track>,
     modifier: Modifier = Modifier,
 ) {
     Column(modifier.padding(16.dp)) {
-        TrackProgressCard(progress)
-        Spacer(modifier = Modifier.height(16.dp))
-        BodyMassIndexCard(progress.last)
+        LazyColumn {
+            item {
+                TrackProgressCard(progress)
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+            item {
+                BodyMassIndexCard(progress.last)
+                Spacer(modifier = Modifier.height(16.dp))
+            }
+            item {
+                TrackListChart(tracks = history)
+            }
+        }
     }
 }
 
@@ -121,9 +140,9 @@ fun BodyMassIndexCard(track: Track?) {
                 Text(text = stringResource(R.string.home_bmi), fontWeight = FontWeight.Bold)
             }
             Spacer(modifier = Modifier.height(16.dp))
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth()
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
             ) {
                 Text(text = track.formatBmi(), fontWeight = FontWeight.Bold, fontSize = 24.sp)
                 Text(text = "Peso normal")
@@ -135,9 +154,12 @@ fun BodyMassIndexCard(track: Track?) {
 
 @Preview
 @Composable
-internal fun HomeScreenPreview() {
+internal fun HomeScreenPreview(
+    @PreviewParameter(TrackListResourcePreviewParameterProvider::class)
+    trackListResource: List<Track>,
+) {
     WeiTheme {
-        HomeScreen(progress = Progress())
+        HomeScreen(progress = Progress(), history = trackListResource)
     }
 }
 

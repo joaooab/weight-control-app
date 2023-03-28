@@ -1,5 +1,6 @@
 plugins {
     id("weightcontrol.android.library")
+    id("weightcontrol.android.library.compose")
 }
 
 android {
@@ -18,5 +19,8 @@ dependencies {
     api(libs.androidx.compose.ui.util)
     api(libs.androidx.compose.runtime)
     api(libs.androidx.compose.runtime.livedata)
+    implementation(libs.chart.core)
+    implementation(libs.chart.compose)
+    implementation(libs.chart.compose.m3)
     implementation(libs.kotlinx.datetime)
 }

@@ -6,10 +6,7 @@ import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Speed
-import androidx.compose.material.icons.outlined.History
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Settings
-import androidx.compose.material.icons.outlined.Speed
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.ui.graphics.vector.ImageVector
 
 object WeiIcons {
@@ -21,6 +18,8 @@ object WeiIcons {
     val SettingsBorder = Icons.Outlined.Settings
     val Speed = Icons.Filled.Speed
     val SpeedBorder = Icons.Outlined.Speed
+    val Add = Icons.Outlined.Add
+    val AddBorder = Icons.Outlined.Add
 }
 
 sealed class Icon {

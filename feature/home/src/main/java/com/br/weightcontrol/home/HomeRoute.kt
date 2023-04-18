@@ -55,7 +55,7 @@ internal fun HomeScreen(
                 Spacer(modifier = Modifier.height(16.dp))
             }
             item {
-                BodyMassIndexCard(progress.last)
+                BodyMassIndexCard(progress.current)
                 Spacer(modifier = Modifier.height(16.dp))
             }
             item {
@@ -90,10 +90,10 @@ internal fun TrackProgressCard(
             }
             Spacer(modifier = Modifier.height(12.dp))
 
-            TrackItem(progress.last, R.string.home_track_current)
+            TrackItem(progress.current, R.string.home_track_current)
             Divider(thickness = 1.dp, modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
 
-            TrackItem(progress.previews, R.string.home_track_previews)
+            TrackItem(progress.previous, R.string.home_track_previews)
             Divider(thickness = 1.dp, modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
 
             TrackItem(progress.higher, R.string.home_track_higher)
@@ -119,6 +119,9 @@ private fun TrackItem(track: Track?, @StringRes label: Int) {
 
 @Composable
 fun BodyMassIndexCard(track: Track?) {
+    if (track == null) return
+    val bmi = calculateBMI(track.weight, User("", 180, Gender.MALE))
+
     Card(
         shape = RoundedCornerShape(8.dp),
     ) {
@@ -141,8 +144,9 @@ fun BodyMassIndexCard(track: Track?) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
             ) {
-                Text(text = track.formatBmi(), fontWeight = FontWeight.Bold, fontSize = 24.sp)
-                Text(text = "Peso normal")
+                Text(text = bmi.format(), fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.width(16.dp))
+                Text(text = stringResource(bmi.message))
             }
         }
     }

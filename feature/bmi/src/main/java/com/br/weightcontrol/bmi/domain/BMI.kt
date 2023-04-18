@@ -6,3 +6,5 @@ data class BMI(
     val value: Double,
     @StringRes val message: Int,
 )
+
+fun BMI.format() = "$value Kg/m²"

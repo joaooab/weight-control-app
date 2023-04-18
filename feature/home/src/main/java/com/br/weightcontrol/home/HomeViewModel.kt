@@ -29,4 +29,10 @@ class HomeViewModel(repository: TrackRepository, goalRepository: GoalRepository)
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = null,
     )
+
+    val historyState = repository.getAllStream().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = listOf(),
+    )
 }

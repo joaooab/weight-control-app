@@ -12,5 +12,3 @@ data class Track(
 )
 
 fun Track?.format() = if (this == null) "" else "$weight Kg"
-
-fun Track?.formatBmi() = if (this == null) "" else "$weight Kg/m²"

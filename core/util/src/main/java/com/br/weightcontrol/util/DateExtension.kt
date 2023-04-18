@@ -1,6 +1,7 @@
 package com.br.weightcontrol.util
 
 import kotlinx.datetime.Clock
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 import java.text.SimpleDateFormat
@@ -10,6 +11,8 @@ private const val DATE_PATTERN = "yyyy-MM-dd"
 private const val DATE_PATTERN_BR = "dd/MM/yyyy"
 
 fun today() = Clock.System.todayIn(TimeZone.currentSystemDefault())
+fun todayAsString() = today().toString()
+fun stringToDate(date: String) = LocalDate.parse(date)
 
 fun parseOldDateToNewDate(date: String): String {
     val oldDate = SimpleDateFormat(

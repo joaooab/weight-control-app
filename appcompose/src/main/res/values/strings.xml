@@ -3,4 +3,6 @@
     <string name="home">Home</string>
     <string name="history">Histórico</string>
     <string name="settings">Configuração</string>
+
+    <string name="content_description_fab">Adicionar peso</string>
 </resources>

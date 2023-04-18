@@ -14,21 +14,23 @@
  * limitations under the License.
  */
 
-package com.br.weightcontrol.settings.navigation
+package com.br.weightcontrol.track.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import com.br.weightcontrol.track.TrackRoute
 
-const val setupNavigationRoute = "setup_route"
+const val trackNavigationRoute = "track_route"
 
-fun NavController.navigateToSetup(navOptions: NavOptions? = null) {
-    this.navigate(setupNavigationRoute, navOptions)
+fun NavController.navigateToTrack() {
+    this.navigate(trackNavigationRoute)
 }
 
-fun NavGraphBuilder.setupScreen() {
-    composable(route = setupNavigationRoute) {
-
+fun NavGraphBuilder.trackScreen(
+    onBackClick: () -> Unit,
+) {
+    composable(route = trackNavigationRoute) {
+        TrackRoute(onBackClick)
     }
 }

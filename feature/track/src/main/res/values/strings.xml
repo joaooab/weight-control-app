@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_which_day">Para qual dia?</string>
+    <string name="track_which_weight">Qual o peso?</string>
+</resources>

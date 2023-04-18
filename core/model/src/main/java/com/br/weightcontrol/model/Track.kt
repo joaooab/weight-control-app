@@ -6,7 +6,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayIn
 
 data class Track(
-    val id: Long = -1,
+    val id: Long = 0,
     val weight: Double = 0.0,
     val createdAt: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
 )

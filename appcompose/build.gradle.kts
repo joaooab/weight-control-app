@@ -48,9 +48,11 @@ dependencies {
     implementation(project(":feature:home"))
     implementation(project(":feature:history"))
     implementation(project(":feature:settings"))
+    implementation(project(":feature:track"))
 
     implementation(project(":core:data"))
     implementation(project(":core:design-system"))
+    implementation(project(":core:ui"))
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)

@@ -2,10 +2,7 @@ package com.br.weightcontrol.designsystem.icon
 
 import androidx.annotation.DrawableRes
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.History
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.filled.Speed
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material.icons.outlined.*
 import androidx.compose.ui.graphics.vector.ImageVector
 
@@ -17,9 +14,10 @@ object WeiIcons {
     val Settings = Icons.Filled.Settings
     val SettingsBorder = Icons.Outlined.Settings
     val Speed = Icons.Filled.Speed
-    val SpeedBorder = Icons.Outlined.Speed
-    val Add = Icons.Outlined.Add
-    val AddBorder = Icons.Outlined.Add
+    val Add = Icons.Filled.Add
+    val Fitness = Icons.Filled.FitnessCenter
+    val CalendarBorder = Icons.Outlined.CalendarMonth
+    val ArrowBack = Icons.Filled.ArrowBack
 }
 
 sealed class Icon {

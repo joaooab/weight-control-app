@@ -17,6 +17,7 @@ import com.br.weightcontrol.designsystem.component.WeiGradientBackground
 import com.br.weightcontrol.designsystem.component.WeiTopAppBar
 import com.br.weightcontrol.designsystem.theme.LocalGradientColors
 import com.br.weightcontrol.navigation.WeiNavHost
+import com.br.weightcontrol.track.navigation.navigateToTrack
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -24,7 +25,7 @@ import com.br.weightcontrol.navigation.WeiNavHost
     ExperimentalComposeUiApi::class,
 )
 @Composable
-fun WeiApp(appState: WeiAppState = rememberNiaAppState()) {
+fun WeiApp(appState: WeiAppState = rememberWeiAppState()) {
     WeiBackground {
         WeiGradientBackground(gradientColors = LocalGradientColors.current) {
             Scaffold(
@@ -32,6 +33,13 @@ fun WeiApp(appState: WeiAppState = rememberNiaAppState()) {
                 containerColor = Color.Transparent,
                 contentColor = MaterialTheme.colorScheme.onBackground,
                 contentWindowInsets = WindowInsets(0, 0, 0, 0),
+                floatingActionButton = {
+                    WeiFabButton(
+                        onClick = {
+                            appState.navController.navigateToTrack()
+                        }
+                    )
+                },
                 bottomBar = {
                     WeiBottomBar(
                         destinations = appState.topLevelDestinations,
@@ -45,7 +53,7 @@ fun WeiApp(appState: WeiAppState = rememberNiaAppState()) {
                     Modifier
                         .fillMaxSize()
                         .padding(padding)
-                        .consumedWindowInsets(padding)
+                        .consumeWindowInsets(padding)
                         .windowInsetsPadding(
                             WindowInsets.safeDrawing.only(
                                 WindowInsetsSides.Horizontal,

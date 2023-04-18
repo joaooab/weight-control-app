@@ -20,16 +20,27 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
+import androidx.navigation.navigation
 import com.br.weightcontrol.home.HomeRoute
 
+private const val homeGraphRoutePattern = "home_graph"
 const val homeNavigationRoute = "home_route"
 
 fun NavController.navigateToHome(navOptions: NavOptions? = null) {
-    this.navigate(homeNavigationRoute, navOptions)
+    this.navigate(homeGraphRoutePattern, navOptions)
 }
 
-fun NavGraphBuilder.homeScreen(onTopicClick: (String) -> Unit) {
+fun NavGraphBuilder.homeScreen(nestedGraphs: NavGraphBuilder.() -> Unit) {
     composable(route = homeNavigationRoute) {
         HomeRoute()
+    }
+    navigation(
+        route = homeGraphRoutePattern,
+        startDestination = homeNavigationRoute,
+    ) {
+        composable(route = homeNavigationRoute) {
+            HomeRoute()
+        }
+        nestedGraphs()
     }
 }

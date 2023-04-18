@@ -24,6 +24,7 @@ import com.br.weightcontrol.history.navigation.historyScreen
 import com.br.weightcontrol.home.navigation.homeNavigationRoute
 import com.br.weightcontrol.home.navigation.homeScreen
 import com.br.weightcontrol.settings.navigation.setupScreen
+import com.br.weightcontrol.track.navigation.trackScreen
 
 @Composable
 fun WeiNavHost(
@@ -36,8 +37,14 @@ fun WeiNavHost(
         startDestination = startDestination,
         modifier = modifier,
     ) {
-        homeScreen(onTopicClick = { })
-        historyScreen(onTopicClick = { })
-        setupScreen(onTopicClick = { })
+        homeScreen(
+            nestedGraphs = {
+                trackScreen(
+                    onBackClick = navController::popBackStack,
+                )
+            },
+        )
+        historyScreen()
+        setupScreen()
     }
 }

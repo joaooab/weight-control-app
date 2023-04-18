@@ -27,7 +27,7 @@ fun NavController.navigateToHistory(navOptions: NavOptions? = null) {
     this.navigate(historyNavigationRoute, navOptions)
 }
 
-fun NavGraphBuilder.historyScreen(onTopicClick: (String) -> Unit) {
+fun NavGraphBuilder.historyScreen() {
     composable(route = historyNavigationRoute) {
 
     }

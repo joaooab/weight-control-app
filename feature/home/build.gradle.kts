@@ -6,3 +6,8 @@ plugins {
 android {
     namespace = "com.br.weightcontrol.home"
 }
+
+dependencies {
+    implementation(project(":feature:bmi"))
+    implementation(libs.kotlinx.datetime)
+}

@@ -10,6 +10,7 @@ android {
 dependencies {
     implementation(project(":core:design-system"))
     implementation(project(":core:model"))
+    implementation(project(":core:util"))
     api(libs.androidx.compose.foundation)
     api(libs.androidx.compose.foundation.layout)
     api(libs.androidx.compose.material.iconsExtended)

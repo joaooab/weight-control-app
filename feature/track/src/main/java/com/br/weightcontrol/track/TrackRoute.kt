@@ -13,13 +13,14 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.br.weightcontrol.core.designsystem.R
-import com.br.weightcontrol.track.R as trackR
 import com.br.weightcontrol.designsystem.component.BackNavigationIcon
+import com.br.weightcontrol.designsystem.component.WeiButton
 import com.br.weightcontrol.designsystem.component.WeiTopAppBar
 import com.br.weightcontrol.designsystem.icon.WeiIcons
-import com.br.weightcontrol.util.getValidatedDecimalNumber
-import com.br.weightcontrol.util.todayAsString
+import com.br.weightcontrol.ui.WeiDatePicker
+import com.br.weightcontrol.util.*
 import org.koin.androidx.compose.koinViewModel
+import com.br.weightcontrol.track.R as trackR
 
 @Composable
 internal fun TrackRoute(
@@ -30,18 +31,26 @@ internal fun TrackRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     var inputDate by rememberSaveable { mutableStateOf(todayAsString()) }
     var inputTrack by rememberSaveable { mutableStateOf("") }
+    var datePickerVisible by remember { mutableStateOf(false) }
+    val datePickerState = rememberDatePickerState(
+        initialSelectedDateMillis = inputDate.toLocalDate().toLong(),
+        initialDisplayMode = DisplayMode.Picker,
+    )
 
     when (uiState) {
         is TrackViewModel.UiState.Added -> onBackClick()
         else -> {
             TrackScreen(
-                currentDate = { inputDate },
-                currentTrack = { inputTrack },
+                selectedDate = { inputDate },
+                selectedTrack = { inputTrack },
+                datePickerState = datePickerState,
+                datePickerVisible = { datePickerVisible },
                 onDateChanged = { inputDate = it },
                 onTrackChanged = { inputTrack = getValidatedDecimalNumber(it) },
+                onDatePickerVisibleChanged = { datePickerVisible = it },
                 onBackClick = onBackClick,
-                modifier = modifier,
-                onSave = viewModel::save
+                onSave = viewModel::save,
+                modifier = modifier
             )
         }
     }
@@ -49,14 +58,23 @@ internal fun TrackRoute(
 
 @Composable
 internal fun TrackScreen(
-    currentDate: () -> String,
-    currentTrack: () -> String,
+    selectedDate: () -> String,
+    selectedTrack: () -> String,
+    datePickerState: DatePickerState,
+    datePickerVisible: () -> Boolean,
     onDateChanged: (String) -> Unit,
     onTrackChanged: (String) -> Unit,
+    onDatePickerVisibleChanged: (Boolean) -> Unit,
     onBackClick: () -> Unit,
     onSave: (date: String, track: Double) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    if (datePickerVisible()) WeiDatePicker(
+        onConfirmButton = { onDateChanged(it.toLocalDate().toString()) },
+        onDismissRequest = { onDatePickerVisibleChanged(false) },
+        state = datePickerState,
+    )
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -68,47 +86,43 @@ internal fun TrackScreen(
         )
         Text(
             text = stringResource(trackR.string.track_which_weight),
-            modifier = Modifier
-                .padding(top = 16.dp),
+            modifier = Modifier.padding(top = 16.dp),
         )
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),
-            value = currentTrack(),
-            trailingIcon = {
-                Icon(
-                    imageVector = WeiIcons.Fitness,
-                    contentDescription = "",
-                )
-            },
+            value = selectedTrack(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             onValueChange = { onTrackChanged(it) }
         )
         Text(
             text = stringResource(trackR.string.track_which_day),
-            modifier = Modifier
-                .padding(top = 16.dp),
+            modifier = Modifier.padding(top = 16.dp),
         )
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),
-            value = currentDate(),
-            trailingIcon = {
-                Icon(
-                    imageVector = WeiIcons.CalendarBorder,
-                    contentDescription = "",
-                )
+            value = selectedDate(),
+            leadingIcon = {
+                IconButton(
+                    onClick = { onDatePickerVisibleChanged(true) }
+                ) {
+                    Icon(
+                        imageVector = WeiIcons.CalendarBorder,
+                        contentDescription = "",
+                    )
+                }
             },
-            onValueChange = { onDateChanged(it) }
+            onValueChange = { onDateChanged(it) },
+            readOnly = true,
         )
-
-        Button(
+        WeiButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 24.dp),
-            onClick = { onSave(currentDate(), currentTrack().toDouble()) }
+            onClick = { onSave(selectedDate(), selectedTrack().toDouble()) }
         ) {
             Text(text = stringResource(id = R.string.save))
         }

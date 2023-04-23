@@ -18,6 +18,7 @@ object WeiIcons {
     val Fitness = Icons.Filled.FitnessCenter
     val CalendarBorder = Icons.Outlined.CalendarMonth
     val ArrowBack = Icons.Filled.ArrowBack
+    val Close = Icons.Filled.Close
 }
 
 sealed class Icon {

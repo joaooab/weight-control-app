@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TrackDao {
-    @Query("SELECT * FROM track")
+    @Query("SELECT * FROM track ORDER BY createdAt DESC")
     fun getAllStream(): Flow<List<TrackEntity>>
 
     @Query("SELECT * FROM track WHERE createdAt = :createdAt")

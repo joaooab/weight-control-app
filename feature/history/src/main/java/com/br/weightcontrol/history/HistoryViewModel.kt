@@ -1,4 +1,4 @@
-package com.br.weightcontrol
+package com.br.weightcontrol.history
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

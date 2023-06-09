@@ -9,6 +9,7 @@ android {
 
 dependencies {
     implementation(project(":core:database"))
+    implementation(project(":core:datastore"))
     implementation(project(":core:model"))
     implementation(libs.koin.android)
     implementation(libs.kotlinx.datetime)

@@ -18,6 +18,7 @@ rootProject.name = "weightcontrol"
 include("appcompose")
 include(":core:data")
 include(":core:database")
+include(":core:datastore")
 include(":core:design-system")
 include(":core:model")
 include(":core:ui")

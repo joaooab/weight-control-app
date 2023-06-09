@@ -80,19 +80,19 @@ fun ProfileScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),
-            value = selectedAge(),
+            value = selectedHeight(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            onValueChange = { onAgeChanged(it) },
-            label = { Text(stringResource(id = R.string.age)) }
+            onValueChange = { onHeightChanged(it) },
+            label = { Text(stringResource(id = R.string.height)) }
         )
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),
-            value = selectedHeight(),
+            value = selectedAge(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            onValueChange = { onHeightChanged(it) },
-            label = { Text(stringResource(id = R.string.height)) }
+            onValueChange = { onAgeChanged(it) },
+            label = { Text(stringResource(id = R.string.age)) }
         )
         Spacer(modifier = Modifier.weight(1f))
         WeiButton(

@@ -1,5 +1,6 @@
 package com.br.weightcontrol.di
 
+import br.com.weightcontrol.profile.di.profileModule
 import com.br.weightcontrol.data.di.dataModule
 import com.br.weightcontrol.history.di.historyModule
 import com.br.weightcontrol.home.di.homeModule
@@ -12,5 +13,6 @@ val weiAppModule = module {
         homeModule,
         trackModule,
         historyModule,
+        profileModule,
     )
 }

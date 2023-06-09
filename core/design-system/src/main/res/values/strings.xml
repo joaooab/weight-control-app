@@ -5,4 +5,5 @@
     <string name="cancel">Cancelar</string>
     <string name="alert">Atenção</string>
     <string name="add_track">Nova medição</string>
+    <string name="profile">Perfil</string>
 </resources>

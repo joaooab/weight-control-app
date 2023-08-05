@@ -23,3 +23,8 @@ fun getValidatedDecimalNumber(
         filteredChars.take(digitsBeforeDecimal)
     }
 }
+
+fun onChangeWithLimit(text: String, limit: Int): String {
+    return if (text.length <= limit) text
+    else text.take(limit)
+}

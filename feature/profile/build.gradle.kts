@@ -6,3 +6,7 @@ plugins {
 android {
     namespace = "com.br.weightcontrol.profile"
 }
+
+dependencies {
+    implementation(project(":core:data"))
+}

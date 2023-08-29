@@ -226,7 +226,7 @@ class HomeFragment : Fragment() {
         }
 
         animator.addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationEnd(animation: Animator?) {
+            override fun onAnimationEnd(animation: Animator) {
                 if (percent >= 100) {
                     setupFinishGoal()
                 }

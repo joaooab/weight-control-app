@@ -10,4 +10,8 @@
     <string name="gender_select">Selecione o gênero</string>
     <string name="female">Feminino</string>
     <string name="male">Masculino</string>
+
+    <string name="field_name_error">Nome não pode ser vazio</string>
+    <string name="field_height_error">Altura deve estar entre 100cm e 300cm</string>
+    <string name="field_birthday_error">Data inválida</string>
 </resources>

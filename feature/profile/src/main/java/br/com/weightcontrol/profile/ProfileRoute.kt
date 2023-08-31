@@ -1,4 +1,6 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
+@file:OptIn(
+    ExperimentalMaterial3Api::class
+)
 
 package br.com.weightcontrol.profile
 
@@ -13,14 +15,12 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.br.weightcontrol.designsystem.component.WeiButton
 import com.br.weightcontrol.designsystem.component.WeiTopAppBar
 import com.br.weightcontrol.designsystem.theme.WeiTheme
@@ -28,35 +28,34 @@ import com.br.weightcontrol.model.Gender
 import com.br.weightcontrol.profile.R
 import com.br.weightcontrol.ui.GenderSelection
 import com.br.weightcontrol.ui.WeiDatePickerField
+import com.br.weightcontrol.ui.input.InputHandler
 import com.br.weightcontrol.ui.rememberBirthdayDatePickerState
 import com.br.weightcontrol.util.dateValidatorLowerThanToday
-import com.br.weightcontrol.util.onChangeWithLimit
-import com.br.weightcontrol.util.today
 import kotlinx.datetime.LocalDate
 import org.koin.androidx.compose.koinViewModel
-
-// TODO: Form validation https://proandroiddev.com/input-validation-in-jetpack-compose-e99c18b44fe3 
 
 @Composable
 fun ProfileRoute(
     modifier: Modifier = Modifier,
     viewModel: ProfileViewModel = koinViewModel(),
 ) {
-    var inputName by remember { mutableStateOf("") }
-    var inputHeight by remember { mutableStateOf("") }
-    var inputBirthday by remember { mutableStateOf(today()) }
-    var selectedGender by remember { mutableStateOf(Gender.MALE) }
+    val name by viewModel.name.collectAsStateWithLifecycle()
+    val height by viewModel.height.collectAsStateWithLifecycle()
+    val birthday by viewModel.birthday.collectAsStateWithLifecycle()
+    val gender by viewModel.gender.collectAsStateWithLifecycle()
+    val areInputsValid by viewModel.areInputsValid.collectAsStateWithLifecycle()
     val datePickerState = rememberBirthdayDatePickerState()
 
     ProfileScreen(
-        selectedName = { inputName },
-        selectedHeight = { inputHeight },
-        selectedBirthday = { inputBirthday },
-        selectedGender = { selectedGender },
-        onNameChanged = { inputName = it },
-        onBirthdayChanged = { inputBirthday = it },
-        onHeightChanged = { inputHeight = onChangeWithLimit(it, 3) },
-        onGenderChanged = { selectedGender = it },
+        name = name,
+        height = height,
+        birthday = birthday,
+        gender = gender,
+        onNameChanged = viewModel::onNameEntered,
+        onHeightChanged = viewModel::onHeightEntered,
+        onBirthdayChanged = viewModel::onBirthdayEntered,
+        onGenderChanged = viewModel::onGenderEntered,
+        areInputsValid = areInputsValid,
         datePickerState = datePickerState,
         onSave = viewModel::save,
         modifier = modifier
@@ -65,17 +64,18 @@ fun ProfileRoute(
 
 @Composable
 fun ProfileScreen(
-    selectedName: () -> String,
-    selectedHeight: () -> String,
-    selectedBirthday: () -> LocalDate,
-    selectedGender: () -> Gender,
+    name: InputHandler,
+    height: InputHandler,
+    birthday: InputHandler,
+    gender: InputHandler,
     onNameChanged: (String) -> Unit,
-    onBirthdayChanged: (LocalDate) -> Unit,
     onHeightChanged: (String) -> Unit,
+    onBirthdayChanged: (LocalDate) -> Unit,
     onGenderChanged: (Gender) -> Unit,
+    areInputsValid: Boolean,
     datePickerState: DatePickerState,
     modifier: Modifier = Modifier,
-    onSave: (String, Int, LocalDate) -> Unit
+    onSave: () -> Unit
 ) {
 
     Column(
@@ -91,16 +91,15 @@ fun ProfileScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),
-            value = selectedName(),
+            value = name.input,
             onValueChange = { onNameChanged(it) },
             label = { Text(stringResource(id = R.string.name)) },
-            isError = selectedName().isBlank()
         )
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),
-            value = selectedHeight(),
+            value = height.input,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
             onValueChange = { onHeightChanged(it) },
             label = { Text(stringResource(id = R.string.height)) }
@@ -109,7 +108,7 @@ fun ProfileScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),
-            value = selectedBirthday(),
+            value = birthday.input,
             datePickerState = datePickerState,
             onValueChange = { onBirthdayChanged(it) },
             dateValidator = dateValidatorLowerThanToday
@@ -120,14 +119,15 @@ fun ProfileScreen(
         )
         GenderSelection(
             onGenderSelected = { onGenderChanged(it) },
-            selectedGender = selectedGender(),
+            gender = Gender.valueOf(gender.input),
         )
         Spacer(modifier = Modifier.weight(1f))
         WeiButton(
+            enabled = areInputsValid,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 24.dp),
-            onClick = { onSave(selectedName(), selectedHeight().toInt(), selectedBirthday()) }
+            onClick = { onSave() }
         ) {
             Text(text = stringResource(id = R.string.save))
         }

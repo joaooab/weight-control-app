@@ -14,7 +14,7 @@ import com.br.weightcontrol.model.Gender
 @Composable
 fun GenderSelection(
     onGenderSelected: (Gender) -> Unit,
-    selectedGender: Gender = Gender.MALE
+    gender: Gender = Gender.MALE
 ) {
     Row(
         modifier = Modifier
@@ -24,13 +24,13 @@ fun GenderSelection(
     ) {
         GenderIcon(
             gender = Gender.MALE,
-            selected = selectedGender == Gender.MALE,
+            selected = gender == Gender.MALE,
             onClick = { onGenderSelected(Gender.MALE) }
         )
 
         GenderIcon(
             gender = Gender.FEMALE,
-            selected = selectedGender == Gender.FEMALE,
+            selected = gender == Gender.FEMALE,
             onClick = { onGenderSelected(Gender.FEMALE) }
         )
     }
@@ -40,6 +40,6 @@ fun GenderSelection(
 @Composable
 fun GenderSelectionPreview() {
     WeiTheme {
-        GenderSelection(onGenderSelected = {}, selectedGender = Gender.MALE)
+        GenderSelection(onGenderSelected = {}, gender = Gender.MALE)
     }
 }

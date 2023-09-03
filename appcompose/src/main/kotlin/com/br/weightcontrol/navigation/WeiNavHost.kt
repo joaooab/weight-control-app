@@ -20,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
-import br.com.weightcontrol.profile.navigation.profileNavigationRoute
 import br.com.weightcontrol.profile.navigation.profileScreen
 import com.br.weightcontrol.history.navigation.historyScreen
 import com.br.weightcontrol.home.navigation.homeNavigationRoute
@@ -32,22 +31,17 @@ import com.br.weightcontrol.track.navigation.trackScreen
 fun WeiNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    startDestination: String = profileNavigationRoute,
+    startDestination: String = homeNavigationRoute,
 ) {
     NavHost(
         navController = navController,
         startDestination = startDestination,
         modifier = modifier,
     ) {
-        homeScreen(
-            nestedGraphs = {
-                trackScreen(
-                    onBackClick = navController::popBackStack,
-                )
-            },
-        )
+        homeScreen()
         historyScreen()
         setupScreen()
         profileScreen()
+        trackScreen(onBackClick = navController::popBackStack)
     }
 }

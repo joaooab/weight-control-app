@@ -7,5 +7,5 @@ interface ProfileRepository {
 
     suspend fun stream(): Flow<Profile>
 
-    suspend fun insert(profile: Profile)
+    suspend fun insert(profile: Profile): Boolean
 }

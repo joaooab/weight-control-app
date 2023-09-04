@@ -1,6 +1,5 @@
 package br.com.weightcontrol.datastore.datasource
 
-import android.util.Log
 import androidx.datastore.core.DataStore
 import br.com.weightcontrol.datastore.GenderPreference
 import br.com.weightcontrol.datastore.ProfilePreference
@@ -11,7 +10,6 @@ import com.br.weightcontrol.util.toLocalDate
 import com.br.weightcontrol.util.toLong
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import java.io.IOException
 
 class ProfilePreferenceDataSource(private val preference: DataStore<ProfilePreference>) {
 
@@ -28,7 +26,7 @@ class ProfilePreferenceDataSource(private val preference: DataStore<ProfilePrefe
         )
     }
 
-    suspend fun save(profile: Profile) = try {
+    suspend fun save(profile: Profile) = runCatching {
         preference.updateData {
             it.copy {
                 name = profile.name
@@ -41,7 +39,5 @@ class ProfilePreferenceDataSource(private val preference: DataStore<ProfilePrefe
                 }
             }
         }
-    } catch (ioException: IOException) {
-        Log.e("ProfilePreferences", "Failed to update preferences", ioException)
     }
 }

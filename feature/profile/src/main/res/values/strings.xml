@@ -3,4 +3,6 @@
     <string name="name">Nome</string>
     <string name="age">Idade</string>
     <string name="height">Altura(cm)</string>
+
+    <string name="error_create_profile">Falha ao criar o Perfil. Tente novamente mais tarde</string>
 </resources>

@@ -1,9 +1,11 @@
 package br.com.weightcontrol.profile
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.br.weightcontrol.data.repository.ProfileRepository
+import com.br.weightcontrol.model.ActionState
 import com.br.weightcontrol.model.Gender
 import com.br.weightcontrol.model.Profile
 import com.br.weightcontrol.ui.input.BirthDayInputHandler
@@ -23,6 +25,7 @@ class ProfileViewModel(
     private val repository: ProfileRepository
 ) : ViewModel() {
 
+    val saveActionState = mutableStateOf<ActionState>(ActionState.Start)
     val name = handle.getStateFlow(NAME, NameInputHandler())
     val height = handle.getStateFlow(HEIGHT, HeightInputHandler())
     val birthday = handle.getStateFlow(BIRTHDAY, BirthDayInputHandler())
@@ -55,9 +58,17 @@ class ProfileViewModel(
     fun save() {
         viewModelScope.launch {
             createProfile()
-                .onSuccess { repository.insert(it) }
-                .onFailure { }
+                .onSuccess {
+                    if (repository.insert(it)) saveActionState.value = ActionState.Success
+                    else saveActionState.value = ActionState.Failure
+                }.onFailure {
+                    saveActionState.value = ActionState.Failure
+                }
         }
+    }
+
+    fun clearSaveAction() {
+        saveActionState.value = ActionState.Start
     }
 
     private fun createProfile() = runCatching {

@@ -1,7 +1,3 @@
-@file:OptIn(
-    ExperimentalMaterial3Api::class
-)
-
 package br.com.weightcontrol.profile
 
 import androidx.compose.foundation.layout.Column
@@ -14,6 +10,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -24,6 +21,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.br.weightcontrol.designsystem.component.WeiButton
 import com.br.weightcontrol.designsystem.component.WeiTopAppBar
 import com.br.weightcontrol.designsystem.theme.WeiTheme
+import com.br.weightcontrol.model.ActionState
 import com.br.weightcontrol.model.Gender
 import com.br.weightcontrol.profile.R
 import com.br.weightcontrol.ui.GenderSelection
@@ -34,8 +32,11 @@ import com.br.weightcontrol.util.dateValidatorLowerThanToday
 import kotlinx.datetime.LocalDate
 import org.koin.androidx.compose.koinViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileRoute(
+    onClose: () -> Unit,
+    onShowSnackBar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
     viewModel: ProfileViewModel = koinViewModel(),
 ) {
@@ -45,6 +46,7 @@ fun ProfileRoute(
     val gender by viewModel.gender.collectAsStateWithLifecycle()
     val areInputsValid by viewModel.areInputsValid.collectAsStateWithLifecycle()
     val datePickerState = rememberBirthdayDatePickerState()
+    val saveState by viewModel.saveActionState
 
     ProfileScreen(
         name = name,
@@ -58,10 +60,15 @@ fun ProfileRoute(
         areInputsValid = areInputsValid,
         datePickerState = datePickerState,
         onSave = viewModel::save,
+        saveState = saveState,
+        onClose = onClose,
+        onShowSnackBar = onShowSnackBar,
+        onDismissSnackBar = viewModel::clearSaveAction,
         modifier = modifier
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
     name: InputHandler,
@@ -74,9 +81,25 @@ fun ProfileScreen(
     onGenderChanged: (Gender) -> Unit,
     areInputsValid: Boolean,
     datePickerState: DatePickerState,
-    modifier: Modifier = Modifier,
-    onSave: () -> Unit
+    onSave: () -> Unit,
+    saveState: ActionState,
+    onClose: () -> Unit,
+    onShowSnackBar: suspend (String, String?) -> Boolean,
+    onDismissSnackBar: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
+    val errorCreateProfileMessage = stringResource(id = R.string.error_create_profile)
+
+    LaunchedEffect(saveState) {
+        when (saveState) {
+            is ActionState.Success -> onClose()
+            is ActionState.Failure -> {
+                onShowSnackBar(errorCreateProfileMessage, null)
+                onDismissSnackBar()
+            }
+            else -> Unit
+        }
+    }
 
     Column(
         modifier = modifier
@@ -138,6 +161,9 @@ fun ProfileScreen(
 @Composable
 fun ProfileRoutePreview() {
     WeiTheme {
-        ProfileRoute()
+        ProfileRoute(
+            onClose = {},
+            onShowSnackBar = { _, _ -> false }
+        )
     }
 }

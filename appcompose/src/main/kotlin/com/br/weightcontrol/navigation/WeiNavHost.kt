@@ -30,6 +30,7 @@ import com.br.weightcontrol.track.navigation.trackScreen
 @Composable
 fun WeiNavHost(
     navController: NavHostController,
+    onShowSnackBar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
     startDestination: String = homeNavigationRoute,
 ) {
@@ -41,7 +42,10 @@ fun WeiNavHost(
         homeScreen()
         historyScreen()
         setupScreen()
-        profileScreen()
+        profileScreen(
+            onClose = navController::popBackStack,
+            onShowSnackBar = onShowSnackBar
+        )
         trackScreen(onBackClick = navController::popBackStack)
     }
 }

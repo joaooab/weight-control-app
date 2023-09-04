@@ -28,8 +28,14 @@ fun NavController.navigateToProfile(navOptions: NavOptions? = null) {
     this.navigate(profileNavigationRoute, navOptions)
 }
 
-fun NavGraphBuilder.profileScreen() {
+fun NavGraphBuilder.profileScreen(
+    onClose: () -> Unit,
+    onShowSnackBar: suspend (String, String?) -> Boolean,
+) {
     composable(route = profileNavigationRoute) {
-        ProfileRoute()
+        ProfileRoute(
+            onClose = onClose,
+            onShowSnackBar = onShowSnackBar
+        )
     }
 }

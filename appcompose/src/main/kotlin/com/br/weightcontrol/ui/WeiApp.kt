@@ -1,11 +1,26 @@
 package com.br.weightcontrol.ui
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,12 +42,15 @@ import com.br.weightcontrol.track.navigation.navigateToTrack
 @Composable
 fun WeiApp(appState: WeiAppState = rememberWeiAppState()) {
     WeiBackground {
+        val snackBarHostState = remember { SnackbarHostState() }
+
         WeiGradientBackground(gradientColors = LocalGradientColors.current) {
             Scaffold(
                 modifier = Modifier.semantics { testTagsAsResourceId = true },
                 containerColor = Color.Transparent,
                 contentColor = MaterialTheme.colorScheme.onBackground,
                 contentWindowInsets = WindowInsets(0, 0, 0, 0),
+                snackbarHost = { SnackbarHost(snackBarHostState) },
                 floatingActionButton = {
                     WeiFabButton(
                         onClick = {
@@ -71,7 +89,16 @@ fun WeiApp(appState: WeiAppState = rememberWeiAppState()) {
                             )
                         }
 
-                        WeiNavHost(appState.navController)
+                        WeiNavHost(
+                            navController = appState.navController,
+                            onShowSnackBar = { message, action ->
+                                snackBarHostState.showSnackbar(
+                                    message = message,
+                                    actionLabel = action,
+                                    duration = SnackbarDuration.Short,
+                                ) == SnackbarResult.ActionPerformed
+                            }
+                        )
                     }
                 }
             }

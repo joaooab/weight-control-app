@@ -10,7 +10,5 @@ class ProfileRepositoryImpl(
 
     override suspend fun stream() = dataSource.stream
 
-    override suspend fun insert(profile: Profile) {
-        dataSource.save(profile)
-    }
+    override suspend fun insert(profile: Profile) = dataSource.save(profile).isSuccess
 }

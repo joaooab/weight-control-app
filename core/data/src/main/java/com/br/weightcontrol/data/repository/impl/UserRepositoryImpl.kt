@@ -1,14 +1,14 @@
 package com.br.weightcontrol.data.repository.impl
 
 import br.com.weightcontrol.datastore.datasource.ProfilePreferenceDataSource
-import com.br.weightcontrol.data.repository.ProfileRepository
+import com.br.weightcontrol.data.repository.UserRepository
 import com.br.weightcontrol.model.Profile
 
-class ProfileRepositoryImpl(
+class UserRepositoryImpl(
     private val dataSource: ProfilePreferenceDataSource
-) : ProfileRepository {
+) : UserRepository {
 
-    override suspend fun stream() = dataSource.stream
+    override val userData = dataSource.stream
 
     override suspend fun insert(profile: Profile) = dataSource.save(profile).isSuccess
 }

@@ -3,9 +3,9 @@ package com.br.weightcontrol.data.repository
 import com.br.weightcontrol.model.Profile
 import kotlinx.coroutines.flow.Flow
 
-interface ProfileRepository {
+interface UserRepository {
 
-    suspend fun stream(): Flow<Profile>
+    val userData : Flow<Profile>
 
     suspend fun insert(profile: Profile): Boolean
 }

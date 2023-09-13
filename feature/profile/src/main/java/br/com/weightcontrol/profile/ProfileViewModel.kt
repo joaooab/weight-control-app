@@ -4,7 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.br.weightcontrol.data.repository.ProfileRepository
+import com.br.weightcontrol.data.repository.UserRepository
 import com.br.weightcontrol.model.ActionState
 import com.br.weightcontrol.model.Gender
 import com.br.weightcontrol.model.Profile
@@ -22,7 +22,7 @@ import kotlinx.datetime.LocalDate
 
 class ProfileViewModel(
     private val handle: SavedStateHandle,
-    private val repository: ProfileRepository
+    private val repository: UserRepository
 ) : ViewModel() {
 
     val saveActionState = mutableStateOf<ActionState>(ActionState.Start)

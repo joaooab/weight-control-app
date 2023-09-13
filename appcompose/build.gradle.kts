@@ -53,6 +53,8 @@ dependencies {
 
     implementation(project(":core:data"))
     implementation(project(":core:design-system"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:model"))
     implementation(project(":core:ui"))
 
     implementation(libs.androidx.activity.compose)
@@ -67,5 +69,6 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.window.manager)
     implementation(libs.koin.android)
+    implementation(libs.koin.compose)
     debugImplementation(libs.androidx.compose.ui.tooling)
 }

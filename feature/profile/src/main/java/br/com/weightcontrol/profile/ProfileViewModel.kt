@@ -8,7 +8,7 @@ import com.br.weightcontrol.data.repository.UserRepository
 import com.br.weightcontrol.model.ActionState
 import com.br.weightcontrol.model.Gender
 import com.br.weightcontrol.model.User
-import com.br.weightcontrol.ui.input.BirthDayInputHandler
+import com.br.weightcontrol.ui.input.DateInputHandler
 import com.br.weightcontrol.ui.input.GenderInputHandler
 import com.br.weightcontrol.ui.input.HeightInputHandler
 import com.br.weightcontrol.ui.input.NameInputHandler
@@ -28,7 +28,7 @@ class ProfileViewModel(
     val saveActionState = mutableStateOf<ActionState>(ActionState.Start)
     val name = handle.getStateFlow(NAME, NameInputHandler())
     val height = handle.getStateFlow(HEIGHT, HeightInputHandler())
-    val birthday = handle.getStateFlow(BIRTHDAY, BirthDayInputHandler())
+    val birthday = handle.getStateFlow(BIRTHDAY, DateInputHandler())
     val gender = handle.getStateFlow(GENDER, GenderInputHandler())
     val areInputsValid = combine(name, height, birthday, gender) { name, height, birthday, gender ->
         name.isValid() and height.isValid() and birthday.isValid() and gender.isValid()
@@ -48,7 +48,7 @@ class ProfileViewModel(
     }
 
     fun onBirthdayEntered(input: LocalDate) {
-        handle[BIRTHDAY] = BirthDayInputHandler(input.toString())
+        handle[BIRTHDAY] = DateInputHandler(input.toString())
     }
 
     fun onGenderEntered(input: Gender) {

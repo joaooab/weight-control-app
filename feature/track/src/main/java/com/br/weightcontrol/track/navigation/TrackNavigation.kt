@@ -28,9 +28,13 @@ fun NavController.navigateToTrack() {
 }
 
 fun NavGraphBuilder.trackScreen(
-    onBackClick: () -> Unit,
+    onClose: () -> Unit,
+    onShowSnackBar: suspend (String, String?) -> Boolean,
 ) {
     composable(route = trackNavigationRoute) {
-        TrackRoute(onBackClick)
+        TrackRoute(
+            onClose = onClose,
+            onShowSnackBar = onShowSnackBar
+        )
     }
 }

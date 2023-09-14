@@ -5,7 +5,7 @@ import com.br.weightcontrol.util.toLocalDate
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class BirthDayInputHandler(override val input: String = "") : InputHandler {
+data class DateInputHandler(override val input: String = "") : InputHandler {
 
     override fun validate() {
         input.toLocalDate()

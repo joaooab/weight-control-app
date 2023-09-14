@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
@@ -16,64 +15,71 @@ import com.br.weightcontrol.core.designsystem.R
 import com.br.weightcontrol.designsystem.component.BackNavigationIcon
 import com.br.weightcontrol.designsystem.component.WeiButton
 import com.br.weightcontrol.designsystem.component.WeiTopAppBar
-import com.br.weightcontrol.designsystem.icon.WeiIcons
-import com.br.weightcontrol.ui.WeiDatePicker
+import com.br.weightcontrol.model.ActionState
+import com.br.weightcontrol.ui.WeiDatePickerField
+import com.br.weightcontrol.ui.input.InputHandler
+import com.br.weightcontrol.ui.rememberBirthdayDatePickerState
 import com.br.weightcontrol.util.*
+import kotlinx.datetime.LocalDate
 import org.koin.androidx.compose.koinViewModel
 import com.br.weightcontrol.track.R as trackR
 
 @Composable
 internal fun TrackRoute(
-    onBackClick: () -> Unit,
+    onClose: () -> Unit,
+    onShowSnackBar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
     viewModel: TrackViewModel = koinViewModel(),
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    var inputDate by rememberSaveable { mutableStateOf(todayAsString()) }
-    var inputTrack by rememberSaveable { mutableStateOf("") }
-    var datePickerVisible by remember { mutableStateOf(false) }
-    val datePickerState = rememberDatePickerState(
-        initialSelectedDateMillis = inputDate.toLocalDate().toLong(),
-        initialDisplayMode = DisplayMode.Picker,
-    )
+    val weight by viewModel.weight.collectAsStateWithLifecycle()
+    val birthday by viewModel.birthday.collectAsStateWithLifecycle()
+    val areInputsValid by viewModel.areInputsValid.collectAsStateWithLifecycle()
+    val datePickerState = rememberBirthdayDatePickerState()
+    val saveState  by viewModel.saveActionState
 
-    when (uiState) {
-        is TrackViewModel.UiState.Added -> onBackClick()
-        else -> {
-            TrackScreen(
-                selectedDate = { inputDate },
-                selectedTrack = { inputTrack },
-                datePickerState = datePickerState,
-                datePickerVisible = { datePickerVisible },
-                onDateChanged = { inputDate = it },
-                onTrackChanged = { inputTrack = getValidatedDecimalNumber(it) },
-                onDatePickerVisibleChanged = { datePickerVisible = it },
-                onBackClick = onBackClick,
-                onSave = viewModel::save,
-                modifier = modifier
-            )
-        }
-    }
+    TrackScreen(
+        weight = weight,
+        birthday = birthday,
+        onWeightChanged = viewModel::onWeightEntered,
+        onBirthdayChanged = viewModel::onBirthdayEntered,
+        areInputsValid = areInputsValid,
+        datePickerState = datePickerState,
+        onClose = onClose,
+        onSave = viewModel::save,
+        saveState = saveState,
+        onShowSnackBar = onShowSnackBar,
+        onDismissSnackBar = viewModel::clearSaveAction,
+        modifier = modifier
+    )
 }
 
 @Composable
 internal fun TrackScreen(
-    selectedDate: () -> String,
-    selectedTrack: () -> String,
+    weight: InputHandler,
+    birthday: InputHandler,
+    onWeightChanged: (String) -> Unit,
+    onBirthdayChanged: (LocalDate) -> Unit,
+    areInputsValid: Boolean,
     datePickerState: DatePickerState,
-    datePickerVisible: () -> Boolean,
-    onDateChanged: (String) -> Unit,
-    onTrackChanged: (String) -> Unit,
-    onDatePickerVisibleChanged: (Boolean) -> Unit,
-    onBackClick: () -> Unit,
-    onSave: (date: String, track: Double) -> Unit,
+    onClose: () -> Unit,
+    onSave: () -> Unit,
+    saveState: ActionState,
+    onShowSnackBar: suspend (String, String?) -> Boolean,
+    onDismissSnackBar: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    if (datePickerVisible()) WeiDatePicker(
-        onConfirmButton = { onDateChanged(it.toLocalDate().toString()) },
-        onDismissRequest = { onDatePickerVisibleChanged(false) },
-        state = datePickerState,
-    )
+    val errorCreateTrackMessage = stringResource(id = trackR.string.error_create_track)
+
+    LaunchedEffect(saveState) {
+        when (saveState) {
+            is ActionState.Success -> onClose()
+            is ActionState.Failure -> {
+                onShowSnackBar(errorCreateTrackMessage, null)
+                onDismissSnackBar()
+            }
+            else -> Unit
+        }
+    }
 
     Column(
         modifier = modifier
@@ -82,47 +88,33 @@ internal fun TrackScreen(
     ) {
         WeiTopAppBar(
             titleRes = R.string.add_track,
-            navigationIcon = { BackNavigationIcon { onBackClick() } }
-        )
-        Text(
-            text = stringResource(trackR.string.track_which_weight),
-            modifier = Modifier.padding(top = 16.dp),
+            navigationIcon = { BackNavigationIcon { onClose() } }
         )
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),
-            value = selectedTrack(),
+            value = weight.input,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            onValueChange = { onTrackChanged(it) }
+            onValueChange = { onWeightChanged(it) },
+            label = { Text(stringResource(id = trackR.string.track_which_weight)) },
         )
-        Text(
-            text = stringResource(trackR.string.track_which_day),
-            modifier = Modifier.padding(top = 16.dp),
-        )
-        OutlinedTextField(
+        WeiDatePickerField(
+            label = { Text(text = stringResource(id = trackR.string.track_which_day))},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),
-            value = selectedDate(),
-            leadingIcon = {
-                IconButton(
-                    onClick = { onDatePickerVisibleChanged(true) }
-                ) {
-                    Icon(
-                        imageVector = WeiIcons.CalendarBorder,
-                        contentDescription = "",
-                    )
-                }
-            },
-            onValueChange = { onDateChanged(it) },
-            readOnly = true,
+            value = birthday.input,
+            datePickerState = datePickerState,
+            onValueChange = { onBirthdayChanged(it) },
+            dateValidator = dateValidatorLowerThanToday
         )
         WeiButton(
+            enabled = areInputsValid,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 24.dp),
-            onClick = { onSave(selectedDate(), selectedTrack().toDouble()) }
+            onClick = { onSave() }
         ) {
             Text(text = stringResource(id = R.string.save))
         }

@@ -47,6 +47,9 @@ fun WeiNavHost(
             onClose = navController::navigateToHome,
             onShowSnackBar = onShowSnackBar
         )
-        trackScreen(onBackClick = navController::popBackStack)
+        trackScreen(
+            onClose = navController::navigateToHome,
+            onShowSnackBar = onShowSnackBar
+        )
     }
 }

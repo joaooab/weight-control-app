@@ -25,10 +25,9 @@ import com.br.weightcontrol.model.ActionState
 import com.br.weightcontrol.model.Gender
 import com.br.weightcontrol.profile.R
 import com.br.weightcontrol.ui.GenderSelection
-import com.br.weightcontrol.ui.WeiDatePickerField
+import com.br.weightcontrol.ui.WeiBirthDayDatePickerField
 import com.br.weightcontrol.ui.input.InputHandler
 import com.br.weightcontrol.ui.rememberBirthdayDatePickerState
-import com.br.weightcontrol.util.dateValidatorLowerThanToday
 import kotlinx.datetime.LocalDate
 import org.koin.androidx.compose.koinViewModel
 
@@ -97,6 +96,7 @@ fun ProfileScreen(
                 onShowSnackBar(errorCreateProfileMessage, null)
                 onDismissSnackBar()
             }
+
             else -> Unit
         }
     }
@@ -127,14 +127,13 @@ fun ProfileScreen(
             onValueChange = { onHeightChanged(it) },
             label = { Text(stringResource(id = R.string.height)) }
         )
-        WeiDatePickerField(
+        WeiBirthDayDatePickerField(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),
             value = birthday.input,
             datePickerState = datePickerState,
             onValueChange = { onBirthdayChanged(it) },
-            dateValidator = dateValidatorLowerThanToday
         )
         Text(
             text = stringResource(id = R.string.gender_select),

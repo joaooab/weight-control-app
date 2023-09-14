@@ -29,6 +29,7 @@ import kotlinx.datetime.LocalDate
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WeiDatePickerField(
+    label: @Composable (() -> Unit),
     value: String,
     datePickerState: DatePickerState,
     modifier: Modifier = Modifier,
@@ -55,7 +56,7 @@ fun WeiDatePickerField(
                 contentDescription = "",
             )
         },
-        label = { Text(stringResource(id = R.string.birthday_date)) },
+        label = label,
         modifier = modifier
             .clickable(
                 interactionSource = interactionSource,
@@ -88,6 +89,7 @@ fun rememberBirthdayDatePickerState(
 fun ReadonlyTextFieldPreview() {
     WeiTheme {
         WeiDatePickerField(
+            label = { Text(stringResource(id = R.string.birthday_date)) },
             value = today().toString(),
             datePickerState = rememberBirthdayDatePickerState(),
             onValueChange = {},

@@ -24,5 +24,4 @@ dependencies {
     implementation(libs.chart.core)
     implementation(libs.chart.compose)
     implementation(libs.chart.compose.m3)
-    implementation(libs.kotlinx.datetime)
 }

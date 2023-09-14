@@ -1,7 +1,7 @@
 package com.br.weightcontrol.domain.usecase.session
 
-import com.br.weightcontrol.model.Profile
+import com.br.weightcontrol.model.User
 
 data class Session(
-    val user: Profile
+    val user: User = User()
 )

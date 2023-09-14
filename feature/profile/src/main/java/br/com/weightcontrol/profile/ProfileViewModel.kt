@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.br.weightcontrol.data.repository.UserRepository
 import com.br.weightcontrol.model.ActionState
 import com.br.weightcontrol.model.Gender
-import com.br.weightcontrol.model.Profile
+import com.br.weightcontrol.model.User
 import com.br.weightcontrol.ui.input.BirthDayInputHandler
 import com.br.weightcontrol.ui.input.GenderInputHandler
 import com.br.weightcontrol.ui.input.HeightInputHandler
@@ -72,7 +72,7 @@ class ProfileViewModel(
     }
 
     private fun createProfile() = runCatching {
-        Profile(
+        User(
             name = name.value.input,
             height = height.value.input.toInt(),
             birthday = birthday.value.input.toLocalDate(),

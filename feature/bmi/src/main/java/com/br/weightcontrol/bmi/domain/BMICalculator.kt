@@ -1,6 +1,15 @@
 package com.br.weightcontrol.bmi.domain
 
-import com.br.weightcontrol.bmi.domain.strategy.*
+import com.br.weightcontrol.bmi.domain.strategy.BMIStrategy
+import com.br.weightcontrol.bmi.domain.strategy.NormalStrategy
+import com.br.weightcontrol.bmi.domain.strategy.ObeseExtremeStrategy
+import com.br.weightcontrol.bmi.domain.strategy.ObeseSevereStrategy
+import com.br.weightcontrol.bmi.domain.strategy.ObeseStrategy
+import com.br.weightcontrol.bmi.domain.strategy.OverweightStrategy
+import com.br.weightcontrol.bmi.domain.strategy.ThinnessMildStrategy
+import com.br.weightcontrol.bmi.domain.strategy.ThinnessModerateStrategy
+import com.br.weightcontrol.bmi.domain.strategy.ThinnessSevereStrategy
+import com.br.weightcontrol.bmi.domain.strategy.UnknownStrategy
 import com.br.weightcontrol.model.User
 import java.math.BigDecimal
 import java.math.RoundingMode

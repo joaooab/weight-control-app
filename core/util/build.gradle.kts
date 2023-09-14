@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.br.weightcontrol.core.uitl"
+    namespace = "com.br.weightcontrol.core.util"
 }
 
 dependencies {
-    implementation(libs.kotlinx.datetime)
+    api(libs.kotlinx.datetime)
 
     testImplementation(project(":core:test"))
 }

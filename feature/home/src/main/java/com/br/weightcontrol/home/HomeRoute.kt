@@ -19,7 +19,6 @@ import com.br.weightcontrol.bmi.domain.calculateBMI
 import com.br.weightcontrol.bmi.domain.format
 import com.br.weightcontrol.designsystem.icon.WeiIcons
 import com.br.weightcontrol.designsystem.theme.WeiTheme
-import com.br.weightcontrol.model.Gender
 import com.br.weightcontrol.model.Track
 import com.br.weightcontrol.model.User
 import com.br.weightcontrol.model.format
@@ -32,10 +31,12 @@ internal fun HomeRoute(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = koinViewModel(),
 ) {
+    val session = viewModel.session
     val progress by viewModel.progressState.collectAsStateWithLifecycle()
     val goal by viewModel.goalState.collectAsStateWithLifecycle()
     val history by viewModel.historyState.collectAsStateWithLifecycle()
     HomeScreen(
+        user = session?.user,
         progress = progress,
         history = history,
         modifier = modifier,
@@ -44,6 +45,7 @@ internal fun HomeRoute(
 
 @Composable
 internal fun HomeScreen(
+    user: User?,
     progress: Progress,
     history: List<Track>,
     modifier: Modifier = Modifier,
@@ -55,7 +57,7 @@ internal fun HomeScreen(
                 Spacer(modifier = Modifier.height(16.dp))
             }
             item {
-                BodyMassIndexCard(progress.current)
+                user?.let { BodyMassIndexCard(user, progress.current) }
                 Spacer(modifier = Modifier.height(16.dp))
             }
             item {
@@ -118,9 +120,9 @@ private fun TrackItem(track: Track?, @StringRes label: Int) {
 }
 
 @Composable
-fun BodyMassIndexCard(track: Track?) {
+fun BodyMassIndexCard(user: User, track: Track?) {
     if (track == null) return
-    val bmi = calculateBMI(track.weight, User("", 180, Gender.MALE))
+    val bmi = calculateBMI(track.weight, user)
 
     Card(
         shape = RoundedCornerShape(8.dp),
@@ -160,7 +162,7 @@ internal fun HomeScreenPreview(
     trackListResource: List<Track>,
 ) {
     WeiTheme {
-        HomeScreen(progress = Progress(), history = trackListResource)
+        HomeScreen(user = User(), progress = Progress(), history = trackListResource)
     }
 }
 
@@ -176,6 +178,6 @@ internal fun WeightCardPreview() {
 @Composable
 internal fun BodyMassIndexCardPreview() {
     WeiTheme {
-        BodyMassIndexCard(Track())
+        BodyMassIndexCard(User(), Track())
     }
 }

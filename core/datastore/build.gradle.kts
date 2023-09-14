@@ -31,6 +31,5 @@ dependencies {
     implementation(project(":core:util"))
     implementation(libs.androidx.dataStore.core)
     implementation(libs.koin.android)
-    implementation(libs.kotlinx.datetime)
     implementation(libs.protobuf.kotlin.lite)
 }

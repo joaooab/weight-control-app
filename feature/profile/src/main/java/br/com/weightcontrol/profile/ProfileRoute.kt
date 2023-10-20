@@ -14,6 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -116,6 +117,7 @@ fun ProfileScreen(
                 .padding(top = 16.dp),
             value = name.input,
             onValueChange = { onNameChanged(it) },
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
             label = { Text(stringResource(id = R.string.name)) },
             isError = name.hasError(),
             supportingText = { name.errorId?.let { Text(stringResource(id = it)) } }
@@ -125,7 +127,10 @@ fun ProfileScreen(
                 .fillMaxWidth()
                 .padding(top = 8.dp),
             value = height.input,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Done
+            ),
             onValueChange = { onHeightChanged(it) },
             label = { Text(stringResource(id = R.string.height)) },
             isError = height.hasError(),

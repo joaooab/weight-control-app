@@ -1,16 +1,13 @@
 package com.br.weightcontrol.ui.input
 
 import com.br.weightcontrol.core.ui.R
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
-data class NameInputHandler(override val input: String = "") : InputHandler {
+object NameInputHandler : InputHandler {
 
-    override fun validate() {
-        check(input.isNotBlank())
+    override fun getError(input: String) = when {
+        input.isBlank() -> R.string.field_required_error
+        else -> null
     }
-
-    override fun error() = runCatching { validate() }
-        .mapCatching { R.string.field_name_error }
-        .getOrNull()
 }
+
+fun InputWrapper.isValidName() = NameInputHandler.isValid(this)

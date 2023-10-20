@@ -11,8 +11,11 @@
     <string name="female">Feminino</string>
     <string name="male">Masculino</string>
 
-    <string name="field_name_error">Nome não pode ser vazio</string>
-    <string name="field_weight_error">Peso deve estar entre 10 Kg e 400 Kg</string>
-    <string name="field_height_error">Altura deve estar entre 100 cm e 300 cm</string>
+    <string name="field_required_error">Campo obrigatório</string>
+    <string name="field_only_numbers_error">Valor deve conter apenas números</string>
+    <string name="field_date_error">Data inválida</string>
+
+    <string name="field_weight_range_error">Peso deve estar entre 10 Kg e 400 Kg</string>
+    <string name="field_height_range_error">Altura deve estar entre 100 cm e 300 cm</string>
     <string name="field_birthday_error">Data inválida</string>
 </resources>

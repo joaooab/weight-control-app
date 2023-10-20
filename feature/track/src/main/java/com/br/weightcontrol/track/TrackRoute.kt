@@ -17,7 +17,7 @@ import com.br.weightcontrol.designsystem.component.WeiButton
 import com.br.weightcontrol.designsystem.component.WeiTopAppBar
 import com.br.weightcontrol.model.ActionState
 import com.br.weightcontrol.ui.WeiDatePickerField
-import com.br.weightcontrol.ui.input.InputHandler
+import com.br.weightcontrol.ui.input.InputWrapper
 import com.br.weightcontrol.ui.rememberBirthdayDatePickerState
 import com.br.weightcontrol.util.*
 import kotlinx.datetime.LocalDate
@@ -32,16 +32,16 @@ internal fun TrackRoute(
     viewModel: TrackViewModel = koinViewModel(),
 ) {
     val weight by viewModel.weight.collectAsStateWithLifecycle()
-    val birthday by viewModel.birthday.collectAsStateWithLifecycle()
+    val date by viewModel.date.collectAsStateWithLifecycle()
     val areInputsValid by viewModel.areInputsValid.collectAsStateWithLifecycle()
     val datePickerState = rememberBirthdayDatePickerState()
     val saveState  by viewModel.saveActionState
 
     TrackScreen(
         weight = weight,
-        birthday = birthday,
+        date = date,
         onWeightChanged = viewModel::onWeightEntered,
-        onBirthdayChanged = viewModel::onBirthdayEntered,
+        onBirthdayChanged = viewModel::onDateEntered,
         areInputsValid = areInputsValid,
         datePickerState = datePickerState,
         onClose = onClose,
@@ -55,8 +55,8 @@ internal fun TrackRoute(
 
 @Composable
 internal fun TrackScreen(
-    weight: InputHandler,
-    birthday: InputHandler,
+    weight: InputWrapper,
+    date: InputWrapper,
     onWeightChanged: (String) -> Unit,
     onBirthdayChanged: (LocalDate) -> Unit,
     areInputsValid: Boolean,
@@ -98,13 +98,15 @@ internal fun TrackScreen(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             onValueChange = { onWeightChanged(it) },
             label = { Text(stringResource(id = trackR.string.track_which_weight)) },
+            isError = weight.hasError(),
+            supportingText = { weight.errorId?.let { Text(stringResource(id = it)) } }
         )
         WeiDatePickerField(
             label = { Text(text = stringResource(id = trackR.string.track_which_day))},
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp),
-            value = birthday.input,
+            input = date,
             datePickerState = datePickerState,
             onValueChange = { onBirthdayChanged(it) },
             dateValidator = dateValidatorLowerThanToday

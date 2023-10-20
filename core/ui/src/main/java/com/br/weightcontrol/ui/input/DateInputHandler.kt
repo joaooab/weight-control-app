@@ -1,17 +1,14 @@
 package com.br.weightcontrol.ui.input
 
 import com.br.weightcontrol.core.ui.R
-import com.br.weightcontrol.util.toLocalDate
-import kotlinx.parcelize.Parcelize
+import com.br.weightcontrol.util.toLocalDateOrNull
 
-@Parcelize
-data class DateInputHandler(override val input: String = "") : InputHandler {
+object DateInputHandler : InputHandler {
 
-    override fun validate() {
-        input.toLocalDate()
+    override fun getError(input: String) = when (input.toLocalDateOrNull()) {
+        null -> R.string.field_date_error
+        else -> null
     }
-
-    override fun error() = runCatching { validate() }
-        .mapCatching { R.string.field_birthday_error }
-        .getOrNull()
 }
+
+fun InputWrapper.isValidDate() = DateInputHandler.isValid(this)

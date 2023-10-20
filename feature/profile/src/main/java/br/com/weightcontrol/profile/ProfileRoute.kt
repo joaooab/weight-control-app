@@ -26,7 +26,7 @@ import com.br.weightcontrol.model.Gender
 import com.br.weightcontrol.profile.R
 import com.br.weightcontrol.ui.GenderSelection
 import com.br.weightcontrol.ui.WeiBirthDayDatePickerField
-import com.br.weightcontrol.ui.input.InputHandler
+import com.br.weightcontrol.ui.input.InputWrapper
 import com.br.weightcontrol.ui.rememberBirthdayDatePickerState
 import kotlinx.datetime.LocalDate
 import org.koin.androidx.compose.koinViewModel
@@ -70,10 +70,10 @@ fun ProfileRoute(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
-    name: InputHandler,
-    height: InputHandler,
-    birthday: InputHandler,
-    gender: InputHandler,
+    name: InputWrapper,
+    height: InputWrapper,
+    birthday: InputWrapper,
+    gender: InputWrapper,
     onNameChanged: (String) -> Unit,
     onHeightChanged: (String) -> Unit,
     onBirthdayChanged: (LocalDate) -> Unit,
@@ -117,21 +117,25 @@ fun ProfileScreen(
             value = name.input,
             onValueChange = { onNameChanged(it) },
             label = { Text(stringResource(id = R.string.name)) },
+            isError = name.hasError(),
+            supportingText = { name.errorId?.let { Text(stringResource(id = it)) } }
         )
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp),
+                .padding(top = 8.dp),
             value = height.input,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             onValueChange = { onHeightChanged(it) },
-            label = { Text(stringResource(id = R.string.height)) }
+            label = { Text(stringResource(id = R.string.height)) },
+            isError = height.hasError(),
+            supportingText = { height.errorId?.let { Text(stringResource(id = it)) } }
         )
         WeiBirthDayDatePickerField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp),
-            value = birthday.input,
+                .padding(top = 8.dp),
+            input = birthday,
             datePickerState = datePickerState,
             onValueChange = { onBirthdayChanged(it) },
         )

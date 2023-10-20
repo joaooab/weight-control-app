@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.br.weightcontrol.core.ui.R
 import com.br.weightcontrol.designsystem.icon.WeiIcons
 import com.br.weightcontrol.designsystem.theme.WeiTheme
+import com.br.weightcontrol.ui.input.InputWrapper
 import com.br.weightcontrol.util.toLocalDate
 import com.br.weightcontrol.util.today
 import kotlinx.datetime.LocalDate
@@ -30,11 +31,11 @@ import kotlinx.datetime.LocalDate
 @Composable
 fun WeiDatePickerField(
     label: @Composable (() -> Unit),
-    value: String,
+    input: InputWrapper,
     datePickerState: DatePickerState,
     modifier: Modifier = Modifier,
     onValueChange: (LocalDate) -> Unit,
-    dateValidator: (Long) -> Boolean = { true }
+    dateValidator: (Long) -> Boolean = { true },
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     var datePickerVisible by remember { mutableStateOf(false) }
@@ -47,7 +48,7 @@ fun WeiDatePickerField(
     )
 
     OutlinedTextField(
-        value = value,
+        value = input.input,
         enabled = false,
         onValueChange = {},
         leadingIcon = {
@@ -70,7 +71,9 @@ fun WeiDatePickerField(
             disabledLabelColor = MaterialTheme.colorScheme.onSurfaceVariant,
             disabledLeadingIconColor = MaterialTheme.colorScheme.onSurfaceVariant,
             disabledTrailingIconColor = MaterialTheme.colorScheme.onSurfaceVariant
-        )
+        ),
+        isError = input.hasError(),
+        supportingText = { input.errorId?.let { Text(stringResource(id = it)) } }
     )
 }
 
@@ -90,7 +93,7 @@ fun ReadonlyTextFieldPreview() {
     WeiTheme {
         WeiDatePickerField(
             label = { Text(stringResource(id = R.string.birthday_date)) },
-            value = today().toString(),
+            input = InputWrapper(today().toString()),
             datePickerState = rememberBirthdayDatePickerState(),
             onValueChange = {},
         )

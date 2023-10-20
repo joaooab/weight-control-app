@@ -1,17 +1,10 @@
 package com.br.weightcontrol.ui.input
 
-import android.os.Parcelable
-import androidx.annotation.StringRes
+interface InputHandler {
 
-interface InputHandler: Parcelable {
+    fun onInputEntered(input: String) = InputWrapper(input, getError(input))
 
-    val input: String
+    fun isValid(input: InputWrapper) = getError(input.input) == null
 
-    @Throws(Exception::class)
-    fun validate()
-
-    @StringRes
-    fun error(): Int?
-
-    fun isValid() = runCatching { validate() }.isSuccess
+    fun getError(input: String): Int?
 }

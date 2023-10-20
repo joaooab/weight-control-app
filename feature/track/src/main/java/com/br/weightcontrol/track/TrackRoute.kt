@@ -19,7 +19,7 @@ import com.br.weightcontrol.designsystem.component.WeiTopAppBar
 import com.br.weightcontrol.model.ActionState
 import com.br.weightcontrol.ui.WeiDatePickerField
 import com.br.weightcontrol.ui.input.InputWrapper
-import com.br.weightcontrol.ui.rememberBirthdayDatePickerState
+import com.br.weightcontrol.ui.rememberDefaultDatePickerState
 import com.br.weightcontrol.util.*
 import kotlinx.datetime.LocalDate
 import org.koin.androidx.compose.koinViewModel
@@ -35,7 +35,7 @@ internal fun TrackRoute(
     val weight by viewModel.weight.collectAsStateWithLifecycle()
     val date by viewModel.date.collectAsStateWithLifecycle()
     val areInputsValid by viewModel.areInputsValid.collectAsStateWithLifecycle()
-    val datePickerState = rememberBirthdayDatePickerState()
+    val datePickerState = rememberDefaultDatePickerState()
     val saveState  by viewModel.saveActionState
 
     TrackScreen(

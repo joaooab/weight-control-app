@@ -23,7 +23,9 @@ import com.br.weightcontrol.core.ui.R
 import com.br.weightcontrol.designsystem.icon.WeiIcons
 import com.br.weightcontrol.designsystem.theme.WeiTheme
 import com.br.weightcontrol.ui.input.InputWrapper
+import com.br.weightcontrol.util.defaultBirthday
 import com.br.weightcontrol.util.toLocalDate
+import com.br.weightcontrol.util.toLong
 import com.br.weightcontrol.util.today
 import kotlinx.datetime.LocalDate
 
@@ -81,6 +83,15 @@ fun WeiDatePickerField(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun rememberBirthdayDatePickerState(
+    initialDisplayMode: DisplayMode = DisplayMode.Picker
+) = rememberDatePickerState(
+    initialSelectedDateMillis = defaultBirthday().toLong(),
+    initialDisplayMode = initialDisplayMode,
+)
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun rememberDefaultDatePickerState(
     initialDisplayMode: DisplayMode = DisplayMode.Picker
 ) = rememberDatePickerState(
     initialDisplayMode = initialDisplayMode,

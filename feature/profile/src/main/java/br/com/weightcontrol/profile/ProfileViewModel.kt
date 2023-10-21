@@ -5,6 +5,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.br.weightcontrol.data.repository.UserRepository
+import com.br.weightcontrol.domain.usecase.session.SessionManager
+import com.br.weightcontrol.domain.usecase.session.SessionState
 import com.br.weightcontrol.model.ActionState
 import com.br.weightcontrol.model.Gender
 import com.br.weightcontrol.model.User
@@ -17,6 +19,8 @@ import com.br.weightcontrol.ui.input.isValidHeight
 import com.br.weightcontrol.ui.input.isValidName
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
@@ -24,7 +28,8 @@ import kotlinx.datetime.toLocalDate
 
 class ProfileViewModel(
     private val handle: SavedStateHandle,
-    private val repository: UserRepository
+    private val repository: UserRepository,
+    sessionManager: SessionManager,
 ) : ViewModel() {
 
     val saveActionState = mutableStateOf<ActionState>(ActionState.Start)
@@ -39,6 +44,17 @@ class ProfileViewModel(
         started = SharingStarted.WhileSubscribed(5000L),
         initialValue = false
     )
+
+    init {
+        sessionManager.state.onEach { state ->
+            (state as? SessionState.Logged)?.session?.user?.let {
+                onNameEntered(it.name)
+                onHeightEntered(it.height.toString())
+                onBirthdayEntered(it.birthday)
+                onGenderEntered(it.gender)
+            }
+        }.launchIn(viewModelScope)
+    }
 
     fun onNameEntered(input: String) {
         handle[NAME] = NameInputHandler.onInputEntered(input)

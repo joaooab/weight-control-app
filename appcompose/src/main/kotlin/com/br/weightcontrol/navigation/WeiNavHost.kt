@@ -20,10 +20,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import br.com.weightcontrol.profile.navigation.navigateToProfile
 import br.com.weightcontrol.profile.navigation.profileScreen
 import com.br.weightcontrol.history.navigation.historyScreen
 import com.br.weightcontrol.home.navigation.homeScreen
-import com.br.weightcontrol.home.navigation.navigateToHome
 import com.br.weightcontrol.settings.navigation.setupScreen
 import com.br.weightcontrol.track.navigation.trackScreen
 import org.koin.androidx.compose.get
@@ -42,13 +42,15 @@ fun WeiNavHost(
     ) {
         homeScreen()
         historyScreen()
-        setupScreen()
+        setupScreen(
+            onEdit = navController::navigateToProfile
+        )
         profileScreen(
-            onClose = navController::navigateToHome,
+            onClose = navController::popBackStack,
             onShowSnackBar = onShowSnackBar
         )
         trackScreen(
-            onClose = navController::navigateToHome,
+            onClose = navController::popBackStack,
             onShowSnackBar = onShowSnackBar
         )
     }

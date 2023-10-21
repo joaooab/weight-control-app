@@ -27,8 +27,8 @@ fun NavController.navigateToSetup(navOptions: NavOptions? = null) {
     this.navigate(setupNavigationRoute, navOptions)
 }
 
-fun NavGraphBuilder.setupScreen() {
+fun NavGraphBuilder.setupScreen(onEdit: () -> Unit) {
     composable(route = setupNavigationRoute) {
-
+        SettingsRoute(onEdit)
     }
 }

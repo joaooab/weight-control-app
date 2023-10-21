@@ -19,6 +19,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.br.weightcontrol.designsystem.component.BackNavigationIcon
 import com.br.weightcontrol.designsystem.component.WeiButton
 import com.br.weightcontrol.designsystem.component.WeiTopAppBar
 import com.br.weightcontrol.designsystem.theme.WeiTheme
@@ -109,7 +110,7 @@ fun ProfileScreen(
     ) {
         WeiTopAppBar(
             titleRes = R.string.profile,
-            navigationIcon = { }
+            navigationIcon = { BackNavigationIcon { onClose() } }
         )
         OutlinedTextField(
             modifier = Modifier

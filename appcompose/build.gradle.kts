@@ -50,6 +50,7 @@ dependencies {
     implementation(project(":feature:settings"))
     implementation(project(":feature:track"))
     implementation(project(":feature:profile"))
+    implementation(project(":feature:onboarding"))
 
     implementation(project(":core:data"))
     implementation(project(":core:design-system"))

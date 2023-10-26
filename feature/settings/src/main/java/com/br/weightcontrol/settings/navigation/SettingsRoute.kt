@@ -30,7 +30,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 internal fun SettingsRoute(
-    onEdit: () -> Unit,
+    navigateToProfile: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SettingsViewModel = koinViewModel(),
 ) {
@@ -38,7 +38,7 @@ internal fun SettingsRoute(
 
     SettingsScreen(
         user = user,
-        onEdit = onEdit,
+        navigateToProfile = navigateToProfile,
         modifier = modifier
     )
 }
@@ -46,7 +46,7 @@ internal fun SettingsRoute(
 @Composable
 private fun SettingsScreen(
     user: User,
-    onEdit: () -> Unit,
+    navigateToProfile: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -71,7 +71,7 @@ private fun SettingsScreen(
                             .padding(horizontal = 16.dp),
                         text = user.name, style = MaterialTheme.typography.titleMedium,
                     )
-                    IconButton(onClick = { onEdit() }) {
+                    IconButton(onClick = { navigateToProfile() }) {
                         Icon(
                             imageVector = WeiIcons.Edit,
                             contentDescription = null,
@@ -119,6 +119,6 @@ fun SettingsScreenPreview() {
             birthday = defaultBirthday(),
             gender = Gender.MALE
         ),
-        onEdit = {}
+        navigateToProfile = {}
     )
 }

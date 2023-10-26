@@ -5,8 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.br.weightcontrol.data.repository.UserRepository
-import com.br.weightcontrol.domain.usecase.session.SessionManager
-import com.br.weightcontrol.domain.usecase.session.SessionState
+import com.br.weightcontrol.domain.usecase.usecase.StreamUserUseCase
 import com.br.weightcontrol.model.ActionState
 import com.br.weightcontrol.model.Gender
 import com.br.weightcontrol.model.User
@@ -29,7 +28,7 @@ import kotlinx.datetime.toLocalDate
 class ProfileViewModel(
     private val handle: SavedStateHandle,
     private val repository: UserRepository,
-    sessionManager: SessionManager,
+    streamUserUseCase: StreamUserUseCase
 ) : ViewModel() {
 
     val saveActionState = mutableStateOf<ActionState>(ActionState.Start)
@@ -46,8 +45,8 @@ class ProfileViewModel(
     )
 
     init {
-        sessionManager.state.onEach { state ->
-            (state as? SessionState.Logged)?.session?.user?.let {
+        streamUserUseCase().onEach { user ->
+            user?.let {
                 onNameEntered(it.name)
                 onHeightEntered(it.height.toString())
                 onBirthdayEntered(it.birthday)

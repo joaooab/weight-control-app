@@ -25,6 +25,7 @@ import br.com.weightcontrol.profile.navigation.profileScreen
 import com.br.weightcontrol.history.navigation.historyScreen
 import com.br.weightcontrol.home.navigation.homeScreen
 import com.br.weightcontrol.home.navigation.navigateToHome
+import com.br.weightcontrol.onboarding.navigation.onBoardingNavigationRoute
 import com.br.weightcontrol.onboarding.navigation.onBoardingScreen
 import com.br.weightcontrol.settings.navigation.setupScreen
 import com.br.weightcontrol.track.navigation.trackScreen
@@ -47,7 +48,10 @@ fun WeiNavHost(
         setupScreen(navigateToProfile = navController::navigateToProfile)
         onBoardingScreen(
             navigateToProfile = navController::navigateToProfile,
-            navigateToHome = navController::navigateToHome
+            navigateToHome = {
+                navController.popBackStack(route = onBoardingNavigationRoute, inclusive = true)
+                navController.navigateToHome()
+            }
         )
         profileScreen(
             onClose = navController::popBackStack,

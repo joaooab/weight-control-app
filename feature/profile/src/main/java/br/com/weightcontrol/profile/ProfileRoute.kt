@@ -158,7 +158,7 @@ fun ProfileScreen(
             enabled = areInputsValid,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 24.dp),
+                .padding(bottom = 24.dp),
             onClick = { onSave() }
         ) {
             Text(text = stringResource(id = R.string.save))

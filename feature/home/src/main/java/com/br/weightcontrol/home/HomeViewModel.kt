@@ -4,13 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.br.weightcontrol.data.repository.GoalRepository
 import com.br.weightcontrol.data.repository.TrackRepository
-import com.br.weightcontrol.domain.usecase.session.SessionManager
+import com.br.weightcontrol.domain.usecase.session.Session
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
-class HomeViewModel(repository: TrackRepository, goalRepository: GoalRepository, sessionManager: SessionManager) : ViewModel() {
+class HomeViewModel(
+    repository: TrackRepository,
+    goalRepository: GoalRepository,
+) : ViewModel() {
 
     val progressState: StateFlow<Progress> = combine(
         repository.getLastStream(),
@@ -25,7 +28,7 @@ class HomeViewModel(repository: TrackRepository, goalRepository: GoalRepository,
         initialValue = Progress(),
     )
 
-    val session = sessionManager.session
+    val session = Session()
 
     val goalState = goalRepository.getLastStream().stateIn(
         scope = viewModelScope,

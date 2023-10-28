@@ -51,13 +51,6 @@ fun WeiApp(appState: WeiAppState = rememberWeiAppState()) {
                 contentColor = MaterialTheme.colorScheme.onBackground,
                 contentWindowInsets = WindowInsets(0, 0, 0, 0),
                 snackbarHost = { SnackbarHost(snackBarHostState) },
-                floatingActionButton = {
-                    WeiFabButton(
-                        onClick = {
-                            appState.navController.navigateToTrack()
-                        }
-                    )
-                },
                 bottomBar = {
                     if (appState.isTopLevelDestination) {
                         WeiBottomBar(
@@ -67,7 +60,16 @@ fun WeiApp(appState: WeiAppState = rememberWeiAppState()) {
                             modifier = Modifier.testTag("WeiBottomBar"),
                         )
                     }
-                }
+                },
+                floatingActionButton = {
+                    if (appState.shouldShowFabButton) {
+                        WeiFabButton(
+                            onClick = {
+                                appState.navController.navigateToTrack()
+                            }
+                        )
+                    }
+                },
             ) { padding ->
                 Row(
                     Modifier
@@ -99,7 +101,7 @@ fun WeiApp(appState: WeiAppState = rememberWeiAppState()) {
                                     actionLabel = action,
                                     duration = SnackbarDuration.Short,
                                 ) == SnackbarResult.ActionPerformed
-                            }
+                            },
                         )
                     }
                 }

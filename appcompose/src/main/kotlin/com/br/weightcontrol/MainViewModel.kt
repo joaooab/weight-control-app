@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.StateFlow
 
 class MainViewModel(sessionManager: SessionManager) : ViewModel() {
 
-    val uiState: StateFlow<SessionState> = sessionManager.state
+    val sessionState: StateFlow<SessionState> = sessionManager.state
 }

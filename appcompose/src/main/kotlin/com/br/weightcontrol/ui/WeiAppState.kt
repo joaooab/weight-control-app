@@ -60,8 +60,7 @@ class WeiAppState(
     val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
 
     val shouldShowFabButton: Boolean
-        @Composable
-        get() = HOME == currentTopLevelDestination
+        @Composable get() = currentDestination?.route == homeNavigationRoute
 
     fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
         val topLevelNavOptions = navOptions {

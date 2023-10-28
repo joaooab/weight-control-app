@@ -31,12 +31,12 @@ internal fun HomeRoute(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = koinViewModel(),
 ) {
-    val session = viewModel.session
+    val user by viewModel.user.collectAsStateWithLifecycle()
     val progress by viewModel.progressState.collectAsStateWithLifecycle()
     val goal by viewModel.goalState.collectAsStateWithLifecycle()
     val history by viewModel.historyState.collectAsStateWithLifecycle()
     HomeScreen(
-        user = session?.user,
+        user = user,
         progress = progress,
         history = history,
         modifier = modifier,

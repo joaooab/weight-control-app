@@ -4,22 +4,23 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.br.weightcontrol.data.repository.GoalRepository
 import com.br.weightcontrol.data.repository.TrackRepository
-import com.br.weightcontrol.domain.usecase.session.Session
+import com.br.weightcontrol.data.repository.UserRepository
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
 class HomeViewModel(
-    repository: TrackRepository,
+    trackRepository: TrackRepository,
     goalRepository: GoalRepository,
+    userRepository: UserRepository,
 ) : ViewModel() {
 
     val progressState: StateFlow<Progress> = combine(
-        repository.getLastStream(),
-        repository.getPreviewsStream(),
-        repository.getLowerStream(),
-        repository.getHigherStream(),
+        trackRepository.getLastStream(),
+        trackRepository.getPreviewsStream(),
+        trackRepository.getLowerStream(),
+        trackRepository.getHigherStream(),
     ) { last, first, lower, higher ->
         Progress(last, first, lower, higher)
     }.stateIn(
@@ -28,7 +29,11 @@ class HomeViewModel(
         initialValue = Progress(),
     )
 
-    val session = Session()
+    val user = userRepository.stream.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5_000),
+        initialValue = null
+    )
 
     val goalState = goalRepository.getLastStream().stateIn(
         scope = viewModelScope,
@@ -36,7 +41,7 @@ class HomeViewModel(
         initialValue = null,
     )
 
-    val historyState = repository.getAllStream().stateIn(
+    val historyState = trackRepository.getAllStream().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = listOf(),

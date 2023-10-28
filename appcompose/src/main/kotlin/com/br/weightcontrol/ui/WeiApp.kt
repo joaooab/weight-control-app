@@ -59,12 +59,14 @@ fun WeiApp(appState: WeiAppState = rememberWeiAppState()) {
                     )
                 },
                 bottomBar = {
-                    WeiBottomBar(
-                        destinations = appState.topLevelDestinations,
-                        onNavigateToDestination = appState::navigateToTopLevelDestination,
-                        currentDestination = appState.currentDestination,
-                        modifier = Modifier.testTag("WeiBottomBar"),
-                    )
+                    if (appState.isTopLevelDestination) {
+                        WeiBottomBar(
+                            destinations = appState.topLevelDestinations,
+                            onNavigateToDestination = appState::navigateToTopLevelDestination,
+                            currentDestination = appState.currentDestination,
+                            modifier = Modifier.testTag("WeiBottomBar"),
+                        )
+                    }
                 }
             ) { padding ->
                 Row(

@@ -70,7 +70,7 @@ fun OnBoardingScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(24.dp),
+            .padding(horizontal = 24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
@@ -87,7 +87,9 @@ fun OnBoardingScreen(
         StepsProgress(step)
 
         WeiButton(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 24.dp),
             onClick = { onNext(step) }
         ) {
             Text(text = stringResource(id = step.buttonText))

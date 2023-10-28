@@ -54,6 +54,9 @@ class WeiAppState(
             else -> null
         }
 
+    val isTopLevelDestination: Boolean
+        @Composable get() = currentTopLevelDestination != null
+
     val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
 
     val shouldShowFabButton: Boolean

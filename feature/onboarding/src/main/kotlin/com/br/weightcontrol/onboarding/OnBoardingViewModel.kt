@@ -2,7 +2,7 @@ package com.br.weightcontrol.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.br.weightcontrol.domain.usecase.usecase.StreamUserUseCase
+import com.br.weightcontrol.data.repository.UserRepository
 import com.br.weightcontrol.onboarding.domain.OnBoardingStep
 import com.br.weightcontrol.onboarding.domain.OnBoardingUIState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -10,14 +10,14 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
-class OnBoardingViewModel(streamUserUseCase: StreamUserUseCase) : ViewModel() {
+class OnBoardingViewModel(userRepository: UserRepository) : ViewModel() {
 
     private val step = MutableStateFlow<OnBoardingStep>(OnBoardingStep.FirstStep())
     private val createProfile = MutableStateFlow(false)
 
     val uiState = combine(
         step,
-        streamUserUseCase(),
+        userRepository.stream,
         createProfile
     ) { step, user, onCreateProfile ->
         OnBoardingUIState(

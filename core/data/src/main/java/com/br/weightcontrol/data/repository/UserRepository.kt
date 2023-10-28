@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
 
-    val userData : Flow<User>
+    val stream : Flow<User?>
 
     suspend fun insert(user: User): Boolean
 }

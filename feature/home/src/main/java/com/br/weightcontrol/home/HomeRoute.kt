@@ -54,14 +54,21 @@ internal fun HomeScreen(
         LazyColumn {
             item {
                 TrackProgressCard(progress)
-                Spacer(modifier = Modifier.height(16.dp))
             }
             item {
-                user?.let { BodyMassIndexCard(user, progress.current) }
-                Spacer(modifier = Modifier.height(16.dp))
+                user?.let {
+                    BodyMassIndexCard(
+                        user = user,
+                        track = progress.current,
+                        modifier = Modifier.padding(top = 16.dp)
+                    )
+                }
             }
             item {
-                TrackListChart(tracks = history)
+                TrackListChart(
+                    tracks = history,
+                    modifier = Modifier.padding(top = 16.dp)
+                )
             }
         }
     }
@@ -120,12 +127,13 @@ private fun TrackItem(track: Track?, @StringRes label: Int) {
 }
 
 @Composable
-fun BodyMassIndexCard(user: User, track: Track?) {
+fun BodyMassIndexCard(user: User, track: Track?, modifier: Modifier = Modifier) {
     if (track == null) return
     val bmi = calculateBMI(track.weight, user)
 
     Card(
         shape = RoundedCornerShape(8.dp),
+        modifier = modifier
     ) {
         Column(
             modifier = Modifier.padding(16.dp),

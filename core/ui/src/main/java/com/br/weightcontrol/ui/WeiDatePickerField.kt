@@ -24,7 +24,9 @@ import com.br.weightcontrol.designsystem.icon.WeiIcons
 import com.br.weightcontrol.designsystem.theme.WeiTheme
 import com.br.weightcontrol.ui.input.InputWrapper
 import com.br.weightcontrol.util.defaultBirthday
+import com.br.weightcontrol.util.format
 import com.br.weightcontrol.util.toLocalDate
+import com.br.weightcontrol.util.toLocalDateOrNull
 import com.br.weightcontrol.util.toLong
 import com.br.weightcontrol.util.today
 import kotlinx.datetime.LocalDate
@@ -50,7 +52,7 @@ fun WeiDatePickerField(
     )
 
     OutlinedTextField(
-        value = input.input,
+        value = input.input.toLocalDateOrNull()?.format().orEmpty(),
         enabled = false,
         onValueChange = {},
         leadingIcon = {

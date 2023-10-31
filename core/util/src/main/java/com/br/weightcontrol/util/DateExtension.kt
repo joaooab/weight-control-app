@@ -5,11 +5,11 @@ import kotlinx.datetime.Instant
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.atStartOfDayIn
+import kotlinx.datetime.toJavaLocalDate
 import kotlinx.datetime.toLocalDateTime
 import kotlinx.datetime.todayIn
-
-private const val DATE_PATTERN = "yyyy-MM-dd"
-private const val DATE_PATTERN_BR = "dd/MM/yyyy"
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 
 fun today() = Clock.System.todayIn(TimeZone.UTC)
 fun todayAsString() = today().toString()
@@ -18,6 +18,12 @@ fun String.toLocalDate() = LocalDate.parse(this)
 fun String.toLocalDateOrNull() = runCatching { LocalDate.parse(this) }.getOrNull()
 fun Long.toLocalDate() = Instant.fromEpochMilliseconds(this).toLocalDateTime(TimeZone.UTC).date
 fun LocalDate.toLong() = this.atStartOfDayIn(TimeZone.UTC).toEpochMilliseconds()
+
+fun LocalDate.format(): String = runCatching {
+    val javaLocalDate = this.toJavaLocalDate()
+    val dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)
+    javaLocalDate.format(dateFormatter)
+}.getOrElse { this.toString() }
 
 fun calculateAge(birthdate: LocalDate): Int {
     val currentDate = today()

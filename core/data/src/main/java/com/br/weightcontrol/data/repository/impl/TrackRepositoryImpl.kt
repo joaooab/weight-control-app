@@ -10,6 +10,8 @@ import kotlinx.coroutines.flow.map
 class TrackRepositoryImpl(private val dao: TrackDao) : TrackRepository {
     override fun getAllStream() = dao.getAllStream().map { it.toModel() }
 
+    override fun getFirstStream() = dao.getFirstStream().map { it?.toModel() }
+
     override fun getLastStream() = dao.getLastStream().map { it?.toModel() }
 
     override fun getPreviewsStream() = dao.getPreviewsStream().map { it?.toModel() }

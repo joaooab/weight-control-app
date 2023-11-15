@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun CustomLinearProgressIndicator(
-    progress: Float,
+    targetProgress: Float,
     modifier: Modifier = Modifier,
     progressColor: Color = MaterialTheme.colorScheme.primary,
     backgroundColor: Color = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f),
@@ -32,7 +32,7 @@ fun CustomLinearProgressIndicator(
             modifier = Modifier
                 .background(progressColor)
                 .fillMaxHeight()
-                .fillMaxWidth(progress)
+                .fillMaxWidth(targetProgress)
         )
     }
 }

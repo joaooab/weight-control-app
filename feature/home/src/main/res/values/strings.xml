@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="home_tracks">Medições</string>
-    <string name="home_track_current">Peso Atual</string>
+    <string name="home_track_first">Peso Inicial</string>
     <string name="home_track_previews">Peso Anterior</string>
     <string name="home_track_higher">Maior Peso</string>
     <string name="home_track_lower">Menor Peso</string>

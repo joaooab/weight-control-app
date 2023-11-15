@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import br.com.weightcontrol.domain.calculatePercentage
+import br.com.weightcontrol.domain.calculateGoalPercentage
 import com.br.weightcontrol.bmi.domain.calculateBMI
 import com.br.weightcontrol.bmi.domain.format
 import com.br.weightcontrol.designsystem.icon.WeiIcons
@@ -36,14 +36,16 @@ internal fun HomeRoute(
     viewModel: HomeViewModel = koinViewModel(),
 ) {
     val user by viewModel.user.collectAsStateWithLifecycle()
+    val currentTrack by viewModel.currentTrack.collectAsStateWithLifecycle()
     val progress by viewModel.progressState.collectAsStateWithLifecycle()
     val goal by viewModel.goalState.collectAsStateWithLifecycle()
     val history by viewModel.historyState.collectAsStateWithLifecycle()
     HomeScreen(
         user = user,
-        progress = progress,
-        history = history,
+        currentTrack = currentTrack,
         goal = goal,
+        history = history,
+        progress = progress,
         modifier = modifier,
         navigateToGoal = navigateToGoal,
     )
@@ -52,25 +54,29 @@ internal fun HomeRoute(
 @Composable
 internal fun HomeScreen(
     user: User?,
-    progress: Progress,
+    currentTrack: Track?,
     history: List<Track>,
     goal: Goal?,
+    progress: Progress,
     modifier: Modifier = Modifier,
     navigateToGoal: () -> Unit = {}
 ) {
     Column(modifier.padding(16.dp)) {
         LazyColumn {
             item {
-                TrackProgressCard(progress)
+                GoalCard(
+                    currentTrack = currentTrack,
+                    goal = goal,
+                    navigateToGoal = navigateToGoal,
+                    modifier = Modifier.padding(top = 16.dp)
+                )
             }
             item {
-                user?.let {
-                    BodyMassIndexCard(
-                        user = user,
-                        track = progress.current,
-                        modifier = Modifier.padding(top = 16.dp)
-                    )
-                }
+                BodyMassIndexCard(
+                    user = user,
+                    track = currentTrack,
+                    modifier = Modifier.padding(top = 16.dp)
+                )
             }
             item {
                 TrackListChart(
@@ -79,9 +85,8 @@ internal fun HomeScreen(
                 )
             }
             item {
-                GoalCard(
-                    goal = goal,
-                    navigateToGoal = navigateToGoal,
+                TrackProgressCard(
+                    progress = progress,
                     modifier = Modifier.padding(top = 16.dp)
                 )
             }
@@ -114,7 +119,7 @@ internal fun TrackProgressCard(
             }
             Spacer(modifier = Modifier.height(12.dp))
 
-            TrackItem(progress.current, R.string.home_track_current)
+            TrackItem(progress.first, R.string.home_track_first)
             Divider(thickness = 1.dp, modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
 
             TrackItem(progress.previous, R.string.home_track_previews)
@@ -142,8 +147,8 @@ private fun TrackItem(track: Track?, @StringRes label: Int) {
 }
 
 @Composable
-internal fun BodyMassIndexCard(user: User, track: Track?, modifier: Modifier = Modifier) {
-    if (track == null) return
+internal fun BodyMassIndexCard(user: User?, track: Track?, modifier: Modifier = Modifier) {
+    if (track == null || user == null) return
     val bmi = calculateBMI(track.weight, user)
 
     Card(
@@ -182,6 +187,7 @@ internal fun BodyMassIndexCard(user: User, track: Track?, modifier: Modifier = M
 @Composable
 internal fun GoalCard(
     goal: Goal?,
+    currentTrack: Track?,
     navigateToGoal: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -203,7 +209,7 @@ internal fun GoalCard(
                 )
             }
             if (goal == null) GoalEmptyCard(navigateToGoal)
-            else GoalFilledCard(goal)
+            else GoalFilledCard(goal, currentTrack)
         }
     }
 }
@@ -230,9 +236,10 @@ internal fun GoalEmptyCard(navigateToGoal: () -> Unit) {
 
 
 @Composable
-internal fun GoalFilledCard(goal: Goal) {
+internal fun GoalFilledCard(goal: Goal, currentTrack: Track?) {
+    if (currentTrack == null) return
     CustomLinearProgressIndicator(
-        progress = calculatePercentage(goal),
+        targetProgress = calculateGoalPercentage(goal, currentTrack),
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
@@ -249,9 +256,10 @@ internal fun HomeScreenPreview(
     WeiTheme {
         HomeScreen(
             user = User(),
+            currentTrack = Track(),
+            goal = null,
             progress = Progress(),
-            history = trackListResource,
-            goal = null
+            history = trackListResource
         )
     }
 }

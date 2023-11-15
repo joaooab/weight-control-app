@@ -1,12 +1,14 @@
 package br.com.weightcontrol.domain
 
 import com.br.weightcontrol.model.Goal
+import com.br.weightcontrol.model.Track
 
-fun calculatePercentage(goal: Goal): Float {
-    return calculatePercentage(goal.start, 0.0, goal.desire).toFloat()
-}
+fun calculateGoalPercentage(goal: Goal, currentTrack: Track) =
+    calculateGoalPercentage(goal.start, currentTrack.weight, goal.desire)
+        .coerceIn(0.0, 1.0)
+        .toFloat()
 
-private fun calculatePercentage(begin: Double, current: Double, end: Double): Double {
+private fun calculateGoalPercentage(begin: Double, current: Double, end: Double): Double {
     return if (begin > end) {
         calculateDescPercentage(begin, current, end)
     } else {
@@ -19,13 +21,9 @@ private fun calculateAscPercentage(
     current: Double,
     end: Double
 ): Double {
-    return if (begin < current) {
-        val totalGoal = end - begin
-        val totalCurrent = current - begin
-        totalCurrent / totalGoal * 100
-    } else {
-        0.0
-    }
+    val totalGoal = end - begin
+    val totalCurrent = current - begin
+    return totalCurrent / totalGoal
 }
 
 private fun calculateDescPercentage(
@@ -33,11 +31,7 @@ private fun calculateDescPercentage(
     current: Double,
     end: Double
 ): Double {
-    return if (begin > current) {
-        val totalGoal = begin - end
-        val totalCurrent = begin - current
-        totalCurrent / totalGoal * 100
-    } else {
-        0.0
-    }
+    val totalGoal = begin - end
+    val totalCurrent = begin - current
+    return totalCurrent / totalGoal
 }

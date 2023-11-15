@@ -7,6 +7,8 @@ interface TrackRepository {
 
     fun getAllStream(): Flow<List<Track>>
 
+    fun getFirstStream(): Flow<Track?>
+
     fun getLastStream(): Flow<Track?>
 
     fun getPreviewsStream(): Flow<Track?>

@@ -33,11 +33,13 @@ class GoalViewModel(
         started = SharingStarted.WhileSubscribed(5000L),
         initialValue = false
     )
+
     val currentTrack = trackRepository.getLastStream().filterNotNull().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000L),
         initialValue = Track()
     )
+
     val recommendation = userRepository.stream.map { user ->
         user?.let { calculateRecommendation(it) }
     }.stateIn(

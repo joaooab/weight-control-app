@@ -4,7 +4,11 @@ import com.br.weightcontrol.bmi.domain.BMI
 
 interface BMIStrategy {
 
-    fun shouldExecute(value: Double): Boolean
+    val minWeight: Double
+
+    val maxWeight: Double
+
+    fun shouldExecute(value: Double) = value in minWeight..maxWeight
 
     fun execute(value: Double): BMI
 }

@@ -9,7 +9,6 @@ fun GoalEntity.toModel() = Goal(
     id = id,
     start = start,
     desire = desire,
-    current = current,
     createdAt = createdAt,
     completedAt = completedAt,
 )
@@ -18,7 +17,6 @@ fun Goal.toEntity() = GoalEntity(
     id = id,
     start = start,
     desire = desire,
-    current = current,
     createdAt = createdAt,
     completedAt = completedAt,
 )

@@ -14,26 +14,27 @@
  * limitations under the License.
  */
 
-package com.br.weightcontrol.home.navigation
+package br.com.weightcontrol.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
-import com.br.weightcontrol.home.HomeRoute
+import br.com.weightcontrol.GoalRoute
 
-const val homeNavigationRoute = "home_route"
+const val goalNavigationRoute = "goal_route"
 
-fun NavController.navigateToHome(navOptions: NavOptions? = null) {
-    this.navigate(homeNavigationRoute, navOptions)
+fun NavController.navigateToGoal() {
+    this.navigate(goalNavigationRoute)
 }
 
-fun NavGraphBuilder.homeScreen(
-    navigateToGoal: () -> Unit
+fun NavGraphBuilder.goalScreen(
+    onClose: () -> Unit,
+    onShowSnackBar: suspend (String, String?) -> Boolean,
 ) {
-    composable(route = homeNavigationRoute) {
-        HomeRoute(
-            navigateToGoal = navigateToGoal
+    composable(route = goalNavigationRoute) {
+        GoalRoute(
+            onClose = onClose,
+            onShowSnackBar = onShowSnackBar
         )
     }
 }

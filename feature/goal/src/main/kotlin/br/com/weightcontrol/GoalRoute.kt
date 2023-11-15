@@ -1,7 +1,8 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.br.weightcontrol.track
+package br.com.weightcontrol
 
+import GoalViewModel
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
@@ -12,39 +13,36 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.br.weightcontrol.core.designsystem.R
+import com.br.weightcontrol.bmi.domain.WeightRecommendation
 import com.br.weightcontrol.designsystem.component.BackNavigationIcon
 import com.br.weightcontrol.designsystem.component.WeiButton
 import com.br.weightcontrol.designsystem.component.WeiTopAppBar
+import com.br.weightcontrol.goal.R
 import com.br.weightcontrol.model.ActionState
-import com.br.weightcontrol.ui.WeiDatePickerField
+import com.br.weightcontrol.model.Track
 import com.br.weightcontrol.ui.input.InputWrapper
-import com.br.weightcontrol.ui.rememberDefaultDatePickerState
 import com.br.weightcontrol.util.*
-import kotlinx.datetime.LocalDate
 import org.koin.androidx.compose.koinViewModel
-import com.br.weightcontrol.track.R as trackR
 
 @Composable
-internal fun TrackRoute(
+internal fun GoalRoute(
     onClose: () -> Unit,
     onShowSnackBar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
-    viewModel: TrackViewModel = koinViewModel(),
+    viewModel: GoalViewModel = koinViewModel(),
 ) {
     val weight by viewModel.weight.collectAsStateWithLifecycle()
-    val date by viewModel.date.collectAsStateWithLifecycle()
     val areInputsValid by viewModel.areInputsValid.collectAsStateWithLifecycle()
-    val datePickerState = rememberDefaultDatePickerState()
-    val saveState  by viewModel.saveActionState
+    val currentTrack by viewModel.currentTrack.collectAsStateWithLifecycle()
+    val recommendation by viewModel.recommendation.collectAsStateWithLifecycle()
+    val saveState by viewModel.saveActionState
 
-    TrackScreen(
+    GoalScreen(
         weight = weight,
-        date = date,
         onWeightChanged = viewModel::onWeightEntered,
-        onDateChanged = viewModel::onDateEntered,
         areInputsValid = areInputsValid,
-        datePickerState = datePickerState,
+        currentTrack = currentTrack,
+        recommendation = recommendation,
         onClose = onClose,
         onSave = viewModel::save,
         saveState = saveState,
@@ -55,13 +53,12 @@ internal fun TrackRoute(
 }
 
 @Composable
-internal fun TrackScreen(
+internal fun GoalScreen(
     weight: InputWrapper,
-    date: InputWrapper,
     onWeightChanged: (String) -> Unit,
-    onDateChanged: (LocalDate) -> Unit,
     areInputsValid: Boolean,
-    datePickerState: DatePickerState,
+    currentTrack: Track?,
+    recommendation: WeightRecommendation?,
     onClose: () -> Unit,
     onSave: () -> Unit,
     saveState: ActionState,
@@ -69,7 +66,7 @@ internal fun TrackScreen(
     onDismissSnackBar: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val errorCreateTrackMessage = stringResource(id = trackR.string.error_create_track)
+    val errorCreateTrackMessage = ""
 
     LaunchedEffect(saveState) {
         when (saveState) {
@@ -78,6 +75,7 @@ internal fun TrackScreen(
                 onShowSnackBar(errorCreateTrackMessage, null)
                 onDismissSnackBar()
             }
+
             else -> Unit
         }
     }
@@ -91,6 +89,14 @@ internal fun TrackScreen(
             titleRes = R.string.add_track,
             navigationIcon = { BackNavigationIcon { onClose() } }
         )
+        CurrentTrackText(
+            currentTrack = currentTrack,
+            modifier = Modifier.padding(top = 32.dp)
+        )
+        RecommendationText(
+            recommendation = recommendation,
+            modifier = Modifier.padding(top = 8.dp)
+        )
         OutlinedTextField(
             modifier = Modifier
                 .fillMaxWidth()
@@ -101,19 +107,9 @@ internal fun TrackScreen(
                 imeAction = ImeAction.Done
             ),
             onValueChange = { onWeightChanged(it) },
-            label = { Text(stringResource(id = trackR.string.track_which_weight)) },
+            label = { Text(stringResource(id = R.string.goal_target)) },
             isError = weight.hasError(),
             supportingText = { weight.errorId?.let { Text(stringResource(id = it)) } }
-        )
-        WeiDatePickerField(
-            label = { Text(text = stringResource(id = trackR.string.track_which_day))},
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp),
-            input = date,
-            datePickerState = datePickerState,
-            onValueChange = { onDateChanged(it) },
-            dateValidator = dateValidatorLowerThanToday
         )
         WeiButton(
             enabled = areInputsValid,
@@ -124,5 +120,32 @@ internal fun TrackScreen(
         ) {
             Text(text = stringResource(id = R.string.save))
         }
+    }
+}
+
+@Composable
+fun CurrentTrackText(currentTrack: Track?, modifier: Modifier) {
+    currentTrack?.let {
+        Text(
+            text = stringResource(
+                id = R.string.goal_current_track,
+                it.weight
+            ),
+            modifier = modifier
+        )
+    }
+}
+
+@Composable
+private fun RecommendationText(recommendation: WeightRecommendation?, modifier: Modifier) {
+    recommendation?.let {
+        Text(
+            text = stringResource(
+                id = R.string.goal_recommendation,
+                it.minWeight,
+                it.maxWeight
+            ),
+            modifier = modifier
+        )
     }
 }

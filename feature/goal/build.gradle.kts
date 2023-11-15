@@ -4,11 +4,9 @@ plugins {
 }
 
 android {
-    namespace = "com.br.weightcontrol.home"
+    namespace = "com.br.weightcontrol.goal"
 }
 
 dependencies {
     implementation(project(":feature:bmi"))
-    implementation(project(":feature:goal"))
-    implementation(libs.kotlinx.datetime)
 }

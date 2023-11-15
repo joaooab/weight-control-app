@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Speed
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
@@ -31,6 +32,7 @@ object WeiIcons {
     val Close = Icons.Filled.Close
     val Person = Icons.Outlined.Person
     val Edit = Icons.Outlined.Edit
+    val Flag = Icons.Outlined.Flag
 }
 
 sealed class Icon {

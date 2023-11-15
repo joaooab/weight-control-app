@@ -15,19 +15,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import br.com.weightcontrol.domain.calculatePercentage
 import com.br.weightcontrol.bmi.domain.calculateBMI
 import com.br.weightcontrol.bmi.domain.format
 import com.br.weightcontrol.designsystem.icon.WeiIcons
 import com.br.weightcontrol.designsystem.theme.WeiTheme
+import com.br.weightcontrol.model.Goal
 import com.br.weightcontrol.model.Track
 import com.br.weightcontrol.model.User
 import com.br.weightcontrol.model.format
+import com.br.weightcontrol.ui.CustomLinearProgressIndicator
 import com.br.weightcontrol.ui.TrackListResourcePreviewParameterProvider
 import com.br.weightcontrol.ui.chart.TrackListChart
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 internal fun HomeRoute(
+    navigateToGoal: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = koinViewModel(),
 ) {
@@ -39,7 +43,9 @@ internal fun HomeRoute(
         user = user,
         progress = progress,
         history = history,
+        goal = goal,
         modifier = modifier,
+        navigateToGoal = navigateToGoal,
     )
 }
 
@@ -48,7 +54,9 @@ internal fun HomeScreen(
     user: User?,
     progress: Progress,
     history: List<Track>,
+    goal: Goal?,
     modifier: Modifier = Modifier,
+    navigateToGoal: () -> Unit = {}
 ) {
     Column(modifier.padding(16.dp)) {
         LazyColumn {
@@ -67,6 +75,13 @@ internal fun HomeScreen(
             item {
                 TrackListChart(
                     tracks = history,
+                    modifier = Modifier.padding(top = 16.dp)
+                )
+            }
+            item {
+                GoalCard(
+                    goal = goal,
+                    navigateToGoal = navigateToGoal,
                     modifier = Modifier.padding(top = 16.dp)
                 )
             }
@@ -127,12 +142,12 @@ private fun TrackItem(track: Track?, @StringRes label: Int) {
 }
 
 @Composable
-fun BodyMassIndexCard(user: User, track: Track?, modifier: Modifier = Modifier) {
+internal fun BodyMassIndexCard(user: User, track: Track?, modifier: Modifier = Modifier) {
     if (track == null) return
     val bmi = calculateBMI(track.weight, user)
 
     Card(
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(16.dp),
         modifier = modifier
     ) {
         Column(
@@ -145,8 +160,11 @@ fun BodyMassIndexCard(user: User, track: Track?, modifier: Modifier = Modifier) 
                     contentDescription = null,
                     modifier = Modifier.size(24.dp)
                 )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(text = stringResource(R.string.home_bmi), fontWeight = FontWeight.Bold)
+                Text(
+                    text = stringResource(R.string.home_bmi),
+                    modifier = Modifier.padding(start = 8.dp),
+                    fontWeight = FontWeight.Bold
+                )
             }
             Spacer(modifier = Modifier.height(16.dp))
             Row(
@@ -161,6 +179,66 @@ fun BodyMassIndexCard(user: User, track: Track?, modifier: Modifier = Modifier) 
     }
 }
 
+@Composable
+internal fun GoalCard(
+    goal: Goal?,
+    navigateToGoal: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        modifier = modifier
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = WeiIcons.Flag,
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+                Text(
+                    text = stringResource(R.string.home_goal),
+                    modifier = Modifier.padding(start = 8.dp),
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            if (goal == null) GoalEmptyCard(navigateToGoal)
+            else GoalFilledCard(goal)
+        }
+    }
+}
+
+@Composable
+internal fun GoalEmptyCard(navigateToGoal: () -> Unit) {
+    Text(
+        text = stringResource(R.string.home_empty_goal),
+        modifier = Modifier.padding(top = 16.dp),
+    )
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 16.dp)
+    ) {
+        Button(
+            onClick = { navigateToGoal() },
+            modifier = Modifier.align(Alignment.CenterEnd)
+        ) {
+            Text(text = stringResource(id = R.string.add))
+        }
+    }
+}
+
+
+@Composable
+internal fun GoalFilledCard(goal: Goal) {
+    CustomLinearProgressIndicator(
+        progress = calculatePercentage(goal),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .padding(bottom = 32.dp)
+    )
+}
 
 @Preview
 @Composable
@@ -169,7 +247,12 @@ internal fun HomeScreenPreview(
     trackListResource: List<Track>,
 ) {
     WeiTheme {
-        HomeScreen(user = User(), progress = Progress(), history = trackListResource)
+        HomeScreen(
+            user = User(),
+            progress = Progress(),
+            history = trackListResource,
+            goal = null
+        )
     }
 }
 

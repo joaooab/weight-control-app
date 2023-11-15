@@ -4,7 +4,9 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancelar</string>
     <string name="alert">Atenção</string>
+    <string name="add">Adicionar</string>
     <string name="add_track">Nova medição</string>
+    <string name="add_goal">Nova meta</string>
     <string name="profile">Perfil</string>
     <string name="birthday_date">Data de nascimento</string>
     <string name="gender_select">Selecione o gênero</string>

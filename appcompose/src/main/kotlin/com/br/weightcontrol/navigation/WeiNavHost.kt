@@ -20,6 +20,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import br.com.weightcontrol.navigation.goalScreen
+import br.com.weightcontrol.navigation.navigateToGoal
 import br.com.weightcontrol.profile.navigation.navigateToProfile
 import br.com.weightcontrol.profile.navigation.profileScreen
 import com.br.weightcontrol.history.navigation.historyScreen
@@ -43,7 +45,9 @@ fun WeiNavHost(
         startDestination = startDestination,
         modifier = modifier,
     ) {
-        homeScreen()
+        homeScreen(
+            navigateToGoal = navController::navigateToGoal
+        )
         historyScreen()
         setupScreen(navigateToProfile = navController::navigateToProfile)
         onBoardingScreen(
@@ -58,6 +62,10 @@ fun WeiNavHost(
             onShowSnackBar = onShowSnackBar
         )
         trackScreen(
+            onClose = navController::popBackStack,
+            onShowSnackBar = onShowSnackBar
+        )
+        goalScreen(
             onClose = navController::popBackStack,
             onShowSnackBar = onShowSnackBar
         )

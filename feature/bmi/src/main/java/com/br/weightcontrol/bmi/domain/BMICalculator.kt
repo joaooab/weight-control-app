@@ -20,13 +20,25 @@ fun calculateBMI(weight: Double, user: User): BMI {
     return calculateBMI(weight, height)
 }
 
+fun calculateRecommendation(user: User): WeightRecommendation {
+    val height = user.height.toDouble().div(100)
+    val strategy = NormalStrategy()
+
+    val minWeight = calculate { strategy.minWeight * (height * height) }
+    val maxWeight = calculate { strategy.maxWeight * (height * height) }
+
+    return WeightRecommendation(minWeight, maxWeight)
+}
+
 internal fun calculateBMI(weight: Double, height: Double): BMI {
-    val bmi = BigDecimal(weight / (height * height))
-        .setScale(1, RoundingMode.HALF_UP)
-        .toDouble()
+    val bmi = calculate { weight / (height * height) }
 
     return findBMIStrategy(bmi).execute(bmi)
 }
+
+private fun calculate(block: () -> Double) = BigDecimal(block())
+    .setScale(1, RoundingMode.HALF_UP)
+    .toDouble()
 
 internal fun findBMIStrategy(bmi: Double): BMIStrategy {
     for (strategy in bmiStrategyList) {

@@ -1,5 +1,6 @@
 package com.br.weightcontrol.di
 
+import br.com.weightcontrol.di.goalModule
 import br.com.weightcontrol.profile.di.profileModule
 import com.br.weightcontrol.MainViewModel
 import com.br.weightcontrol.data.di.dataModule
@@ -24,5 +25,6 @@ val weiAppModule = module {
         profileModule,
         settingsModule,
         onBoardingModule,
+        goalModule,
     )
 }

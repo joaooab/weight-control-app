@@ -7,6 +7,7 @@ import androidx.compose.ui.res.stringResource
 import com.br.weightcontrol.designsystem.component.WeiTextButton
 import com.br.weightcontrol.model.Track
 import com.br.weightcontrol.model.format
+import com.br.weightcontrol.util.format
 
 @Composable
 fun DeleteAlertDialog(
@@ -32,7 +33,7 @@ fun DeleteAlertDialog(
                 text = stringResource(
                     id = R.string.history_delete_track_description,
                     track.format(),
-                    track.createdAt.toString()
+                    track.createdAt.format()
                 )
             )
         }

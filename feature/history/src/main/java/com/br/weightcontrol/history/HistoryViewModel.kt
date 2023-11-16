@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 
 class HistoryViewModel(private val repository: TrackRepository) : ViewModel() {
 
-    val tracks: Flow<List<Track>> = repository.getAllStream()
+    val tracks: Flow<List<Track>> = repository.getAllStreamOrderedByCreatedAtDesc()
 
     private val _showDeleteDialog = MutableStateFlow<DeleteDialogState>(DeleteDialogState.Hide)
     val showDeleteDialog: StateFlow<DeleteDialogState> = _showDeleteDialog.asStateFlow()

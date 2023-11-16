@@ -49,7 +49,7 @@ class HomeViewModel(
         initialValue = null,
     )
 
-    val historyState = trackRepository.getAllStream().stateIn(
+    val historyState = trackRepository.getAllStreamOrderedByCreatedAtAsc().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = listOf(),

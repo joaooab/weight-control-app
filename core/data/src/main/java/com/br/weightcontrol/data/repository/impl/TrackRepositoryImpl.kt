@@ -8,7 +8,12 @@ import com.br.weightcontrol.model.Track
 import kotlinx.coroutines.flow.map
 
 class TrackRepositoryImpl(private val dao: TrackDao) : TrackRepository {
-    override fun getAllStream() = dao.getAllStream().map { it.toModel() }
+
+    override fun getAllStreamOrderedByCreatedAtDesc() =
+        dao.getAllStreamOrderedByCreatedAtDesc().map { it.toModel() }
+
+    override fun getAllStreamOrderedByCreatedAtAsc() =
+        dao.getAllStreamOrderedByCreatedAtAsc().map { it.toModel() }
 
     override fun getFirstStream() = dao.getFirstStream().map { it?.toModel() }
 

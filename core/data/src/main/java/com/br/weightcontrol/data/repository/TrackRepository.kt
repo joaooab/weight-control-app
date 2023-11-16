@@ -5,7 +5,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface TrackRepository {
 
-    fun getAllStream(): Flow<List<Track>>
+    fun getAllStreamOrderedByCreatedAtDesc(): Flow<List<Track>>
+
+    fun getAllStreamOrderedByCreatedAtAsc(): Flow<List<Track>>
 
     fun getFirstStream(): Flow<Track?>
 

@@ -15,7 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import br.com.weightcontrol.domain.calculateGoalPercentage
+import br.com.weightcontrol.component.GoalCard
 import com.br.weightcontrol.bmi.domain.calculateBMI
 import com.br.weightcontrol.bmi.domain.format
 import com.br.weightcontrol.designsystem.icon.WeiIcons
@@ -24,9 +24,9 @@ import com.br.weightcontrol.model.Goal
 import com.br.weightcontrol.model.Track
 import com.br.weightcontrol.model.User
 import com.br.weightcontrol.model.format
-import com.br.weightcontrol.ui.CustomLinearProgressIndicator
 import com.br.weightcontrol.ui.TrackListResourcePreviewParameterProvider
 import com.br.weightcontrol.ui.chart.TrackListChart
+import com.br.weightcontrol.util.todayAsString
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -184,69 +184,6 @@ internal fun BodyMassIndexCard(user: User?, track: Track?, modifier: Modifier = 
     }
 }
 
-@Composable
-internal fun GoalCard(
-    goal: Goal?,
-    currentTrack: Track?,
-    navigateToGoal: () -> Unit,
-    modifier: Modifier = Modifier
-) {
-    Card(
-        shape = RoundedCornerShape(16.dp),
-        modifier = modifier
-    ) {
-        Column(modifier = Modifier.padding(16.dp)) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = WeiIcons.Flag,
-                    contentDescription = null,
-                    modifier = Modifier.size(24.dp)
-                )
-                Text(
-                    text = stringResource(R.string.home_goal),
-                    modifier = Modifier.padding(start = 8.dp),
-                    fontWeight = FontWeight.Bold
-                )
-            }
-            if (goal == null) GoalEmptyCard(navigateToGoal)
-            else GoalFilledCard(goal, currentTrack)
-        }
-    }
-}
-
-@Composable
-internal fun GoalEmptyCard(navigateToGoal: () -> Unit) {
-    Text(
-        text = stringResource(R.string.home_empty_goal),
-        modifier = Modifier.padding(top = 16.dp),
-    )
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 16.dp)
-    ) {
-        Button(
-            onClick = { navigateToGoal() },
-            modifier = Modifier.align(Alignment.CenterEnd)
-        ) {
-            Text(text = stringResource(id = R.string.add))
-        }
-    }
-}
-
-
-@Composable
-internal fun GoalFilledCard(goal: Goal, currentTrack: Track?) {
-    if (currentTrack == null) return
-    CustomLinearProgressIndicator(
-        targetProgress = calculateGoalPercentage(goal, currentTrack),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-            .padding(bottom = 32.dp)
-    )
-}
-
 @Preview
 @Composable
 internal fun HomeScreenPreview(
@@ -257,7 +194,7 @@ internal fun HomeScreenPreview(
         HomeScreen(
             user = User(),
             currentTrack = Track(),
-            goal = null,
+            goal = Goal(1, 85.0, 80.0, todayAsString()),
             progress = Progress(),
             history = trackListResource
         )

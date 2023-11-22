@@ -107,7 +107,7 @@ internal fun GoalScreen(
                 imeAction = ImeAction.Done
             ),
             onValueChange = { onWeightChanged(it) },
-            label = { Text(stringResource(id = R.string.goal_target)) },
+            label = { Text(stringResource(id = R.string.goal_target_input)) },
             isError = weight.hasError(),
             supportingText = { weight.errorId?.let { Text(stringResource(id = it)) } }
         )

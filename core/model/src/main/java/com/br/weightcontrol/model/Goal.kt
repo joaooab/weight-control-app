@@ -6,5 +6,7 @@ data class Goal(
     val desire: Double,
     val createdAt: String,
     val completedAt: String? = null,
-)
+) {
+    fun remaining(weight: Double) = if (start < desire) desire - weight else weight - desire
+}
 

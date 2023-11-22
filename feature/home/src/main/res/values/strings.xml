@@ -6,8 +6,5 @@
     <string name="home_track_higher">Maior Peso</string>
     <string name="home_track_lower">Menor Peso</string>
     <string name="home_bmi">"Índice de massa corpórea (IMC)"</string>
-    <string name="home_goal">"Meta"</string>
-    <string name="home_empty_goal">"Crie uma meta para se manter motivado"</string>
-
     <string name="home_speed_icon_description">ícone de volicímetro</string>
 </resources>

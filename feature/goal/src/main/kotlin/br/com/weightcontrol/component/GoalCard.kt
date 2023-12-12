@@ -82,10 +82,10 @@ internal fun GoalFilledCard(goal: Goal, currentTrack: Track?) {
     if (currentTrack == null) return
     Row(
         modifier = Modifier
-            .padding(top = 24.dp)
+            .padding(top = 16.dp)
             .padding(horizontal = 16.dp)
             .fillMaxWidth(),
-        horizontalArrangement =  Arrangement.SpaceBetween,
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         VerticalLabeledText(
             label = R.string.goal_begin,
@@ -104,6 +104,7 @@ internal fun GoalFilledCard(goal: Goal, currentTrack: Track?) {
         targetProgress = calculateGoalPercentage(goal, currentTrack),
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 24.dp, horizontal = 16.dp)
+            .padding(horizontal = 56.dp)
+            .padding(top = 16.dp)
     )
 }

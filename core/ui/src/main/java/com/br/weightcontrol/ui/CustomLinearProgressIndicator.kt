@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -43,14 +44,12 @@ fun CustomLinearProgressIndicator(
         animationSpec = tween(durationMillis = 2000, easing = FastOutSlowInEasing), label = ""
     )
     Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(end = 8.dp),
+        modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.End
     ) {
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .clip(clipShape)
                 .background(backgroundColor)
                 .weight(1f)
@@ -63,6 +62,7 @@ fun CustomLinearProgressIndicator(
                     .fillMaxWidth(progressAnimation)
             )
         }
+        Spacer(modifier = Modifier.padding(8.dp))
         Text(
             text = (progressAnimation * 100).toPercent(),
             fontWeight = FontWeight.Bold

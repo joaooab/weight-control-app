@@ -2,7 +2,7 @@
     <string name="app_name">Balança diária</string>
     <string name="home">Home</string>
     <string name="history">Histórico</string>
-    <string name="settings">Perfil</string>
+    <string name="settings">Configuração</string>
 
     <string name="content_description_fab">Adicionar peso</string>
 </resources>

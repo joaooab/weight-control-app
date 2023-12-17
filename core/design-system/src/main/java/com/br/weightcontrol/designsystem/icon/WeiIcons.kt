@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Speed
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Edit
@@ -15,6 +16,7 @@ import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 
 object WeiIcons {
@@ -22,8 +24,8 @@ object WeiIcons {
     val HomeBorder = Icons.Outlined.Home
     val History = Icons.Filled.History
     val HistoryBorder = Icons.Outlined.History
-    val Settings = Icons.Filled.Person
-    val SettingsBorder = Icons.Outlined.Person
+    val Settings = Icons.Filled.Settings
+    val SettingsBorder = Icons.Outlined.Settings
     val Speed = Icons.Filled.Speed
     val Add = Icons.Filled.Add
     val CalendarBorder = Icons.Outlined.CalendarMonth

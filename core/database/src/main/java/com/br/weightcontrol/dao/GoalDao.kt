@@ -7,11 +7,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface GoalDao {
 
-    @Query("SELECT * FROM goal")
-    fun getAllStream(): Flow<List<GoalEntity>>
-
     @Query("SELECT * FROM goal ORDER BY id DESC LIMIT 1;")
-    fun getLastStream(): Flow<GoalEntity?>
+    fun stream(): Flow<GoalEntity?>
 
     @Insert
     suspend fun insert(goal: GoalEntity)

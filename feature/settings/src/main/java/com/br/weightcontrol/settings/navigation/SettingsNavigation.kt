@@ -27,8 +27,8 @@ fun NavController.navigateToSetup(navOptions: NavOptions? = null) {
     this.navigate(setupNavigationRoute, navOptions)
 }
 
-fun NavGraphBuilder.setupScreen(navigateToProfile: () -> Unit) {
+fun NavGraphBuilder.setupScreen(navigateToProfile: () -> Unit, navigateToGoal: () -> Unit) {
     composable(route = setupNavigationRoute) {
-        SettingsRoute(navigateToProfile)
+        SettingsRoute(navigateToProfile, navigateToGoal)
     }
 }

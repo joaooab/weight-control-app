@@ -6,3 +6,7 @@ plugins {
 android {
     namespace = "com.br.weightcontrol.settings"
 }
+
+dependencies {
+    implementation(project(":feature:goal"))
+}

@@ -16,15 +16,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.br.weightcontrol.designsystem.icon.WeiIcons
 import com.br.weightcontrol.designsystem.theme.WeiTheme
-import com.br.weightcontrol.history.domain.model.DeleteDialogState
 import com.br.weightcontrol.model.Track
 import com.br.weightcontrol.model.format
+import com.br.weightcontrol.ui.alert.DeleteAlertDialog
+import com.br.weightcontrol.ui.domain.DeleteDialogState
 import com.br.weightcontrol.util.format
 import org.koin.androidx.compose.koinViewModel
 
@@ -37,10 +39,16 @@ internal fun HistoryRoute(
     val deleteDialogState by viewModel.showDeleteDialog.collectAsStateWithLifecycle()
     when (val state = deleteDialogState) {
         is DeleteDialogState.Open -> DeleteAlertDialog(
-            track = state.track,
+            data = state.data,
+            description = stringResource(
+                id = R.string.history_delete_track_description,
+                state.data.format(),
+                state.data.createdAt.format()
+            ),
             onConfirmButton = viewModel::onDeleteConfirm,
             onDismissRequest = viewModel::onDeleteDismiss
         )
+
         else -> Unit
     }
 

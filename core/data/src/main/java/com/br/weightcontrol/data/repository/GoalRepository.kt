@@ -5,9 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface GoalRepository {
 
-    fun getAllStream(): Flow<List<Goal>>
-
-    fun getLastStream(): Flow<Goal?>
+    fun stream(): Flow<Goal?>
 
     suspend fun insert(goal: Goal)
 

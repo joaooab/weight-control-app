@@ -9,9 +9,7 @@ import kotlinx.coroutines.flow.map
 
 class GoalRepositoryImpl(private val dao: GoalDao) : GoalRepository {
 
-    override fun getAllStream() = dao.getAllStream().map { it.toModel() }
-
-    override fun getLastStream() = dao.getLastStream().map { it?.toModel() }
+    override fun stream() = dao.stream().map { it?.toModel() }
 
     override suspend fun insert(goal: Goal) {
         dao.insert(goal.toEntity())

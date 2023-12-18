@@ -43,7 +43,7 @@ class HomeViewModel(
         initialValue = null
     )
 
-    val goalState = goalRepository.getLastStream().stateIn(
+    val goalState = goalRepository.stream().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = null,

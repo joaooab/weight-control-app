@@ -49,7 +49,10 @@ fun WeiNavHost(
             navigateToGoal = navController::navigateToGoal
         )
         historyScreen()
-        setupScreen(navigateToProfile = navController::navigateToProfile)
+        setupScreen(
+            navigateToProfile = navController::navigateToProfile,
+            navigateToGoal = navController::navigateToGoal
+        )
         onBoardingScreen(
             navigateToProfile = navController::navigateToProfile,
             navigateToHome = {

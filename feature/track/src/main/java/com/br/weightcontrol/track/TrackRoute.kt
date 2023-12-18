@@ -69,7 +69,7 @@ internal fun TrackScreen(
     onDismissSnackBar: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val errorCreateTrackMessage = stringResource(id = trackR.string.error_create_track)
+    val errorCreateTrackMessage = stringResource(id = trackR.string.generic_error)
 
     LaunchedEffect(saveState) {
         when (saveState) {

@@ -2,6 +2,4 @@
 <resources>
     <string name="track_which_day">Para qual dia?</string>
     <string name="track_which_weight">Qual o peso?</string>
-
-    <string name="error_create_track">Falha ao criar Medição. Tente novamente mais tarde</string>
 </resources>

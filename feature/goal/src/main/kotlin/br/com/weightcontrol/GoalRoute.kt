@@ -19,9 +19,9 @@ import com.br.weightcontrol.designsystem.component.WeiButton
 import com.br.weightcontrol.designsystem.component.WeiTopAppBar
 import com.br.weightcontrol.goal.R
 import com.br.weightcontrol.model.ActionState
+import com.br.weightcontrol.model.Goal
 import com.br.weightcontrol.model.Track
 import com.br.weightcontrol.ui.input.InputWrapper
-import com.br.weightcontrol.util.*
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -34,6 +34,7 @@ internal fun GoalRoute(
     val weight by viewModel.weight.collectAsStateWithLifecycle()
     val areInputsValid by viewModel.areInputsValid.collectAsStateWithLifecycle()
     val currentTrack by viewModel.currentTrack.collectAsStateWithLifecycle()
+    val currentGoal by viewModel.currentGoal.collectAsStateWithLifecycle()
     val recommendation by viewModel.recommendation.collectAsStateWithLifecycle()
     val saveState by viewModel.saveActionState
 
@@ -42,6 +43,7 @@ internal fun GoalRoute(
         onWeightChanged = viewModel::onWeightEntered,
         areInputsValid = areInputsValid,
         currentTrack = currentTrack,
+        currentGoal = currentGoal,
         recommendation = recommendation,
         onClose = onClose,
         onSave = viewModel::save,
@@ -58,6 +60,7 @@ internal fun GoalScreen(
     onWeightChanged: (String) -> Unit,
     areInputsValid: Boolean,
     currentTrack: Track?,
+    currentGoal: Goal?,
     recommendation: WeightRecommendation?,
     onClose: () -> Unit,
     onSave: () -> Unit,
@@ -66,7 +69,7 @@ internal fun GoalScreen(
     onDismissSnackBar: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val errorCreateTrackMessage = ""
+    val errorCreateTrackMessage = stringResource(id = R.string.generic_error)
 
     LaunchedEffect(saveState) {
         when (saveState) {
@@ -92,6 +95,10 @@ internal fun GoalScreen(
         CurrentTrackText(
             currentTrack = currentTrack,
             modifier = Modifier.padding(top = 32.dp)
+        )
+        CurrentGoalText(
+            currentGoal = currentGoal,
+            modifier = Modifier.padding(top = 8.dp)
         )
         RecommendationText(
             recommendation = recommendation,
@@ -130,6 +137,19 @@ fun CurrentTrackText(currentTrack: Track?, modifier: Modifier) {
             text = stringResource(
                 id = R.string.goal_current_track,
                 it.weight
+            ),
+            modifier = modifier
+        )
+    }
+}
+
+@Composable
+private fun CurrentGoalText(currentGoal: Goal?, modifier: Modifier) {
+    currentGoal?.let {
+        Text(
+            text = stringResource(
+                id = R.string.goal_current,
+                it.desire
             ),
             modifier = modifier
         )

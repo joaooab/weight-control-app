@@ -40,6 +40,12 @@ class GoalViewModel(
         initialValue = Track()
     )
 
+    val currentGoal = goalRepository.stream().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000L),
+        initialValue = null
+    )
+
     val recommendation = userRepository.stream.map { user ->
         user?.let { calculateRecommendation(it) }
     }.stateIn(
@@ -66,11 +72,13 @@ class GoalViewModel(
 
 
     private fun createGoal() = runCatching {
-        Goal(
-            start = currentTrack.value.weight,
-            desire = weight.value.input.toDouble(),
-            createdAt = todayAsString(),
-        )
+        currentGoal.value
+            ?.copy(desire = weight.value.input.toDouble())
+            ?: Goal(
+                start = currentTrack.value.weight,
+                desire = weight.value.input.toDouble(),
+                createdAt = todayAsString(),
+            )
     }
 
     fun clearSaveAction() {

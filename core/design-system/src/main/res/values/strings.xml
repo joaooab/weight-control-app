@@ -20,4 +20,6 @@
     <string name="field_weight_range_error">Peso deve estar entre 10 Kg e 400 Kg</string>
     <string name="field_height_range_error">Altura deve estar entre 100 cm e 300 cm</string>
     <string name="field_birthday_error">Data inválida</string>
+
+    <string name="generic_error">Erro inesperado. Tente novamente mais tarde</string>
 </resources>

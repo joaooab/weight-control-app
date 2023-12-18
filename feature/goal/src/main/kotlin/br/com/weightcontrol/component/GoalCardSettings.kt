@@ -36,11 +36,7 @@ fun GoalCardSettings(
         shape = RoundedCornerShape(16.dp),
         modifier = modifier
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
+        Column {
             if (goal == null) GoalCard(
                 goal = null,
                 currentTrack = null,

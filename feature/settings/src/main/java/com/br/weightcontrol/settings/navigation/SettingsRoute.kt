@@ -77,7 +77,8 @@ private fun SettingsScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(24.dp)
+            .padding(vertical = 24.dp)
+            .padding(horizontal = 16.dp)
     ) {
         CardPersonSettings(
             user = user,

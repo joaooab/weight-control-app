@@ -1,12 +1,11 @@
 package br.com.weightcontrol.component
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,11 +14,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import br.com.weightcontrol.domain.calculateGoalPercentage
 import com.br.weightcontrol.designsystem.icon.WeiIcons
 import com.br.weightcontrol.goal.R
+import com.br.weightcontrol.model.Goal
+import com.br.weightcontrol.model.Track
+import com.br.weightcontrol.ui.CustomLinearProgressIndicator
+import com.br.weightcontrol.ui.VerticalLabeledText
 
 @Composable
-internal fun GoalEmptyCard(navigateToGoal: () -> Unit) {
+internal fun GoalProgressCard(goal: Goal?, currentTrack: Track?) {
+    goal ?: return
+    currentTrack ?: return
     Column(modifier = Modifier.padding(16.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
@@ -33,21 +39,32 @@ internal fun GoalEmptyCard(navigateToGoal: () -> Unit) {
                 fontWeight = FontWeight.Bold
             )
         }
-        Text(
-            text = stringResource(R.string.goal_empty),
-            modifier = Modifier.padding(top = 16.dp),
-        )
-        Box(
+        Row(
+            modifier = Modifier
+                .padding(top = 16.dp)
+                .padding(horizontal = 16.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            VerticalLabeledText(
+                label = R.string.goal_begin,
+                weight = goal.start
+            )
+            VerticalLabeledText(
+                label = R.string.goal_remaining,
+                weight = goal.remaining(currentTrack.weight)
+            )
+            VerticalLabeledText(
+                label = R.string.goal_destination,
+                weight = goal.desire
+            )
+        }
+        CustomLinearProgressIndicator(
+            targetProgress = calculateGoalPercentage(goal, currentTrack),
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(horizontal = 56.dp)
                 .padding(top = 16.dp)
-        ) {
-            Button(
-                onClick = { navigateToGoal() },
-                modifier = Modifier.align(Alignment.CenterEnd)
-            ) {
-                Text(text = stringResource(id = R.string.add))
-            }
-        }
+        )
     }
 }

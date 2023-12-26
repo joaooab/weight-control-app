@@ -3,11 +3,8 @@ package br.com.weightcontrol.component
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -32,34 +29,30 @@ fun GoalCardSettings(
     onDelete: (Goal) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Card(
-        shape = RoundedCornerShape(16.dp),
-        modifier = modifier
-    ) {
-        Column {
-            if (goal == null) GoalCard(
-                goal = null,
-                currentTrack = null,
-                navigateToGoal = onEdit
-            )
-            else GoalCardFilledSettings(
+    GoalCard(
+        goal = goal,
+        currentTrack = null,
+        navigateToGoal = onEdit,
+        onProgressGoal = {
+            GoalCardProgressSettings(
                 goal = goal,
                 onEdit = onEdit,
                 onDelete = onDelete,
                 modifier = modifier
             )
         }
-    }
+    )
 }
 
 @Composable
-internal fun GoalCardFilledSettings(
-    goal: Goal,
+internal fun GoalCardProgressSettings(
+    goal: Goal?,
     onEdit: () -> Unit,
     onDelete: (Goal) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column {
+    goal ?: return
+    Column(modifier = Modifier.padding(16.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 imageVector = WeiIcons.Flag,

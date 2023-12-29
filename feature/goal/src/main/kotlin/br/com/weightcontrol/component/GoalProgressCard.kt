@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,48 +25,57 @@ import com.br.weightcontrol.ui.CustomLinearProgressIndicator
 import com.br.weightcontrol.ui.VerticalLabeledText
 
 @Composable
-internal fun GoalProgressCard(goal: Goal?, currentTrack: Track?) {
+internal fun GoalProgressCard(
+    goal: Goal?,
+    currentTrack: Track?,
+    modifier: Modifier = Modifier
+) {
     goal ?: return
     currentTrack ?: return
-    Column(modifier = Modifier.padding(16.dp)) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(
-                imageVector = WeiIcons.Flag,
-                contentDescription = null,
-                modifier = Modifier.size(24.dp)
-            )
-            Text(
-                text = stringResource(R.string.goal),
-                modifier = Modifier.padding(start = 8.dp),
-                fontWeight = FontWeight.Bold
+    Card(
+        modifier = modifier,
+        shape = RoundedCornerShape(16.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = WeiIcons.Flag,
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+                Text(
+                    text = stringResource(R.string.goal),
+                    modifier = Modifier.padding(start = 8.dp),
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .padding(top = 16.dp)
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+            ) {
+                VerticalLabeledText(
+                    label = R.string.goal_begin,
+                    weight = goal.start
+                )
+                VerticalLabeledText(
+                    label = R.string.goal_remaining,
+                    weight = goal.remaining(currentTrack.weight)
+                )
+                VerticalLabeledText(
+                    label = R.string.goal_destination,
+                    weight = goal.desire
+                )
+            }
+            CustomLinearProgressIndicator(
+                targetProgress = calculateGoalPercentage(goal, currentTrack),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 56.dp)
+                    .padding(top = 16.dp)
             )
         }
-        Row(
-            modifier = Modifier
-                .padding(top = 16.dp)
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-        ) {
-            VerticalLabeledText(
-                label = R.string.goal_begin,
-                weight = goal.start
-            )
-            VerticalLabeledText(
-                label = R.string.goal_remaining,
-                weight = goal.remaining(currentTrack.weight)
-            )
-            VerticalLabeledText(
-                label = R.string.goal_destination,
-                weight = goal.desire
-            )
-        }
-        CustomLinearProgressIndicator(
-            targetProgress = calculateGoalPercentage(goal, currentTrack),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 56.dp)
-                .padding(top = 16.dp)
-        )
     }
 }

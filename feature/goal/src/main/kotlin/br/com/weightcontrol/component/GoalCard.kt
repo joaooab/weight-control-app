@@ -1,11 +1,8 @@
 package br.com.weightcontrol.component
 
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.br.weightcontrol.designsystem.theme.WeiTheme
 import com.br.weightcontrol.model.Goal
 import com.br.weightcontrol.model.Track
@@ -18,19 +15,14 @@ fun GoalCard(
     currentTrack: Track?,
     navigateToGoal: () -> Unit,
     modifier: Modifier = Modifier,
-    onEmptyGoal: @Composable () -> Unit = { GoalEmptyCard(navigateToGoal) },
-    onCompletedGoal: @Composable () -> Unit = { GoalCompletionCard() },
-    onProgressGoal: @Composable () -> Unit = { GoalProgressCard(goal, currentTrack) }
+    onEmptyGoal: @Composable () -> Unit = { GoalEmptyCard(navigateToGoal, modifier) },
+    onCompletedGoal: @Composable () -> Unit = { GoalCompletionCard(modifier) },
+    onProgressGoal: @Composable () -> Unit = { GoalProgressCard(goal, currentTrack, modifier) }
 ) {
-    Card(
-        shape = RoundedCornerShape(16.dp),
-        modifier = modifier
-    ) {
-        when {
-            goal == null -> onEmptyGoal()
-            goal.isFinished() -> onCompletedGoal()
-            else -> onProgressGoal()
-        }
+    when {
+        goal == null -> onEmptyGoal()
+        goal.isFinished() -> onCompletedGoal()
+        else -> onProgressGoal()
     }
 }
 

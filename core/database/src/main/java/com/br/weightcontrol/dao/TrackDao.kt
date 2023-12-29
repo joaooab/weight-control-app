@@ -30,7 +30,7 @@ interface TrackDao {
     @Query("SELECT * FROM track ORDER BY weight ASC LIMIT 1;")
     fun getLowerStream(): Flow<TrackEntity?>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(track: TrackEntity)
 
     @Update

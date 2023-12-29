@@ -11,6 +11,8 @@ class GoalRepositoryImpl(private val dao: GoalDao) : GoalRepository {
 
     override fun stream() = dao.stream().map { it?.toModel() }
 
+    override  suspend fun get() = dao.get()?.toModel()
+
     override suspend fun insert(goal: Goal) {
         dao.insert(goal.toEntity())
     }

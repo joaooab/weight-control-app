@@ -4,7 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.br.weightcontrol.data.repository.TrackRepository
+import com.br.weightcontrol.domain.usecase.AddTrackUseCase
 import com.br.weightcontrol.model.ActionState
 import com.br.weightcontrol.model.Track
 import com.br.weightcontrol.ui.input.DateInputHandler
@@ -22,7 +22,7 @@ import kotlinx.datetime.LocalDate
 
 class TrackViewModel(
     private val handle: SavedStateHandle,
-    private val repository: TrackRepository
+    private val addTrackUseCase: AddTrackUseCase
 ) : ViewModel() {
 
     val saveActionState = mutableStateOf<ActionState>(ActionState.Start)
@@ -48,7 +48,7 @@ class TrackViewModel(
         viewModelScope.launch {
             createTrack()
                 .onSuccess {
-                    repository.insert(track = it)
+                    addTrackUseCase(it)
                     saveActionState.value = ActionState.Success
                 }.onFailure {
                     saveActionState.value = ActionState.Failure

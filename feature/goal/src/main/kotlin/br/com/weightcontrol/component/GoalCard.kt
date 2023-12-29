@@ -21,7 +21,7 @@ fun GoalCard(
 ) {
     when {
         goal == null -> onEmptyGoal()
-        goal.isFinished() -> onCompletedGoal()
+        goal.isCompleted() -> onCompletedGoal()
         else -> onProgressGoal()
     }
 }

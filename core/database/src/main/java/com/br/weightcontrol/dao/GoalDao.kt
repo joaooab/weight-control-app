@@ -10,6 +10,9 @@ interface GoalDao {
     @Query("SELECT * FROM goal ORDER BY id DESC LIMIT 1;")
     fun stream(): Flow<GoalEntity?>
 
+    @Query("SELECT * FROM goal ORDER BY id DESC LIMIT 1;")
+    suspend fun get(): GoalEntity?
+
     @Insert
     suspend fun insert(goal: GoalEntity)
 

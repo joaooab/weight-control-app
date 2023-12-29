@@ -7,7 +7,15 @@ data class Goal(
     val createdAt: String,
     val completedAt: String? = null,
 ) {
-    fun isFinished() = completedAt != null
     fun remaining(weight: Double) = if (start < desire) desire - weight else weight - desire
+    fun isCompleted() = completedAt != null
+
+    fun shouldComplete(track: Track) = if (isGoalIncreaseWeight()) {
+        track.weight <= desire
+    } else {
+        track.weight >= desire
+    }
+
+    private fun isGoalIncreaseWeight() = desire > start
 }
 

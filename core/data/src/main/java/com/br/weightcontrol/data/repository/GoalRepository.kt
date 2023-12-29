@@ -7,6 +7,8 @@ interface GoalRepository {
 
     fun stream(): Flow<Goal?>
 
+    suspend fun get(): Goal?
+
     suspend fun insert(goal: Goal)
 
     suspend fun update(goal: Goal)

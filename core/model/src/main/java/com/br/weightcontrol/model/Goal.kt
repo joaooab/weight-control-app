@@ -11,11 +11,11 @@ data class Goal(
     fun isCompleted() = completedAt != null
 
     fun shouldComplete(track: Track) = if (isGoalIncreaseWeight()) {
-        track.weight <= desire
-    } else {
         track.weight >= desire
+    } else {
+        track.weight <= desire
     }
 
-    private fun isGoalIncreaseWeight() = desire > start
+    private fun isGoalIncreaseWeight() = start < desire
 }
 

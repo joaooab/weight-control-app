@@ -12,4 +12,6 @@ dependencies {
     implementation(project(":core:util"))
     implementation(libs.koin.android)
     implementation(libs.kotlinx.coroutines.android)
+
+    testImplementation(project(":core:test"))
 }

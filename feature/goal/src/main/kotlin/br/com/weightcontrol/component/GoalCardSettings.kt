@@ -58,12 +58,16 @@ internal fun GoalCardProgressSettings(
         modifier = modifier,
         shape = RoundedCornerShape(16.dp)
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .padding(top = 8.dp)
+                .padding(bottom = 16.dp)
+        ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = WeiIcons.Flag,
                     contentDescription = null,
-                    modifier = Modifier.size(24.dp)
                 )
                 Text(
                     text = stringResource(R.string.goal),

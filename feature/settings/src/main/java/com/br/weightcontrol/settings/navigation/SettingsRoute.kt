@@ -77,13 +77,12 @@ private fun SettingsScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(vertical = 24.dp)
-            .padding(horizontal = 16.dp)
+            .padding(16.dp)
+
     ) {
         CardPersonSettings(
             user = user,
             navigateToProfile = navigateToProfile,
-            modifier = modifier
         )
         Spacer(modifier = Modifier.padding(top = 16.dp))
         GoalCardSettings(
@@ -98,16 +97,18 @@ private fun SettingsScreen(
 private fun CardPersonSettings(
     user: User,
     navigateToProfile: () -> Unit,
-    modifier: Modifier
+    modifier: Modifier = Modifier
 ) {
     Card {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(horizontal = 16.dp)
+                .padding(top = 8.dp)
+                .padding(bottom = 16.dp)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(
+                Icon(
                     imageVector = WeiIcons.Person,
                     contentDescription = null,
                 )

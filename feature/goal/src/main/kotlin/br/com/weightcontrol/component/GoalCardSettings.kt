@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -52,38 +54,43 @@ internal fun GoalCardProgressSettings(
     modifier: Modifier = Modifier
 ) {
     goal ?: return
-    Column(modifier = Modifier.padding(16.dp)) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Icon(
-                imageVector = WeiIcons.Flag,
-                contentDescription = null,
-                modifier = Modifier.size(24.dp)
-            )
-            Text(
-                text = stringResource(R.string.goal),
-                modifier = Modifier.padding(start = 8.dp),
-                fontWeight = FontWeight.Bold
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            IconButton(onClick = onEdit) {
+    Card(
+        modifier = modifier,
+        shape = RoundedCornerShape(16.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
-                    imageVector = WeiIcons.Edit,
+                    imageVector = WeiIcons.Flag,
                     contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+                Text(
+                    text = stringResource(R.string.goal),
+                    modifier = Modifier.padding(start = 8.dp),
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                IconButton(onClick = onEdit) {
+                    Icon(
+                        imageVector = WeiIcons.Edit,
+                        contentDescription = null,
+                    )
+                }
+                IconButton(onClick = { onDelete(goal) }) {
+                    Icon(
+                        imageVector = WeiIcons.Close,
+                        contentDescription = null,
+                    )
+                }
+            }
+            Column {
+                HorizontalLabeledText(
+                    label = stringResource(id = R.string.goal_destination_label),
+                    value = goal.desire.toString(),
+                    modifier = modifier.padding(top = 8.dp)
                 )
             }
-            IconButton(onClick = { onDelete(goal) }) {
-                Icon(
-                    imageVector = WeiIcons.Close,
-                    contentDescription = null,
-                )
-            }
-        }
-        Column {
-            HorizontalLabeledText(
-                label = stringResource(id = R.string.goal_destination_label),
-                value = goal.desire.toString(),
-                modifier = modifier.padding(top = 8.dp)
-            )
         }
     }
 }

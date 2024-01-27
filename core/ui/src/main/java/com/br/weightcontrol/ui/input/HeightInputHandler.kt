@@ -10,7 +10,8 @@ object HeightInputHandler : InputHandler {
         return when {
             input.isBlank() -> R.string.field_required_error
             inputFormatted == null -> R.string.field_only_numbers_error
-            inputFormatted !in 100..300 -> R.string.field_height_range_error
+            inputFormatted < 50.0 -> R.string.field_height_min_error
+            inputFormatted > 300.0 -> R.string.field_height_max_error
             else -> null
         }
     }

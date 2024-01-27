@@ -10,7 +10,8 @@ object WeightInputHandler : InputHandler {
         return when {
             input.isBlank() -> R.string.field_required_error
             inputFormatted == null -> R.string.field_only_numbers_error
-            inputFormatted !in 10.0..400.0 -> R.string.field_weight_range_error
+            inputFormatted < 10.0 -> R.string.field_weight_min_error
+            inputFormatted > 1000.0 -> R.string.field_weight_max_error
             else -> null
         }
     }

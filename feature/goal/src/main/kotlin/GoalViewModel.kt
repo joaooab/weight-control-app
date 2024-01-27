@@ -9,9 +9,9 @@ import com.br.weightcontrol.data.repository.UserRepository
 import com.br.weightcontrol.model.ActionState
 import com.br.weightcontrol.model.Goal
 import com.br.weightcontrol.model.Track
+import com.br.weightcontrol.ui.input.GoalInputHandler
 import com.br.weightcontrol.ui.input.InputWrapper
-import com.br.weightcontrol.ui.input.WeightInputHandler
-import com.br.weightcontrol.ui.input.isValidWeight
+import com.br.weightcontrol.ui.input.isValidGoal
 import com.br.weightcontrol.util.todayAsString
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.filterNotNull
@@ -28,7 +28,7 @@ class GoalViewModel(
 
     val saveActionState = mutableStateOf<ActionState>(ActionState.Start)
     val weight = handle.getStateFlow(WEIGHT, InputWrapper())
-    val areInputsValid = weight.map { it.isValidWeight() }.stateIn(
+    val areInputsValid = weight.map { it.isValidGoal(currentTrack.value.weight) }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000L),
         initialValue = false
@@ -55,7 +55,7 @@ class GoalViewModel(
     )
 
     fun onWeightEntered(input: String) {
-        handle[WEIGHT] = WeightInputHandler.onInputEntered(input)
+        handle[WEIGHT] = GoalInputHandler.onInputEntered(input, currentTrack.value.weight)
     }
 
     fun save() {
@@ -70,13 +70,14 @@ class GoalViewModel(
         }
     }
 
-
     private fun createGoal() = runCatching {
+        val desire = weight.value.input.toDouble()
+        val current = currentTrack.value.weight
         currentGoal.value
-            ?.copy(desire = weight.value.input.toDouble())
+            ?.copy(desire = desire)
             ?: Goal(
-                start = currentTrack.value.weight,
-                desire = weight.value.input.toDouble(),
+                start = current,
+                desire = desire,
                 createdAt = todayAsString(),
             )
     }

@@ -71,7 +71,7 @@ fun CurrentTrackCard(
                 Spacer(modifier = Modifier.weight(1f))
                 IconButton(onClick = onClickAdd) {
                     Icon(
-                        imageVector = WeiIcons.Add2,
+                        imageVector = WeiIcons.Add,
                         contentDescription = null,
                     )
                 }

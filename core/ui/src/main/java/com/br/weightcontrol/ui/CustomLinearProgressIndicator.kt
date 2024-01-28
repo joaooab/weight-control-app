@@ -41,7 +41,7 @@ fun CustomLinearProgressIndicator(
     var progress by remember { mutableStateOf(0f) }
     val progressAnimation: Float by animateFloatAsState(
         targetValue = progress,
-        animationSpec = tween(durationMillis = 2000, easing = FastOutSlowInEasing), label = ""
+        animationSpec = tween(durationMillis = 1000, easing = FastOutSlowInEasing), label = ""
     )
     Row(
         modifier = modifier.fillMaxWidth(),

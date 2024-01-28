@@ -5,8 +5,11 @@ import com.br.weightcontrol.util.getValidatedDecimalNumber
 
 object GoalInputHandler : InputHandler {
 
+    override fun onInputEntered(input: String) =
+        InputWrapper(getValidatedDecimalNumber(input), WeightInputHandler.getError(input))
+
     fun onInputEntered(input: String, currentTrack: Double) = InputWrapper(
-        input = input,
+        input = getValidatedDecimalNumber(input),
         errorId = getError(input, currentTrack)
     )
 
@@ -15,7 +18,7 @@ object GoalInputHandler : InputHandler {
 
     private fun getError(input: String, currentTrack: Double): Int? {
         val error = getError(input)
-        val inputFormatted = getValidatedDecimalNumber(input).toDoubleOrNull()
+        val inputFormatted = input.toDoubleOrNull()
         return when {
             error != null -> error
             inputFormatted == currentTrack -> R.string.field_goal_equal_current_error

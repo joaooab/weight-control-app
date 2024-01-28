@@ -1,10 +1,21 @@
 package com.br.weightcontrol.home
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.Divider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -24,6 +35,7 @@ import com.br.weightcontrol.model.Goal
 import com.br.weightcontrol.model.Track
 import com.br.weightcontrol.model.User
 import com.br.weightcontrol.model.format
+import com.br.weightcontrol.ui.CurrentTrackCard
 import com.br.weightcontrol.ui.TrackListResourcePreviewParameterProvider
 import com.br.weightcontrol.ui.chart.TrackListChart
 import com.br.weightcontrol.util.todayAsString
@@ -31,6 +43,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 internal fun HomeRoute(
+    navigateToTrack: () -> Unit,
     navigateToGoal: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = koinViewModel(),
@@ -48,6 +61,7 @@ internal fun HomeRoute(
         progress = progress,
         modifier = modifier,
         navigateToGoal = navigateToGoal,
+        navigateToTrack = navigateToTrack,
     )
 }
 
@@ -59,10 +73,18 @@ internal fun HomeScreen(
     goal: Goal?,
     progress: Progress,
     modifier: Modifier = Modifier,
-    navigateToGoal: () -> Unit = {}
+    navigateToGoal: () -> Unit = {},
+    navigateToTrack: () -> Unit = {}
 ) {
     Column(modifier.padding(16.dp)) {
         LazyColumn {
+            item {
+                CurrentTrackCard(
+                    track = currentTrack,
+                    onClickAdd = navigateToTrack,
+                    modifier = Modifier.padding(top = 8.dp)
+                )
+            }
             item {
                 GoalCard(
                     currentTrack = currentTrack,

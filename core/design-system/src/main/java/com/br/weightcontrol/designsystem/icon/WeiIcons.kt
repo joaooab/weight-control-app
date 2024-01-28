@@ -10,11 +10,13 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Speed
+import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.CalendarMonth
 import androidx.compose.material.icons.outlined.Edit
 import androidx.compose.material.icons.outlined.Flag
 import androidx.compose.material.icons.outlined.History
 import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.MonitorWeight
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -27,13 +29,14 @@ object WeiIcons {
     val Settings = Icons.Filled.Settings
     val SettingsBorder = Icons.Outlined.Settings
     val Speed = Icons.Filled.Speed
-    val Add = Icons.Filled.Add
     val CalendarBorder = Icons.Outlined.CalendarMonth
     val ArrowBack = Icons.Filled.ArrowBack
     val Close = Icons.Filled.Close
     val Person = Icons.Outlined.Person
     val Edit = Icons.Outlined.Edit
     val Flag = Icons.Outlined.Flag
+    val MonitorWeight = Icons.Outlined.MonitorWeight
+    val Add = Icons.Outlined.AddCircle
 }
 
 sealed class Icon {

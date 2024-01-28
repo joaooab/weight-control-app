@@ -30,6 +30,7 @@ import com.br.weightcontrol.home.navigation.navigateToHome
 import com.br.weightcontrol.onboarding.navigation.onBoardingNavigationRoute
 import com.br.weightcontrol.onboarding.navigation.onBoardingScreen
 import com.br.weightcontrol.settings.navigation.setupScreen
+import com.br.weightcontrol.track.navigation.navigateToTrack
 import com.br.weightcontrol.track.navigation.trackScreen
 import org.koin.androidx.compose.get
 
@@ -46,6 +47,7 @@ fun WeiNavHost(
         modifier = modifier,
     ) {
         homeScreen(
+            navigateToTrack = navController::navigateToTrack,
             navigateToGoal = navController::navigateToGoal
         )
         historyScreen()

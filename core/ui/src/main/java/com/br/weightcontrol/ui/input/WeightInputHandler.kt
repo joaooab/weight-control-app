@@ -5,8 +5,11 @@ import com.br.weightcontrol.util.getValidatedDecimalNumber
 
 object WeightInputHandler : InputHandler {
 
+    override fun onInputEntered(input: String) =
+        InputWrapper(getValidatedDecimalNumber(input), getError(input))
+
     override fun getError(input: String): Int? {
-        val inputFormatted = getValidatedDecimalNumber(input).toDoubleOrNull()
+        val inputFormatted = input.toDoubleOrNull()
         return when {
             input.isBlank() -> R.string.field_required_error
             inputFormatted == null -> R.string.field_only_numbers_error

@@ -32,7 +32,6 @@ import com.br.weightcontrol.designsystem.component.WeiGradientBackground
 import com.br.weightcontrol.designsystem.component.WeiTopAppBar
 import com.br.weightcontrol.designsystem.theme.LocalGradientColors
 import com.br.weightcontrol.navigation.WeiNavHost
-import com.br.weightcontrol.track.navigation.navigateToTrack
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -58,15 +57,6 @@ fun WeiApp(appState: WeiAppState = rememberWeiAppState()) {
                             onNavigateToDestination = appState::navigateToTopLevelDestination,
                             currentDestination = appState.currentDestination,
                             modifier = Modifier.testTag("WeiBottomBar"),
-                        )
-                    }
-                },
-                floatingActionButton = {
-                    if (appState.shouldShowFabButton) {
-                        WeiFabButton(
-                            onClick = {
-                                appState.navController.navigateToTrack()
-                            }
                         )
                     }
                 },

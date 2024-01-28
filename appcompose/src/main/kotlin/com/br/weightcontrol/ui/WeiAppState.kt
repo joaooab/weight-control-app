@@ -28,19 +28,15 @@ import kotlinx.coroutines.CoroutineScope
 @Composable
 fun rememberWeiAppState(
     navController: NavHostController = rememberNavController(),
-    coroutineScope: CoroutineScope = rememberCoroutineScope(),
-    trackSheetState: SheetState = rememberModalBottomSheetState(),
 ): WeiAppState {
     return remember(navController) {
-        WeiAppState(navController, coroutineScope, trackSheetState)
+        WeiAppState(navController)
     }
 }
 
 @Stable
 class WeiAppState(
     val navController: NavHostController,
-    val coroutineScope: CoroutineScope,
-    val trackSheetState: SheetState,
 ) {
     val currentDestination: NavDestination?
         @Composable get() = navController
@@ -58,9 +54,6 @@ class WeiAppState(
         @Composable get() = currentTopLevelDestination != null
 
     val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
-
-    val shouldShowFabButton: Boolean
-        @Composable get() = currentDestination?.route == homeNavigationRoute
 
     fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
         val topLevelNavOptions = navOptions {

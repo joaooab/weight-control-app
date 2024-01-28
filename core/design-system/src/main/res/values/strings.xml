@@ -12,5 +12,6 @@
     <string name="gender_select">Selecione o gênero</string>
     <string name="female">Feminino</string>
     <string name="male">Masculino</string>
+    <string name="current_weight">Peso Atual</string>
     <string name="generic_error">Erro inesperado. Tente novamente mais tarde</string>
 </resources>

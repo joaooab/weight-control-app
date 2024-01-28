@@ -1,7 +1,7 @@
 package com.br.weightcontrol.util
 
 private const val DIGITS_BEFORE_DECIMAL = 3
-private const val DIGITS_AFTER_DECIMAL = 2
+private const val DIGITS_AFTER_DECIMAL = 1
 private const val DELIMITER = '.'
 
 fun getValidatedDecimalNumber(

@@ -29,10 +29,12 @@ fun NavController.navigateToHome(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.homeScreen(
+    navigateToTrack: () -> Unit,
     navigateToGoal: () -> Unit
 ) {
     composable(route = homeNavigationRoute) {
         HomeRoute(
+            navigateToTrack = navigateToTrack,
             navigateToGoal = navigateToGoal
         )
     }

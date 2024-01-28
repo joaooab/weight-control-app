@@ -11,4 +11,8 @@ data class Track(
     val createdAt: LocalDate = Clock.System.todayIn(TimeZone.currentSystemDefault()),
 )
 
-fun Track?.format() = if (this == null) "" else "$weight Kg"
+fun Track?.format() = if (this == null) "" else weight.formatWeight()
+
+fun Double.formatWeight() = "$this Kg"
+
+fun Float.formatWeight() = "${String.format("%.1f", this)} Kg"

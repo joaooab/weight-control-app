@@ -23,6 +23,7 @@ import br.com.weightcontrol.component.GoalCardSettings
 import com.br.weightcontrol.designsystem.icon.WeiIcons
 import com.br.weightcontrol.model.Gender
 import com.br.weightcontrol.model.Goal
+import com.br.weightcontrol.model.Track
 import com.br.weightcontrol.model.User
 import com.br.weightcontrol.settings.R
 import com.br.weightcontrol.ui.HorizontalLabeledText
@@ -41,6 +42,7 @@ internal fun SettingsRoute(
 ) {
     val user by viewModel.user.collectAsStateWithLifecycle()
     val goal by viewModel.goal.collectAsStateWithLifecycle()
+    val currentTrack by viewModel.currentTrack.collectAsStateWithLifecycle()
     val deleteDialogState by viewModel.showDeleteDialog.collectAsStateWithLifecycle()
 
     when (val state = deleteDialogState) {
@@ -57,6 +59,7 @@ internal fun SettingsRoute(
     SettingsScreen(
         user = user,
         goal = goal,
+        currentTrack = currentTrack,
         navigateToProfile = navigateToProfile,
         navigateToGoal = navigateToGoal,
         onDelete = viewModel::onDelete,
@@ -68,6 +71,7 @@ internal fun SettingsRoute(
 private fun SettingsScreen(
     user: User,
     goal: Goal?,
+    currentTrack: Track?,
     navigateToProfile: () -> Unit,
     navigateToGoal: () -> Unit,
     onDelete: (Goal) -> Unit,
@@ -86,6 +90,7 @@ private fun SettingsScreen(
         Spacer(modifier = Modifier.padding(top = 16.dp))
         GoalCardSettings(
             goal = goal,
+            currentTrack = currentTrack,
             onEdit = navigateToGoal,
             onDelete = onDelete
         )
@@ -155,6 +160,7 @@ fun SettingsScreenPreview() {
             gender = Gender.MALE
         ),
         goal = null,
+        currentTrack = Track(),
         navigateToProfile = {},
         navigateToGoal = {},
         onDelete = {},

@@ -34,7 +34,7 @@ class HomeViewModel(
     val currentTrack = trackRepository.getLastStream().filterNotNull().stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000L),
-        initialValue = Track()
+        initialValue = null
     )
 
     val user = userRepository.stream.stateIn(

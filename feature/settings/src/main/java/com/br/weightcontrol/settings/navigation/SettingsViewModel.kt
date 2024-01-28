@@ -3,6 +3,7 @@ package com.br.weightcontrol.settings.navigation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.br.weightcontrol.data.repository.GoalRepository
+import com.br.weightcontrol.data.repository.TrackRepository
 import com.br.weightcontrol.data.repository.UserRepository
 import com.br.weightcontrol.model.Goal
 import com.br.weightcontrol.model.User
@@ -17,6 +18,7 @@ import kotlinx.coroutines.launch
 
 class SettingsViewModel(
     userRepository: UserRepository,
+    trackRepository: TrackRepository,
     private val goalRepository: GoalRepository
 ) : ViewModel() {
 
@@ -32,6 +34,11 @@ class SettingsViewModel(
         initialValue = null,
     )
 
+    val currentTrack = trackRepository.getLastStream().filterNotNull().stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000L),
+        initialValue = null
+    )
 
     private val _showDeleteDialog = MutableStateFlow<DeleteDialogState<Goal>>(DeleteDialogState.Hide())
     val showDeleteDialog: StateFlow<DeleteDialogState<Goal>> = _showDeleteDialog.asStateFlow()

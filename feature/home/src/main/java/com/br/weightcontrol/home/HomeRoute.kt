@@ -35,7 +35,7 @@ import com.br.weightcontrol.model.Goal
 import com.br.weightcontrol.model.Track
 import com.br.weightcontrol.model.User
 import com.br.weightcontrol.model.format
-import com.br.weightcontrol.ui.CurrentTrackCard
+import com.br.weightcontrol.track.component.TrackCard
 import com.br.weightcontrol.ui.TrackListResourcePreviewParameterProvider
 import com.br.weightcontrol.ui.chart.TrackListChart
 import com.br.weightcontrol.util.todayAsString
@@ -79,7 +79,7 @@ internal fun HomeScreen(
     Column(modifier.padding(16.dp)) {
         LazyColumn {
             item {
-                CurrentTrackCard(
+                TrackCard(
                     track = currentTrack,
                     onClickAdd = navigateToTrack,
                     modifier = Modifier.padding(top = 8.dp)

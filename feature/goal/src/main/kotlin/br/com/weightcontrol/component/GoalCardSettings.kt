@@ -20,19 +20,21 @@ import com.br.weightcontrol.designsystem.icon.WeiIcons
 import com.br.weightcontrol.designsystem.theme.WeiTheme
 import com.br.weightcontrol.goal.R
 import com.br.weightcontrol.model.Goal
+import com.br.weightcontrol.model.Track
 import com.br.weightcontrol.ui.HorizontalLabeledText
 import com.br.weightcontrol.util.todayAsString
 
 @Composable
 fun GoalCardSettings(
     goal: Goal?,
+    currentTrack: Track?,
     onEdit: () -> Unit,
     onDelete: (Goal) -> Unit,
     modifier: Modifier = Modifier
 ) {
     GoalCard(
         goal = goal,
-        currentTrack = null,
+        currentTrack = currentTrack,
         navigateToGoal = onEdit,
         onProgressGoal = {
             GoalCardProgressSettings(
@@ -104,6 +106,7 @@ internal fun GoalCardFilledSettingsPreview() {
     WeiTheme {
         GoalCardSettings(
             goal = Goal(start = 85.0, desire = 80.0, createdAt = todayAsString()),
+            currentTrack = Track(),
             onEdit = {},
             onDelete = {}
         )

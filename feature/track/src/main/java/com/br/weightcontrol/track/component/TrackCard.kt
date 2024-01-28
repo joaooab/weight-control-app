@@ -1,4 +1,4 @@
-package com.br.weightcontrol.ui
+package com.br.weightcontrol.track.component
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -32,16 +32,74 @@ import com.br.weightcontrol.designsystem.icon.WeiIcons
 import com.br.weightcontrol.designsystem.theme.WeiTheme
 import com.br.weightcontrol.model.Track
 import com.br.weightcontrol.model.formatWeight
+import com.br.weightcontrol.ui.text.TextWithIcon
 import com.br.weightcontrol.util.format
 import com.br.weightcontrol.util.today
+import com.br.weightcontrol.track.R as trackR
 
 @Composable
-fun CurrentTrackCard(
+fun TrackCard(
     track: Track?,
     onClickAdd: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    track ?: return
+    when (track) {
+        null -> EmptyTrackCard(
+            onClickAdd = onClickAdd,
+            modifier = modifier
+        )
+
+        else -> CurrentTrackCard(
+            track = track,
+            onClickAdd = onClickAdd,
+            modifier = modifier
+        )
+    }
+}
+
+@Composable
+private fun EmptyTrackCard(
+    onClickAdd: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier,
+        shape = RoundedCornerShape(16.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = WeiIcons.Flag,
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
+                Text(
+                    text = stringResource(R.string.current_weight),
+                    modifier = Modifier.padding(start = 8.dp),
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.weight(1f))
+                IconButton(onClick = onClickAdd) {
+                    Icon(
+                        imageVector = WeiIcons.Add,
+                        contentDescription = null,
+                    )
+                }
+            }
+            TextWithIcon(
+                text = trackR.string.track_empty,
+                icon = WeiIcons.Add,
+            )
+        }
+    }
+}
+
+@Composable
+private fun CurrentTrackCard(
+    track: Track,
+    onClickAdd: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     var progress by remember { mutableStateOf(0f) }
     val progressAnimation: Float by animateFloatAsState(
         targetValue = progress,
@@ -94,6 +152,14 @@ fun CurrentTrackCard(
     }
     LaunchedEffect(track) {
         progress = track.weight.toFloat()
+    }
+}
+
+@Preview
+@Composable
+fun EmptyTrackCardPreview() {
+    WeiTheme {
+        EmptyTrackCard(onClickAdd = { })
     }
 }
 

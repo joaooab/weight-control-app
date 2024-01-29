@@ -16,7 +16,7 @@ fun GoalCard(
     navigateToGoal: () -> Unit,
     modifier: Modifier = Modifier,
     onEmptyGoal: @Composable () -> Unit = { GoalEmptyCard(navigateToGoal, modifier) },
-    onCompletedGoal: @Composable () -> Unit = { GoalCompletionCard(modifier) },
+    onCompletedGoal: @Composable () -> Unit = { GoalCompletedCard(navigateToGoal, modifier) },
     onProgressGoal: @Composable () -> Unit = { GoalProgressCard(goal, currentTrack, modifier) }
 ) {
     when {

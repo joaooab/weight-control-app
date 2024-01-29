@@ -10,4 +10,5 @@
     <string name="goal_destination">Destino</string>
     <string name="goal_destination_label">Destino:</string>
     <string name="goal_remaining">Restante</string>
+    <string name="goal_completed">Meta Concluída!</string>
 </resources>

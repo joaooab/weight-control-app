@@ -31,12 +31,17 @@ fun TrackListChart(tracks: List<Track>, modifier: Modifier = Modifier) {
         .let { ChartEntryModelProducer(it) }
         .getModel()
 
-    val axisValueFormatter =
+    val bottomAxisValueFormatter =
         AxisValueFormatter<AxisPosition.Horizontal.Bottom> { value, chartValues ->
             (chartValues.chartEntryModel.entries.first().getOrNull(value.toInt()) as? Entry)
                 ?.localDate
                 ?.run { "$dayOfMonth/$monthNumber" }
                 .orEmpty()
+        }
+
+    val startAxisValueFormatter =
+        AxisValueFormatter<AxisPosition.Vertical.Start> { value, _ ->
+            value.toInt().toString()
         }
 
     val marker = rememberMarker()
@@ -50,8 +55,8 @@ fun TrackListChart(tracks: List<Track>, modifier: Modifier = Modifier) {
                 }
             ),
             model = chartEntryModelProducer,
-            startAxis = startAxis(),
-            bottomAxis = bottomAxis(valueFormatter = axisValueFormatter),
+            startAxis = startAxis(valueFormatter = startAxisValueFormatter),
+            bottomAxis = bottomAxis(valueFormatter = bottomAxisValueFormatter),
             marker = marker
         )
     }

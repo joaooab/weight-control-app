@@ -3,12 +3,9 @@
 package com.br.weightcontrol.ui
 
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.SheetState
-import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.NavDestination
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -20,10 +17,11 @@ import com.br.weightcontrol.history.navigation.navigateToHistory
 import com.br.weightcontrol.home.navigation.homeNavigationRoute
 import com.br.weightcontrol.home.navigation.navigateToHome
 import com.br.weightcontrol.navigation.TopLevelDestination
-import com.br.weightcontrol.navigation.TopLevelDestination.*
+import com.br.weightcontrol.navigation.TopLevelDestination.HISTORY
+import com.br.weightcontrol.navigation.TopLevelDestination.HOME
+import com.br.weightcontrol.navigation.TopLevelDestination.SETUP
 import com.br.weightcontrol.settings.navigation.navigateToSetup
 import com.br.weightcontrol.settings.navigation.setupNavigationRoute
-import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun rememberWeiAppState(
@@ -57,16 +55,10 @@ class WeiAppState(
 
     fun navigateToTopLevelDestination(topLevelDestination: TopLevelDestination) {
         val topLevelNavOptions = navOptions {
-            // Pop up to the start destination of the graph to
-            // avoid building up a large stack of destinations
-            // on the back stack as users select items
             popUpTo(navController.graph.findStartDestination().id) {
                 saveState = true
             }
-            // Avoid multiple copies of the same destination when
-            // reselecting the same item
             launchSingleTop = true
-            // Restore state when reselecting a previously selected item
             restoreState = true
         }
 

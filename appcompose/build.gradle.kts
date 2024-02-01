@@ -3,6 +3,7 @@ import com.br.weightcontrol.WeiBuildType
 plugins {
     id("weightcontrol.android.application")
     id("weightcontrol.android.application.compose")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
 android {
@@ -44,6 +45,10 @@ android {
     namespace = "com.br.weightcontrol"
 }
 
+secrets {
+    defaultPropertiesFileName = "secrets.defaults.properties"
+}
+
 dependencies {
     implementation(project(":feature:home"))
     implementation(project(":feature:history"))
@@ -59,6 +64,7 @@ dependencies {
     implementation(project(":core:model"))
     implementation(project(":core:ui"))
 
+    implementation(libs.admob)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.compose.material3)

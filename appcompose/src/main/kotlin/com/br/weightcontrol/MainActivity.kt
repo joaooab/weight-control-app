@@ -10,6 +10,7 @@ import androidx.core.view.WindowCompat
 import com.br.weightcontrol.designsystem.theme.WeiTheme
 import com.br.weightcontrol.domain.usecase.session.SessionState
 import com.br.weightcontrol.ui.WeiApp
+import com.google.android.gms.ads.MobileAds
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
@@ -18,8 +19,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val splashScreen = installSplashScreen()
-
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        setupAds()
 
         setContent {
             val sessionState by viewModel.sessionState.collectAsState()
@@ -34,5 +35,9 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    private fun setupAds() {
+        MobileAds.initialize(this) {}
     }
 }

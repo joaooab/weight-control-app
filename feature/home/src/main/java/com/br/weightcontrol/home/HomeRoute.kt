@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import br.com.weightcontrol.component.GoalCard
+import com.br.weightcontrol.ads.AdmobBanner
 import com.br.weightcontrol.bmi.domain.calculateBMI
 import com.br.weightcontrol.bmi.domain.format
 import com.br.weightcontrol.designsystem.icon.WeiIcons
@@ -83,6 +84,11 @@ internal fun HomeScreen(
                     track = currentTrack,
                     onClickAdd = navigateToTrack,
                     modifier = Modifier.padding(top = 8.dp)
+                )
+            }
+            item {
+                AdmobBanner(
+                    modifier = Modifier.padding(top = 16.dp)
                 )
             }
             item {

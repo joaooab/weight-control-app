@@ -1,4 +1,5 @@
 [versions]
+adMob = "22.0.0"
 androidGradlePlugin = "7.4.1"
 androidDesugarJdkLibs = "1.2.2"
 androidxActivity = "1.6.1"
@@ -30,9 +31,11 @@ org-jetbrains-kotlin-android = "1.8.0"
 junit = "1.1.5"
 espresso-core = "3.5.1"
 material = "1.10.0"
+secrets = "2.0.1"
 
 [libraries]
 # Define the libraries
+admob = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "adMob" }
 android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
@@ -88,5 +91,6 @@ android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
+protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
+secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }

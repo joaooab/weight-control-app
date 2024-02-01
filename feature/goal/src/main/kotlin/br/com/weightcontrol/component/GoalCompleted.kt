@@ -62,11 +62,6 @@ fun GoalCompletedCard(
                     )
                 }
             }
-            Image(
-                painter = painterResource(id = R.drawable.winner),
-                contentDescription = null,
-                modifier = Modifier.size(156.dp)
-            )
         }
     }
 }

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="history_delete_track_description">Confirma remoção da marcação %s no dia %s?</string>
+    <string name="history_empty">Nenhum registro encontrado</string>
 </resources>

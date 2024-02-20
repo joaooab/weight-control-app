@@ -87,11 +87,6 @@ internal fun HomeScreen(
                 )
             }
             item {
-                AdmobBanner(
-                    modifier = Modifier.padding(top = 16.dp)
-                )
-            }
-            item {
                 GoalCard(
                     currentTrack = currentTrack,
                     goal = goal,
@@ -103,6 +98,11 @@ internal fun HomeScreen(
                 BodyMassIndexCard(
                     user = user,
                     track = currentTrack,
+                    modifier = Modifier.padding(top = 16.dp)
+                )
+            }
+            item {
+                AdmobBanner(
                     modifier = Modifier.padding(top = 16.dp)
                 )
             }

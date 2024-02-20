@@ -89,7 +89,7 @@ fun OnBoardingScreen(
         WeiButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 24.dp),
+                .padding(bottom = 32.dp),
             onClick = { onNext(step) }
         ) {
             Text(text = stringResource(id = step.buttonText))

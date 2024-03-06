@@ -1,6 +1,6 @@
 plugins {
-    id("weightcontrol.android.feature")
-    id("weightcontrol.android.library.compose")
+    alias(libs.plugins.weightcontrol.android.feature)
+    alias(libs.plugins.weightcontrol.android.library.compose)
 }
 
 android {

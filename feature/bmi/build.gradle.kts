@@ -1,5 +1,5 @@
 plugins {
-    id("weightcontrol.android.feature")
+    alias(libs.plugins.weightcontrol.android.feature)
 }
 
 android {

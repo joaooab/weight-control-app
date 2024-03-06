@@ -69,7 +69,7 @@ internal fun TrackScreen(
     onDismissSnackBar: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val errorCreateTrackMessage = stringResource(id = trackR.string.generic_error)
+    val errorCreateTrackMessage = stringResource(id = R.string.generic_error)
 
     LaunchedEffect(saveState) {
         when (saveState) {
@@ -113,7 +113,6 @@ internal fun TrackScreen(
             input = date,
             datePickerState = datePickerState,
             onValueChange = { onDateChanged(it) },
-            dateValidator = dateValidatorLowerThanToday
         )
         WeiButton(
             enabled = areInputsValid,

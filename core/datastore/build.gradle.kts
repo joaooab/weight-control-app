@@ -1,6 +1,6 @@
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id("weightcontrol.android.library")
+   alias(libs.plugins.weightcontrol.android.library)
     alias(libs.plugins.protobuf)
 }
 

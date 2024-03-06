@@ -1,11 +1,11 @@
 [versions]
 adMob = "22.0.0"
-androidGradlePlugin = "7.4.1"
+androidGradlePlugin = "8.2.0"
 androidDesugarJdkLibs = "1.2.2"
 androidxActivity = "1.6.1"
 androidxAppCompat = "1.5.1"
-androidxComposeBom = "2023.03.00"
-androidxComposeCompiler = "1.4.7"
+androidxComposeBom = "2024.02.00"
+androidxComposeCompiler = "1.5.7"
 androidxComposeRuntimeTracing = "1.0.0-alpha01"
 androidxCore = "1.9.0"
 androidxCoreSplashscreen = "1.0.1"
@@ -16,13 +16,13 @@ androidxTestCore = "1.5.0"
 androidxWindowManager = "1.0.0"
 chart = "1.6.4"
 junit4 = "4.13.2"
-kotlin = "1.8.21"
+kotlin = "1.9.21"
 koin = "3.3.3"
 koinAndroid = "3.3.3"
 koinCompose = "3.4.2"
-kotlinxCoroutines = "1.7.1"
-kotlinxDatetime = "0.4.1"
-ksp = "1.8.21-1.0.11"
+kotlinxCoroutines = "1.7.3"
+kotlinxDatetime = "0.5.0"
+ksp = "1.9.21-1.0.16"
 material3 = "1.1.1"
 protobuf = "3.23.0"
 protobufPlugin = "0.9.3"
@@ -94,3 +94,11 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
+
+# Plugins defined by this project
+weightcontrol-android-application = { id = "weightcontrol.android.application", version = "unspecified" }
+weightcontrol-android-application-compose = { id = "weightcontrol.android.application.compose", version = "unspecified" }
+weightcontrol-android-feature = { id = "weightcontrol.android.feature", version = "unspecified" }
+weightcontrol-android-library = { id = "weightcontrol.android.library", version = "unspecified" }
+weightcontrol-android-library-compose = { id = "weightcontrol.android.library.compose", version = "unspecified" }
+weightcontrol-jvm-library = { id = "weightcontrol.jvm.library", version = "unspecified" }

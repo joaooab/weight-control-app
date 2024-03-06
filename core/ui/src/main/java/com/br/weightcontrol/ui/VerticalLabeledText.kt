@@ -11,7 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import com.br.weightcontrol.core.ui.R
+import com.br.weightcontrol.core.designsystem.R
 import com.br.weightcontrol.designsystem.theme.WeiTheme
 
 @Composable

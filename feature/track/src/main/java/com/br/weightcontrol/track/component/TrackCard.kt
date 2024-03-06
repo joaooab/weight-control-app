@@ -18,7 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -27,7 +27,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.br.weightcontrol.core.ui.R
+import com.br.weightcontrol.core.designsystem.R
 import com.br.weightcontrol.designsystem.icon.WeiIcons
 import com.br.weightcontrol.designsystem.theme.WeiTheme
 import com.br.weightcontrol.model.Track
@@ -100,7 +100,7 @@ private fun CurrentTrackCard(
     onClickAdd: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    var progress by remember { mutableStateOf(0f) }
+    var progress by remember { mutableFloatStateOf(0f) }
     val progressAnimation: Float by animateFloatAsState(
         targetValue = progress,
         animationSpec = tween(durationMillis = 1000, easing = FastOutSlowInEasing), label = ""

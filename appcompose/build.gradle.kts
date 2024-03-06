@@ -1,8 +1,8 @@
 import com.br.weightcontrol.WeiBuildType
 
 plugins {
-    id("weightcontrol.android.application")
-    id("weightcontrol.android.application.compose")
+    alias(libs.plugins.weightcontrol.android.application)
+    alias(libs.plugins.weightcontrol.android.application.compose)
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 

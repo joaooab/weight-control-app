@@ -3,6 +3,7 @@ package br.com.weightcontrol.profile
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.DatePickerState
@@ -107,7 +108,8 @@ fun ProfileScreen(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 24.dp),
+            .padding(horizontal = 24.dp)
+            .navigationBarsPadding(),
     ) {
         WeiTopAppBar(
             titleRes = designSystemR.string.profile,

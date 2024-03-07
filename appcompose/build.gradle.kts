@@ -75,7 +75,6 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.window.manager)
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
     debugImplementation(libs.androidx.compose.ui.tooling)

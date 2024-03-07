@@ -1,36 +1,32 @@
 [versions]
-adMob = "22.0.0"
+adMob = "22.6.0"
 androidGradlePlugin = "8.2.0"
-androidDesugarJdkLibs = "1.2.2"
-androidxActivity = "1.6.1"
+androidDesugarJdkLibs = "2.0.4"
+androidxActivity = "1.8.0"
 androidxAppCompat = "1.5.1"
 androidxComposeBom = "2024.02.00"
 androidxComposeCompiler = "1.5.7"
 androidxComposeRuntimeTracing = "1.0.0-alpha01"
-androidxCore = "1.9.0"
+androidxCore = "1.12.0"
 androidxCoreSplashscreen = "1.0.1"
 androidxDataStore = "1.0.0"
-androidxLifecycle = "2.6.0-alpha05"
-androidxNavigation = "2.5.3"
+androidxLifecycle = "2.7.0"
+androidxNavigation = "2.7.4"
 androidxTestCore = "1.5.0"
-androidxWindowManager = "1.0.0"
 chart = "1.6.4"
 junit4 = "4.13.2"
 kotlin = "1.9.21"
-koin = "3.3.3"
-koinAndroid = "3.3.3"
+koinAndroid = "3.5.3"
 koinCompose = "3.4.2"
 kotlinxCoroutines = "1.7.3"
 kotlinxDatetime = "0.5.0"
 ksp = "1.9.21-1.0.16"
-material3 = "1.1.1"
-protobuf = "3.23.0"
-protobufPlugin = "0.9.3"
-room = "2.5.0"
+protobuf = "3.25.2"
+protobufPlugin = "0.9.4"
+room = "2.6.1"
 org-jetbrains-kotlin-android = "1.8.0"
 junit = "1.1.5"
 espresso-core = "3.5.1"
-material = "1.10.0"
 secrets = "2.0.1"
 
 [libraries]
@@ -43,7 +39,7 @@ androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", versi
 androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
 androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
 androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
-androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-compose-material3-windowSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class" }
 androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
@@ -60,12 +56,10 @@ androidx-lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "life
 androidx-lifecycle-viewModelCompose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
 androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
-androidx-window-manager = { module = "androidx.window:window", version.ref = "androidxWindowManager" }
 chart-core = { group = "com.patrykandpatrick.vico", name = "core", version.ref = "chart" }
 chart-compose = { group = "com.patrykandpatrick.vico", name = "compose", version.ref = "chart" }
 chart-compose-m3 = { group = "com.patrykandpatrick.vico", name = "compose-m3", version.ref = "chart" }
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
-koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koinAndroid" }
 koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koinCompose" }
 kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
@@ -82,7 +76,6 @@ kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-pl
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

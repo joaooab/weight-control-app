@@ -1,7 +1,6 @@
 package com.br.weightcontrol.ui
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
@@ -33,7 +32,6 @@ import com.br.weightcontrol.navigation.WeiNavHost
 
 @OptIn(
     ExperimentalMaterial3Api::class,
-    ExperimentalLayoutApi::class,
     ExperimentalComposeUiApi::class,
 )
 @Composable

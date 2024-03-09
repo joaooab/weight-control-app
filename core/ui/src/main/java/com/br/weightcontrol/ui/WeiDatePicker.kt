@@ -14,7 +14,6 @@ fun WeiDatePicker(
     onDismissRequest: () -> Unit,
     state: DatePickerState,
     modifier: Modifier = Modifier,
-    dateValidator: (Long) -> Boolean = { true }
 ) {
     DatePickerDialog(
         modifier = modifier,
@@ -38,7 +37,6 @@ fun WeiDatePicker(
             title = null,
             headline = null,
             showModeToggle = false,
-            dateValidator = dateValidator
         )
     }
 }

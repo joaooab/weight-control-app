@@ -6,9 +6,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.br.weightcontrol.core.ui.R
+import com.br.weightcontrol.core.designsystem.R
 import com.br.weightcontrol.ui.input.InputWrapper
-import com.br.weightcontrol.util.dateValidatorLowerThanToday
 import kotlinx.datetime.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -25,6 +24,5 @@ fun WeiBirthDayDatePickerField(
         datePickerState = datePickerState,
         modifier = modifier,
         onValueChange = onValueChange,
-        dateValidator = dateValidatorLowerThanToday
     )
 }

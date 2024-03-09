@@ -1,8 +1,8 @@
 import com.br.weightcontrol.WeiBuildType
 
 plugins {
-    id("weightcontrol.android.application")
-    id("weightcontrol.android.application.compose")
+    alias(libs.plugins.weightcontrol.android.application)
+    alias(libs.plugins.weightcontrol.android.application.compose)
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 
@@ -75,7 +75,6 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.navigation.compose)
-    implementation(libs.androidx.window.manager)
     implementation(libs.koin.android)
     implementation(libs.koin.compose)
     debugImplementation(libs.androidx.compose.ui.tooling)

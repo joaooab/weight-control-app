@@ -9,6 +9,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.SelectableDates
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
@@ -19,7 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.br.weightcontrol.core.ui.R
+import com.br.weightcontrol.core.designsystem.R
 import com.br.weightcontrol.designsystem.icon.WeiIcons
 import com.br.weightcontrol.designsystem.theme.WeiTheme
 import com.br.weightcontrol.ui.input.InputWrapper
@@ -39,7 +40,6 @@ fun WeiDatePickerField(
     datePickerState: DatePickerState,
     modifier: Modifier = Modifier,
     onValueChange: (LocalDate) -> Unit,
-    dateValidator: (Long) -> Boolean = { true },
 ) {
     val interactionSource = remember { MutableInteractionSource() }
     var datePickerVisible by remember { mutableStateOf(false) }
@@ -48,7 +48,6 @@ fun WeiDatePickerField(
         onConfirmButton = { onValueChange(it.toLocalDate()) },
         onDismissRequest = { datePickerVisible = false },
         state = datePickerState,
-        dateValidator = dateValidator
     )
 
     OutlinedTextField(
@@ -85,19 +84,38 @@ fun WeiDatePickerField(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun rememberBirthdayDatePickerState(
-    initialDisplayMode: DisplayMode = DisplayMode.Picker
+    initialDisplayMode: DisplayMode = DisplayMode.Picker,
+    selectableDates: SelectableDates = selectableDatesLowerThanToday()
 ) = rememberDatePickerState(
     initialSelectedDateMillis = defaultBirthday().toLong(),
     initialDisplayMode = initialDisplayMode,
+    selectableDates = selectableDates
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun rememberDefaultDatePickerState(
-    initialDisplayMode: DisplayMode = DisplayMode.Picker
+    initialDisplayMode: DisplayMode = DisplayMode.Picker,
+    selectableDates: SelectableDates = selectableDatesLowerThanToday()
 ) = rememberDatePickerState(
     initialDisplayMode = initialDisplayMode,
+    selectableDates = selectableDates
 )
+
+@OptIn(ExperimentalMaterial3Api::class)
+fun selectableDatesLowerThanToday(): SelectableDates {
+    return object : SelectableDates {
+        private val today = today()
+
+        override fun isSelectableDate(utcTimeMillis: Long): Boolean {
+            return today.toLong() >= utcTimeMillis
+        }
+
+        override fun isSelectableYear(year: Int): Boolean {
+            return today.year >= year
+        }
+    }
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview

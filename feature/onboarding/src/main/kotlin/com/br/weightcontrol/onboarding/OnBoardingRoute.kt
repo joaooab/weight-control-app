@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -30,6 +31,7 @@ import com.br.weightcontrol.designsystem.component.WeiButton
 import com.br.weightcontrol.designsystem.component.WeiTopAppBar
 import com.br.weightcontrol.onboarding.domain.OnBoardingStep
 import com.br.weightcontrol.onboarding.domain.OnBoardingStep.Companion.steps
+import com.br.weightcontrol.onboarding.domain.OnBoardingStep.FirstStep
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -46,6 +48,7 @@ internal fun OnBoardingRoute(
                 navigateToProfile()
                 viewModel.onCreateProfile()
             }
+
             uiState.onFinish -> {
                 navigateToHome()
             }
@@ -70,13 +73,14 @@ fun OnBoardingScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 24.dp),
+            .padding(horizontal = 24.dp)
+            .navigationBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         WeiTopAppBar(
             titleRes = R.string.welcome,
-            navigationIcon = { BackNavigationIcon { onPreviews(step) } }
+            navigationIcon = { if (step !is FirstStep) BackNavigationIcon { onPreviews(step) } }
         )
         Text(
             text = stringResource(id = step.description),
@@ -89,7 +93,7 @@ fun OnBoardingScreen(
         WeiButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 32.dp),
+                .padding(bottom = 24.dp),
             onClick = { onNext(step) }
         ) {
             Text(text = stringResource(id = step.buttonText))

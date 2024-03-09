@@ -5,7 +5,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import com.br.weightcontrol.core.ui.R
+import com.br.weightcontrol.core.designsystem.R
 import com.br.weightcontrol.designsystem.component.WeiTextButton
 
 @Composable

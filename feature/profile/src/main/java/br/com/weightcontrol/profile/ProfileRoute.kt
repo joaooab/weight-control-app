@@ -3,6 +3,7 @@ package br.com.weightcontrol.profile
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.DatePickerState
@@ -26,6 +27,7 @@ import com.br.weightcontrol.designsystem.theme.WeiTheme
 import com.br.weightcontrol.model.ActionState
 import com.br.weightcontrol.model.Gender
 import com.br.weightcontrol.profile.R
+import com.br.weightcontrol.core.designsystem.R as designSystemR
 import com.br.weightcontrol.ui.GenderSelection
 import com.br.weightcontrol.ui.WeiBirthDayDatePickerField
 import com.br.weightcontrol.ui.input.InputWrapper
@@ -106,10 +108,11 @@ fun ProfileScreen(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 24.dp),
+            .padding(horizontal = 24.dp)
+            .navigationBarsPadding(),
     ) {
         WeiTopAppBar(
-            titleRes = R.string.profile,
+            titleRes = designSystemR.string.profile,
             navigationIcon = { BackNavigationIcon { onClose() } }
         )
         OutlinedTextField(
@@ -146,7 +149,7 @@ fun ProfileScreen(
             onValueChange = { onBirthdayChanged(it) },
         )
         Text(
-            text = stringResource(id = R.string.gender_select),
+            text = stringResource(id = designSystemR.string.gender_select),
             modifier = modifier.padding(top = 16.dp)
         )
         GenderSelection(
@@ -161,7 +164,7 @@ fun ProfileScreen(
                 .padding(bottom = 24.dp),
             onClick = { onSave() }
         ) {
-            Text(text = stringResource(id = R.string.save))
+            Text(text = stringResource(id = designSystemR.string.save))
         }
     }
 }

@@ -1,6 +1,6 @@
 plugins {
-    id("weightcontrol.android.library")
-    id("weightcontrol.android.library.compose")
+    alias(libs.plugins.weightcontrol.android.library)
+    alias(libs.plugins.weightcontrol.android.library.compose)
     id("kotlin-parcelize")
 }
 

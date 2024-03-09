@@ -23,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.br.weightcontrol.core.ui.R
+import com.br.weightcontrol.core.designsystem.R as desingSystemR
 import com.br.weightcontrol.designsystem.theme.WeiTheme
 import com.br.weightcontrol.model.Gender
 
@@ -59,8 +60,8 @@ fun GenderIcon(
 }
 
 private fun Gender.description() = when (this) {
-    Gender.MALE -> R.string.male
-    else -> R.string.female
+    Gender.MALE -> desingSystemR.string.male
+    else -> desingSystemR.string.female
 }
 
 @Preview

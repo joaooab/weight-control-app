@@ -1,5 +1,5 @@
 plugins {
-    id("weightcontrol.android.library")
+    alias(libs.plugins.weightcontrol.android.library)
     id("com.google.devtools.ksp")
 }
 

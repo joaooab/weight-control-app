@@ -18,6 +18,7 @@ import com.br.weightcontrol.designsystem.component.BackNavigationIcon
 import com.br.weightcontrol.designsystem.component.WeiButton
 import com.br.weightcontrol.designsystem.component.WeiTopAppBar
 import com.br.weightcontrol.goal.R
+import com.br.weightcontrol.core.designsystem.R as designSystemR
 import com.br.weightcontrol.model.ActionState
 import com.br.weightcontrol.model.Goal
 import com.br.weightcontrol.model.Track
@@ -69,7 +70,7 @@ internal fun GoalScreen(
     onDismissSnackBar: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val errorCreateTrackMessage = stringResource(id = R.string.generic_error)
+    val errorCreateTrackMessage = stringResource(id = designSystemR.string.generic_error)
 
     LaunchedEffect(saveState) {
         when (saveState) {
@@ -89,7 +90,7 @@ internal fun GoalScreen(
             .padding(horizontal = 24.dp),
     ) {
         WeiTopAppBar(
-            titleRes = R.string.add_track,
+            titleRes = designSystemR.string.add_track,
             navigationIcon = { BackNavigationIcon { onClose() } }
         )
         CurrentTrackText(
@@ -125,7 +126,7 @@ internal fun GoalScreen(
                 .padding(top = 24.dp),
             onClick = { onSave() }
         ) {
-            Text(text = stringResource(id = R.string.save))
+            Text(text = stringResource(id = designSystemR.string.save))
         }
     }
 }

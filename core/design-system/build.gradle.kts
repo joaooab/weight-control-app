@@ -1,5 +1,5 @@
 plugins {
-   alias(libs.plugins.weightcontrol.android.library)
+    alias(libs.plugins.weightcontrol.android.library)
     alias(libs.plugins.weightcontrol.android.library.compose)
 }
 

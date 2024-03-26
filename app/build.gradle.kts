@@ -3,6 +3,7 @@ import com.br.weightcontrol.WeiBuildType
 plugins {
     alias(libs.plugins.weightcontrol.android.application)
     alias(libs.plugins.weightcontrol.android.application.compose)
+    alias(libs.plugins.weightcontrol.android.application.firebase)
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
 }
 

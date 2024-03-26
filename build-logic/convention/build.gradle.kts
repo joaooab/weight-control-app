@@ -24,6 +24,7 @@ repositories {
 
 dependencies {
     compileOnly(libs.android.gradlePlugin)
+    compileOnly(libs.firebase.crashlytics.gradlePlugin)
     compileOnly(libs.kotlin.gradlePlugin)
     compileOnly(libs.ksp.gradlePlugin)
 }
@@ -53,6 +54,10 @@ gradlePlugin {
         register("jvmLibrary") {
             id = "weightcontrol.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
+        }
+        register("androidFirebase") {
+            id = "weightcontrol.android.application.firebase"
+            implementationClass = "AndroidApplicationFirebaseConventionPlugin"
         }
     }
 }

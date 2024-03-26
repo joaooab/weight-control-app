@@ -14,6 +14,9 @@ androidxLifecycle = "2.7.0"
 androidxNavigation = "2.7.4"
 androidxTestCore = "1.5.0"
 chart = "1.6.4"
+firebaseBom = "32.4.0"
+firebaseCrashlyticsPlugin = "2.9.9"
+gmsPlugin = "4.4.0"
 junit4 = "4.13.2"
 kotlin = "1.9.21"
 koinAndroid = "3.5.3"
@@ -59,6 +62,8 @@ androidx-test-core = { group = "androidx.test", name = "core", version.ref = "an
 chart-core = { group = "com.patrykandpatrick.vico", name = "core", version.ref = "chart" }
 chart-compose = { group = "com.patrykandpatrick.vico", name = "compose", version.ref = "chart" }
 chart-compose-m3 = { group = "com.patrykandpatrick.vico", name = "compose-m3", version.ref = "chart" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
 junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koinAndroid" }
 koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koinCompose" }
@@ -71,7 +76,9 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 
+# Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsPlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
@@ -81,16 +88,18 @@ espresso-core = { group = "androidx.test.espresso", name = "espresso-core", vers
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
+gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
-org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "org-jetbrains-kotlin-android" }
 protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
 secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
 
 # Plugins defined by this project
 weightcontrol-android-application = { id = "weightcontrol.android.application", version = "unspecified" }
 weightcontrol-android-application-compose = { id = "weightcontrol.android.application.compose", version = "unspecified" }
+weightcontrol-android-application-firebase = { id = "weightcontrol.android.application.firebase", version = "unspecified" }
 weightcontrol-android-feature = { id = "weightcontrol.android.feature", version = "unspecified" }
 weightcontrol-android-library = { id = "weightcontrol.android.library", version = "unspecified" }
 weightcontrol-android-library-compose = { id = "weightcontrol.android.library.compose", version = "unspecified" }

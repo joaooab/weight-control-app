@@ -13,7 +13,7 @@ import com.br.weightcontrol.model.TrackEntity
         GoalEntity::class
     ],
     exportSchema = true,
-    version = 3,
+    version = 2,
 )
 abstract class WeiDatabase : RoomDatabase() {
     abstract fun trackDao(): TrackDao

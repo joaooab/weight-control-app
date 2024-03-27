@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_which_day">Para qual dia?</string>
+    <string name="track_which_weight">Qual o peso?</string>
+    <string name="track_empty">"Pressione o botão # para registrar seu peso atual"</string>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="goal">Meta</string>
+    <string name="goal_empty">"Pressione o botão # para adicionar uma meta e se manter motivado"</string>
+    <string name="goal_current">Meta atual: %sKg</string>
+    <string name="goal_current_track">Peso atual: %sKg</string>
+    <string name="goal_recommendation">Recomendação: %sKg - %sKg</string>
+    <string name="goal_target_input">Qual será sua meta?</string>
+    <string name="goal_begin">Início</string>
+    <string name="goal_destination">Destino</string>
+    <string name="goal_destination_label">Destino:</string>
+    <string name="goal_remaining">Restante</string>
+    <string name="goal_completed">Meta Concluída!</string>
+</resources>

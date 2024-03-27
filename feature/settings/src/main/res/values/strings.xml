@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label_age">Age:</string>
+    <string name="label_height">Height:</string>
+    <string name="label_gender">Gender:</string>
+    <string name="alert_delete_goal">Deseja realmente excluir seu objetivo?</string>
+</resources>

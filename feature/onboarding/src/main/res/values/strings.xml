@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="welcome">Bem-vindo</string>
+    <string name="message_first_setp">"Seja bem-vindo ao Balança Diária 🤩\nNosso objetivo é ajudá-lo a se sentir bem"</string>
+    <string name="message_second_setp">"Registre seu progresso diariamente 💪\nAcompanhe sua jornada 📈\n E defina seus objetivos 🎯"</string>
+    <string name="message_third_setp">"Vamos começar criando um perfil, queremos conhecê-lo melhor para personalizar sua experiência."</string>
+    <string name="button_first_setp">Continuar</string>
+    <string name="button_second_setp">Começar</string>
+    <string name="button_third_setp">Criar Perfil</string>
+</resources>

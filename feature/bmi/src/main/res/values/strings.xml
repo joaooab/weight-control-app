@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="bmi_thinness_severe">Baixo peso muito grave</string>
+    <string name="bmi_thinness_moderate">Baixo peso grave</string>
+    <string name="bmi_thinness_mild">Baixo peso</string>
+    <string name="bmi_normal">Peso normal</string>
+    <string name="bmi_overweight">Sobrepeso</string>
+    <string name="bmi_obese">Obesidade Grau 1</string>
+    <string name="bmi_obese_severe">Obesidade Grau 2</string>
+    <string name="bmi_obese_extremely">Obesidade Grau 3</string>
+    <string name="bmi_unknown">Não categorizado</string>
+</resources>

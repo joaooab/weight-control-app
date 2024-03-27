@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="field_required_error">Campo obrigatório</string>
+    <string name="field_only_numbers_error">Valor deve conter apenas números</string>
+    <string name="field_date_error">Data inválida</string>
+    <string name="field_goal_equal_current_error">Meta desejada não pode ser igual ao peso atual</string>
+    <string name="field_weight_min_error">Peso mínimo aceitável 10 Kg</string>
+    <string name="field_weight_max_error">Peso máximo aceitável 1.000 Kg</string>
+    <string name="field_height_min_error">Altura mínima aceitável 50 cm</string>
+    <string name="field_height_max_error">Altura máxima aceitável 300 cm</string>
+    <string name="field_birthday_error">Data inválida</string>
+</resources>

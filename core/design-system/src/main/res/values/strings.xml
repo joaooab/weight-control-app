@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="save">Salvar</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancelar</string>
+    <string name="alert">Atenção</string>
+    <string name="add">Adicionar</string>
+    <string name="add_track">Nova medição</string>
+    <string name="add_goal">Nova meta</string>
+    <string name="profile">Perfil</string>
+    <string name="birthday_date">Data de nascimento</string>
+    <string name="gender_select">Selecione o gênero</string>
+    <string name="female">Feminino</string>
+    <string name="male">Masculino</string>
+    <string name="current_weight">Peso Atual</string>
+    <string name="generic_error">Erro inesperado. Tente novamente mais tarde</string>
+</resources>

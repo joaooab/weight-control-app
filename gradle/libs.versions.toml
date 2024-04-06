@@ -1,0 +1,106 @@
+[versions]
+adMob = "22.6.0"
+androidGradlePlugin = "8.2.0"
+androidDesugarJdkLibs = "2.0.4"
+androidxActivity = "1.8.0"
+androidxAppCompat = "1.5.1"
+androidxComposeBom = "2024.02.00"
+androidxComposeCompiler = "1.5.7"
+androidxComposeRuntimeTracing = "1.0.0-alpha01"
+androidxCore = "1.12.0"
+androidxCoreSplashscreen = "1.0.1"
+androidxDataStore = "1.0.0"
+androidxLifecycle = "2.7.0"
+androidxNavigation = "2.7.4"
+androidxTestCore = "1.5.0"
+chart = "1.6.4"
+firebaseBom = "32.4.0"
+firebaseCrashlyticsPlugin = "2.9.9"
+gmsPlugin = "4.4.0"
+junit4 = "4.13.2"
+kotlin = "1.9.21"
+koinAndroid = "3.5.3"
+koinCompose = "3.4.2"
+kotlinxCoroutines = "1.7.3"
+kotlinxDatetime = "0.5.0"
+ksp = "1.9.21-1.0.16"
+protobuf = "3.25.2"
+protobufPlugin = "0.9.4"
+room = "2.6.1"
+org-jetbrains-kotlin-android = "1.8.0"
+junit = "1.1.5"
+espresso-core = "3.5.1"
+secrets = "2.0.1"
+
+[libraries]
+# Define the libraries
+admob = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "adMob" }
+android-desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", version.ref = "androidDesugarJdkLibs" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivity" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
+androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
+androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout" }
+androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-material3-windowSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class" }
+androidx-compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
+androidx-compose-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata" }
+androidx-compose-runtime-tracing = { group = "androidx.compose.runtime", name = "runtime-tracing", version.ref = "androidxComposeRuntimeTracing" }
+androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4" }
+androidx-compose-ui-testManifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+androidx-compose-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
+androidx-dataStore-core = { group = "androidx.datastore", name = "datastore", version.ref = "androidxDataStore" }
+androidx-lifecycle-runtimeCompose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidxLifecycle" }
+androidx-lifecycle-viewModelCompose = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "androidxLifecycle" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
+androidx-test-core = { group = "androidx.test", name = "core", version.ref = "androidxTestCore" }
+chart-core = { group = "com.patrykandpatrick.vico", name = "core", version.ref = "chart" }
+chart-compose = { group = "com.patrykandpatrick.vico", name = "compose", version.ref = "chart" }
+chart-compose-m3 = { group = "com.patrykandpatrick.vico", name = "compose-m3", version.ref = "chart" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
+junit4 = { group = "junit", name = "junit", version.ref = "junit4" }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koinAndroid" }
+koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koinCompose" }
+kotlinx-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDatetime" }
+protobuf-kotlin-lite = { group = "com.google.protobuf", name = "protobuf-kotlin-lite", version.ref = "protobuf" }
+protobuf-protoc = { group = "com.google.protobuf", name = "protoc", version.ref = "protobuf" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+
+# Dependencies of the included build-logic
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+firebase-crashlytics-gradlePlugin = { group = "com.google.firebase", name = "firebase-crashlytics-gradle", version.ref = "firebaseCrashlyticsPlugin" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
+firebase-crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugin" }
+gms = { id = "com.google.gms.google-services", version.ref = "gmsPlugin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+protobuf = { id = "com.google.protobuf", version.ref = "protobufPlugin" }
+secrets = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secrets" }
+
+# Plugins defined by this project
+weightcontrol-android-application = { id = "weightcontrol.android.application", version = "unspecified" }
+weightcontrol-android-application-compose = { id = "weightcontrol.android.application.compose", version = "unspecified" }
+weightcontrol-android-application-firebase = { id = "weightcontrol.android.application.firebase", version = "unspecified" }
+weightcontrol-android-feature = { id = "weightcontrol.android.feature", version = "unspecified" }
+weightcontrol-android-library = { id = "weightcontrol.android.library", version = "unspecified" }
+weightcontrol-android-library-compose = { id = "weightcontrol.android.library.compose", version = "unspecified" }
+weightcontrol-jvm-library = { id = "weightcontrol.jvm.library", version = "unspecified" }

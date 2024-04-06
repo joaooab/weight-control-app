@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+option java_package = "br.com.weightcontrol.datastore";
+option java_multiple_files = true;
+
+enum GenderPreference {
+  MALE = 0;
+  FEMALE = 1;
+}

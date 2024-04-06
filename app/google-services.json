@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "389953825500",
+    "project_id": "weightcontrol-dd344",
+    "storage_bucket": "weightcontrol-dd344.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389953825500:android:6a7dc615fcfdff28426219",
+        "android_client_info": {
+          "package_name": "br.com.weightcontrol"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuNi2IPv0SdbjTyLZPWdgAD1vY2QoN8kw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389953825500:android:50008286cc4fcd96426219",
+        "android_client_info": {
+          "package_name": "com.br.weightcontrol"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuNi2IPv0SdbjTyLZPWdgAD1vY2QoN8kw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:389953825500:android:8c9be728ed134302426219",
+        "android_client_info": {
+          "package_name": "com.br.weightcontrol.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuNi2IPv0SdbjTyLZPWdgAD1vY2QoN8kw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -10,7 +10,7 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.br.weightcontrol"
-        versionCode = 16
+        versionCode = 17
         versionName = "2.0.0" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

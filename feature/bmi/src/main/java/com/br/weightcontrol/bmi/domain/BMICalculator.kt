@@ -11,8 +11,7 @@ import com.br.weightcontrol.bmi.domain.strategy.ThinnessModerateStrategy
 import com.br.weightcontrol.bmi.domain.strategy.ThinnessSevereStrategy
 import com.br.weightcontrol.bmi.domain.strategy.UnknownStrategy
 import com.br.weightcontrol.model.User
-import java.math.BigDecimal
-import java.math.RoundingMode
+import com.br.weightcontrol.util.calculateWithScale
 
 fun calculateBMI(weight: Double, user: User): BMI {
     val height = user.height.toDouble().div(100)
@@ -24,21 +23,17 @@ fun calculateRecommendation(user: User): WeightRecommendation {
     val height = user.height.toDouble().div(100)
     val strategy = NormalStrategy()
 
-    val minWeight = calculate { strategy.minWeight * (height * height) }
-    val maxWeight = calculate { strategy.maxWeight * (height * height) }
+    val minWeight = calculateWithScale { strategy.minWeight * (height * height) }
+    val maxWeight = calculateWithScale { strategy.maxWeight * (height * height) }
 
     return WeightRecommendation(minWeight, maxWeight)
 }
 
 internal fun calculateBMI(weight: Double, height: Double): BMI {
-    val bmi = calculate { weight / (height * height) }
+    val bmi = calculateWithScale { weight / (height * height) }
 
     return findBMIStrategy(bmi).execute(bmi)
 }
-
-private fun calculate(block: () -> Double) = BigDecimal(block())
-    .setScale(1, RoundingMode.HALF_UP)
-    .toDouble()
 
 internal fun findBMIStrategy(bmi: Double): BMIStrategy {
     for (strategy in bmiStrategyList) {

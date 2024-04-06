@@ -58,7 +58,7 @@ fun GoalCompletedCardPreview() {
 
 @Preview
 @Composable
-fun GoalFilledCardPreview() {
+fun GoalProgressCardPreview() {
     WeiTheme {
         GoalCard(
             goal = Goal(start = 85.0, desire = 80.0, createdAt = todayAsString()),

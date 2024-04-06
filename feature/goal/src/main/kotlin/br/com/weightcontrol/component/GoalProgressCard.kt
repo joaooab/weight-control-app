@@ -23,6 +23,7 @@ import com.br.weightcontrol.model.Goal
 import com.br.weightcontrol.model.Track
 import com.br.weightcontrol.ui.CustomLinearProgressIndicator
 import com.br.weightcontrol.ui.VerticalLabeledText
+import com.br.weightcontrol.util.calculateWithScale
 
 @Composable
 internal fun GoalProgressCard(
@@ -62,7 +63,7 @@ internal fun GoalProgressCard(
                 )
                 VerticalLabeledText(
                     label = R.string.goal_remaining,
-                    weight = goal.remaining(currentTrack.weight)
+                    weight = calculateWithScale { goal.remaining(currentTrack.weight) }
                 )
                 VerticalLabeledText(
                     label = R.string.goal_destination,

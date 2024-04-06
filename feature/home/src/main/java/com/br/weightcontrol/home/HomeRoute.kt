@@ -3,6 +3,7 @@ package com.br.weightcontrol.home
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,7 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -77,13 +78,15 @@ internal fun HomeScreen(
     navigateToGoal: () -> Unit = {},
     navigateToTrack: () -> Unit = {}
 ) {
-    Column(modifier.padding(16.dp)) {
-        LazyColumn {
+    Column(modifier.padding(horizontal = 16.dp)) {
+        LazyColumn(
+            contentPadding = PaddingValues(bottom = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
             item {
                 TrackCard(
                     track = currentTrack,
                     onClickAdd = navigateToTrack,
-                    modifier = Modifier.padding(top = 8.dp)
                 )
             }
             item {
@@ -91,33 +94,17 @@ internal fun HomeScreen(
                     currentTrack = currentTrack,
                     goal = goal,
                     navigateToGoal = navigateToGoal,
-                    modifier = Modifier.padding(top = 16.dp)
                 )
             }
             item {
                 BodyMassIndexCard(
                     user = user,
                     track = currentTrack,
-                    modifier = Modifier.padding(top = 16.dp)
                 )
             }
-            item {
-                AdmobBanner(
-                    modifier = Modifier.padding(top = 16.dp)
-                )
-            }
-            item {
-                TrackListChart(
-                    tracks = history,
-                    modifier = Modifier.padding(top = 16.dp)
-                )
-            }
-            item {
-                TrackProgressCard(
-                    progress = progress,
-                    modifier = Modifier.padding(top = 16.dp)
-                )
-            }
+            item { AdmobBanner() }
+            item { TrackListChart(tracks = history) }
+            item { TrackProgressCard(progress = progress) }
         }
     }
 }
@@ -148,13 +135,22 @@ internal fun TrackProgressCard(
             Spacer(modifier = Modifier.height(12.dp))
 
             TrackItem(progress.first, R.string.home_track_first)
-            Divider(thickness = 1.dp, modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
+            HorizontalDivider(
+                modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
+                thickness = 1.dp
+            )
 
             TrackItem(progress.previous, R.string.home_track_previews)
-            Divider(thickness = 1.dp, modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
+            HorizontalDivider(
+                modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
+                thickness = 1.dp
+            )
 
             TrackItem(progress.higher, R.string.home_track_higher)
-            Divider(thickness = 1.dp, modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
+            HorizontalDivider(
+                modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
+                thickness = 1.dp
+            )
 
             TrackItem(progress.lower, R.string.home_track_lower)
         }

@@ -32,14 +32,14 @@ import com.br.weightcontrol.onboarding.navigation.onBoardingScreen
 import com.br.weightcontrol.settings.navigation.setupScreen
 import com.br.weightcontrol.track.navigation.navigateToTrack
 import com.br.weightcontrol.track.navigation.trackScreen
-import org.koin.androidx.compose.get
+import org.koin.compose.koinInject
 
 @Composable
 fun WeiNavHost(
     navController: NavHostController,
     onShowSnackBar: suspend (String, String?) -> Boolean,
     modifier: Modifier = Modifier,
-    startDestination: String = startDestination(get()),
+    startDestination: String = startDestination(koinInject()),
 ) {
     NavHost(
         navController = navController,

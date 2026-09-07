@@ -19,6 +19,21 @@ android {
         }
     }
 
+    // A release keystore is provided via environment variables in CI (see
+    // .github/workflows/publish.yml). When it is absent (e.g. local clones), the
+    // release variant falls back to the debug signing key so it can still be built.
+    val releaseKeystore = System.getenv("KEYSTORE_FILE")
+    signingConfigs {
+        if (releaseKeystore != null) {
+            create("release") {
+                storeFile = file(releaseKeystore)
+                storePassword = System.getenv("KEYSTORE_PASSWORD")
+                keyAlias = System.getenv("KEY_ALIAS")
+                keyPassword = System.getenv("KEY_PASSWORD")
+            }
+        }
+    }
+
     buildTypes {
         val debug by getting {
             applicationIdSuffix = WeiBuildType.DEBUG.applicationIdSuffix
@@ -31,10 +46,13 @@ android {
                 "proguard-rules.pro"
             )
 
-            // To publish on the Play store a private signing key is required, but to allow anyone
-            // who clones the code to sign and run the release variant, use the debug signing key.
-            // TODO: Abstract the signing configuration to a separate file to avoid hardcoding this.
-            signingConfig = signingConfigs.getByName("debug")
+            // Use the real upload key when it is available (CI), otherwise fall back to the
+            // debug key so anyone who clones the code can still sign and run the release variant.
+            signingConfig = if (releaseKeystore != null) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
     }
 

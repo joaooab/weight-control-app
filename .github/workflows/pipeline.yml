@@ -1,0 +1,63 @@
+name: Pipeline
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    name: Build & test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties', 'gradle/libs.versions.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      # The AdMob unit/app IDs are injected as manifest placeholders / BuildConfig fields by the
+      # secrets-gradle-plugin, and secrets.defaults.properties is gitignored. Recreate it from a
+      # secret when configured, otherwise fall back to Google's public AdMob test IDs so the build
+      # works out of the box.
+      - name: Create secrets.defaults.properties
+        run: |
+          if [ -n "${{ secrets.SECRETS_DEFAULTS_PROPERTIES }}" ]; then
+            echo "${{ secrets.SECRETS_DEFAULTS_PROPERTIES }}" | base64 --decode > secrets.defaults.properties
+          else
+            cat > secrets.defaults.properties <<'EOF'
+          AD_ID="ca-app-pub-3940256099942544~3347511713"
+          AD_BANNER="ca-app-pub-3940256099942544/6300978111"
+          AD_BANNER_TEST="ca-app-pub-3940256099942544/6300978111"
+          EOF
+          fi
+
+      # Run all unit tests and compile the release build as a health check. No release keystore is
+      # provided here, so the release variant falls back to debug signing (see app/build.gradle.kts).
+      - name: Run unit tests
+        run: ./gradlew testDebugUnitTest --no-daemon --no-configuration-cache
+
+      - name: Assemble release
+        run: ./gradlew :app:assembleRelease --no-daemon --no-configuration-cache
+
+      - name: Upload test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: '**/build/reports/tests/'
+          if-no-files-found: ignore

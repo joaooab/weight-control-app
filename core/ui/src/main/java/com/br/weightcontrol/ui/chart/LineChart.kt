@@ -16,12 +16,11 @@ import com.patrykandpatrick.vico.compose.chart.line.lineChart
 import com.patrykandpatrick.vico.compose.style.ProvideChartStyle
 import com.patrykandpatrick.vico.core.axis.AxisPosition
 import com.patrykandpatrick.vico.core.axis.formatter.AxisValueFormatter
-import com.patrykandpatrick.vico.core.chart.line.LineChart
 import com.patrykandpatrick.vico.core.entry.ChartEntryModelProducer
 
 @Composable
 fun TrackListChart(tracks: List<Track>, modifier: Modifier = Modifier) {
-    val chartEntryModelProducer = tracks.mapIndexed { index, (_, weight, createdAt) ->
+    val chartEntryModel = tracks.mapIndexed { index, (_, weight, createdAt) ->
         Entry(
             localDate = createdAt,
             x = index.toFloat(),
@@ -30,6 +29,7 @@ fun TrackListChart(tracks: List<Track>, modifier: Modifier = Modifier) {
     }
         .let { ChartEntryModelProducer(it) }
         .getModel()
+        ?: return
 
     val bottomAxisValueFormatter =
         AxisValueFormatter<AxisPosition.Horizontal.Bottom> { value, chartValues ->
@@ -49,12 +49,11 @@ fun TrackListChart(tracks: List<Track>, modifier: Modifier = Modifier) {
         Chart(
             modifier = modifier,
             chart = lineChart(
-                pointPosition = LineChart.PointPosition.Start,
                 persistentMarkers = remember(marker) {
-                    mapOf(chartEntryModelProducer.maxX to marker)
+                    mapOf(chartEntryModel.maxX to marker)
                 }
             ),
-            model = chartEntryModelProducer,
+            model = chartEntryModel,
             startAxis = startAxis(valueFormatter = startAxisValueFormatter),
             bottomAxis = bottomAxis(valueFormatter = bottomAxisValueFormatter),
             marker = marker

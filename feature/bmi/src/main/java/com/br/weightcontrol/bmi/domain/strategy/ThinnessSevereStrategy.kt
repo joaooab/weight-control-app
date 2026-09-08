@@ -7,7 +7,7 @@ class ThinnessSevereStrategy : BMIStrategy {
 
     override val minWeight = Double.MIN_VALUE
 
-    override val maxWeight = 16.0
+    override val maxWeight = 15.99
 
     override fun execute(value: Double) = BMI(value, R.string.bmi_thinness_severe)
 }

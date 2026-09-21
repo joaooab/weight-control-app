@@ -17,10 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up JDK 21
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           java-version: '21'
           distribution: 'temurin'
@@ -64,7 +64,7 @@ jobs:
           mappingFile: app/build/outputs/mapping/release/mapping.txt
           # "alpha" is Google Play's default Closed testing track. If you use a custom-named
           # closed track, set this to that track's exact name from the Play Console.
-          track: alpha
+          tracks: alpha
           status: completed
 
       - name: Create GitHub release

@@ -10,8 +10,8 @@ plugins {
 android {
     defaultConfig {
         applicationId = "com.br.weightcontrol"
-        versionCode = 18
-        versionName = "2.0.1" // X.Y.Z; X = Major, Y = minor, Z = Patch level
+        versionCode = 19
+        versionName = "2.0.2" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
